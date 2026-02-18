@@ -5750,4 +5750,14 @@ div:empty {
         .hero-card {
             overflow: visible !important;
         }
+
+        /* 6. Resize Hero Visual Box */
+        .main-container {
+            width: 100% !important;
+            max-width: 300px !important;
+            /* Reduced from 450px */
+            height: auto !important;
+            aspect-ratio: 1/1;
+            margin: 0 auto;
+        }
     }
