@@ -2978,18 +2978,18 @@ section {
 
 .star.filled {
     color: #ffd700;
-    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.4), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 8px #f5da3fe9(255, 215, 0, 0.4), inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .star.half {
-    background: linear-gradient(90deg, #ffd700 50%, rgba(255, 255, 255, 0.2) 50%);
+    background: linear-gradient(90deg, #f5da3fe9 50%, rgba(255, 255, 255, 0.2) 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .testimonials-dark .testimonial-card:hover .star.filled {
-    text-shadow: 0 2px 12px rgba(255, 215, 0, 0.6), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 12px #f5da3fe9, inset 0 1px 2px rgba(0, 0, 0, 0.2);
     animation: starShimmer 1.5s ease-in-out infinite;
 }
 
