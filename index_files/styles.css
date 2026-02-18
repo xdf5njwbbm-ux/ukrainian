@@ -673,6 +673,11 @@ h6 {
     animation-fill-mode: forwards;
 }
 
+.yellow-arrow-icon {
+    color: #ffd700;
+    flex-shrink: 0;
+}
+
 /* Continuous Pulse Animation */
 @keyframes pulseLoop {
     0% {
