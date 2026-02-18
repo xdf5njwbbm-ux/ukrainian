@@ -5831,17 +5831,31 @@ div:empty {
     @media (max-width: 480px) {
 
         /* Force relative positioning and normal flow */
+        html,
+        body {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #071a2b !important;
+        }
+
         .hero,
+        .container,
         .hero-container,
         .hero-content,
         .hero-visual {
             position: relative !important;
             display: flex !important;
             flex-direction: column !important;
-            width: 100% !important;
-            max-width: 100% !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
             margin: 0 !important;
-            padding: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            align-items: flex-start !important;
+            text-align: left !important;
         }
 
         /* 1. Hero Formatting */
@@ -5851,90 +5865,102 @@ div:empty {
             /* Header + Safe Area */
             padding-bottom: 40px !important;
             /* Scroll safety */
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            gap: 24px !important;
             background: #071a2b !important;
-            /* Solid background for consistency on mobile */
             background-image: none !important;
-            /* Remove gradient pattern if it causes lines */
+            /* Remove gradient pattern to fix "edges" */
         }
 
         .hero-container {
             gap: 24px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
         }
 
         /* 2. Typography & Headlines */
         .hero-title {
-            font-size: 28px !important;
-            /* Slightly larger */
+            font-size: 26px !important;
             line-height: 1.2 !important;
             margin-bottom: 12px !important;
+            text-align: left !important;
         }
 
         .hero-subtitle {
-            font-size: 16px !important;
+            font-size: 15px !important;
             line-height: 1.4 !important;
             margin-bottom: 20px !important;
+            text-align: left !important;
         }
 
         /* 3. Bubbles */
         .bubble {
-            font-size: 18px !important;
+            font-size: 17px !important;
             line-height: 1.3 !important;
-            padding: 14px 18px !important;
-            width: 100% !important;
-            max-width: 100% !important;
+            padding: 12px 16px !important;
+            width: auto !important;
+            max-width: 90vw !important;
             box-sizing: border-box !important;
             margin-bottom: 12px !important;
             white-space: normal !important;
+            align-self: flex-start !important;
         }
 
         /* 4. CTA Buttons */
+        .hero-cta {
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+        }
+
         .cta-button,
         .btn-primary,
         .btn-secondary {
-            display: flex !important;
+            display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 100% !important;
-            min-height: 60px !important;
-            font-size: 19px !important;
-            padding: 12px !important;
+            width: auto !important;
+            max-width: fit-content !important;
+            min-height: 48px !important;
+            font-size: 15px !important;
+            padding: 10px 20px !important;
             box-sizing: border-box !important;
-            white-space: normal !important;
+            white-space: nowrap !important;
             height: auto !important;
+            margin: 0 !important;
+            align-self: flex-start !important;
         }
 
         /* 5. Phone / Review Card */
         .main-container {
-            width: 100% !important;
-            max-width: 360px !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
             margin-top: 20px !important;
-            aspect-ratio: 1/1.1 !important;
+            aspect-ratio: auto !important;
             background: #ffffff !important;
-            /* Ensure it doesn't overflow or float */
             position: relative !important;
             float: none !important;
             clear: both !important;
             margin-bottom: 20px !important;
-            /* Add space below */
+            border-radius: 0 !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
         }
 
         .chat-container {
             width: 100% !important;
-            /* Reset any fixed height causing overlap */
             height: auto !important;
             min-height: auto !important;
             position: relative !important;
         }
 
-        /* 6. Fix Background Consistency */
-        html,
-        body {
-            background-color: #071a2b !important;
-            /* Match hero background */
-            background: #071a2b !important;
+        /* 6. Anti-Flicker */
+        .hero *,
+        .animate-fade-in,
+        .animate-slide-up,
+        .animate-float {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
         }
     }
 }
