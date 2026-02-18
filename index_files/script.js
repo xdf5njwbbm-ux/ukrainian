@@ -934,3 +934,25 @@ function renderPhoneChats(cfg) {
         }
     });
 })();
+
+// ===== FAQ Exclusive Accordion Logic =====
+document.querySelectorAll('.faq-item').forEach((details) => {
+    details.addEventListener('toggle', (e) => {
+        if (details.open) {
+            document.querySelectorAll('.faq-item').forEach((otherDetails) => {
+                if (otherDetails !== details && otherDetails.open) {
+                    otherDetails.removeAttribute('open');
+                }
+            });
+        }
+    });
+
+    // Optional: Smooth scroll into view if needed
+    // details.addEventListener('click', (e) => {
+    //     if (!details.open) {
+    //         setTimeout(() => {
+    //             details.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //         }, 300);
+    //     }
+    // });
+});
