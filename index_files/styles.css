@@ -5573,3 +5573,131 @@ div:empty {
             transform: translateY(0);
         }
     }
+/* =========================================
+   MOBILE RESPONSIVENESS FIXES (User Request)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Global & Container Fixes */
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .container, .hero-container {
+        padding-left: 16px;
+        padding-right: 16px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* 2. Hero Layout */
+    .hero {
+        padding-top: 100px !important; /* Start higher but below header */
+        padding-bottom: 60px !important;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px; /* Reduce gap */
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        display: flex; /* Ensure flex for centering children if needed */
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 3. Hero Elements */
+    
+    /* Badge Fix */
+    .hero-badge {
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-word; /* Ensure wrapping */
+        display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 0.8rem; /* Slightly smaller to fit */
+    }
+
+    /* Headline Fix */
+    .hero-title {
+        font-size: clamp(38px, 9vw, 56px);
+        line-height: 1.05;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+        padding: 0 6px; /* Prevent edge touching */
+        margin-bottom: 16px;
+    }
+
+    /* Subheadline Fix */
+    .hero-subtitle {
+        max-width: 100%; /* Was constrained */
+        width: 100%;
+        margin: 12px auto 24px;
+        font-size: 16px;
+        line-height: 1.5;
+        white-space: normal; /* Ensure wrapping */
+    }
+
+    /* Buttons Fix */
+    .hero-cta {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        max-width: 360px;
+        justify-content: center;
+        margin: 0; /* Remove default margins if any */
+    }
+
+    /* Stats Row Fix */
+    .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 columns */
+        gap: 14px;
+        justify-items: center;
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .stat {
+        text-align: center;
+    }
+    
+    /* Hide divider on mobile as it breaks the grid flow */
+    .stat-divider {
+        display: none;
+    }
+
+    /* 4. Visual/Image Fix */
+    .hero-visual {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    
+    .hero-card {
+        max-width: 100%;
+    }
+}
