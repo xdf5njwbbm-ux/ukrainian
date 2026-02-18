@@ -5826,9 +5826,9 @@ div:empty {
     }
 
     /* =========================================
-       SMALL MOBILE FIXES (<480px) - Strict Stack
+       SMALL MOBILE FIXES (<600px) - Strict Stack
        ========================================= */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
 
         /* Force relative positioning and normal flow */
         html,
@@ -5904,11 +5904,13 @@ div:empty {
             align-self: flex-start !important;
         }
 
-        /* 4. CTA Buttons */
+        /* 4. CTA Buttons & Stats */
         .hero-cta {
             align-items: flex-start !important;
             justify-content: flex-start !important;
             gap: 12px !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
         }
 
         .cta-button,
@@ -5920,13 +5922,46 @@ div:empty {
             width: auto !important;
             max-width: fit-content !important;
             min-height: 48px !important;
-            font-size: 15px !important;
-            padding: 10px 20px !important;
+            font-size: 14px !important;
+            padding: 8px 16px !important;
             box-sizing: border-box !important;
             white-space: nowrap !important;
             height: auto !important;
             margin: 0 !important;
             align-self: flex-start !important;
+        }
+
+        .hero-stats {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            gap: 8px !important;
+            margin-top: 16px !important;
+            padding: 0 !important;
+            align-items: flex-start !important;
+        }
+
+        .stat {
+            flex: 1 !important;
+            text-align: left !important;
+            min-width: 0 !important;
+        }
+
+        .stat-number {
+            font-size: 18px !important;
+            display: block !important;
+        }
+
+        .stat-label {
+            font-size: 10px !important;
+            white-space: nowrap !important;
+        }
+
+        .stat-divider {
+            display: none !important;
         }
 
         /* 5. Phone / Review Card */
