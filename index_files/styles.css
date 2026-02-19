@@ -5714,24 +5714,20 @@ div:empty {
             display: none !important;
         }
 
-        /* Swipeable Pricing Carousel - "Disappearing" Effect */
+        /* Swipeable Pricing Carousel - Rounded & Centered */
         .pricing-grid {
             display: flex !important;
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
-            gap: 0 !important;
-            padding: 40px 0 !important;
+            gap: 16px !important;
+            padding: 40px 16px !important;
             scrollbar-width: none !important;
             /* Hide scrollbar Firefox */
             -ms-overflow-style: none !important;
             /* Hide scrollbar IE/Edge */
-            margin: 0 !important;
+            margin: 0 -16px !important;
+            /* Negative margin to pull to edges */
             width: 100vw !important;
-            position: relative !important;
-            left: 50% !important;
-            right: 50% !important;
-            margin-left: -50vw !important;
-            margin-right: -50vw !important;
         }
 
         .pricing-grid::-webkit-scrollbar {
@@ -5740,20 +5736,30 @@ div:empty {
         }
 
         .pricing-card {
-            flex: 0 0 100vw !important;
-            width: 100vw !important;
+            flex: 0 0 calc(100vw - 80px) !important;
+            /* Fixed width to show hints */
             scroll-snap-align: center !important;
             margin: 0 !important;
             height: auto !important;
-            padding: var(--space-8) 32px !important;
-            /* Internal padding for content */
+            padding: var(--space-8) 24px !important;
             display: flex !important;
             flex-direction: column !important;
             box-sizing: border-box !important;
-            border-radius: 0 !important;
-            /* Full bleed cards look better square or with very subtle radius */
-            border-left: none !important;
-            border-right: none !important;
+            border-radius: var(--radius-3xl) !important;
+            text-align: center !important;
+            /* Centered wording */
+            border: 2px solid var(--color-gray-200) !important;
+        }
+
+        .pricing-features {
+            display: inline-block !important;
+            text-align: left !important;
+            margin: 0 auto 24px !important;
+            padding-left: 0 !important;
+        }
+
+        .pricing-features li {
+            justify-content: center !important;
         }
 
         .pricing-card.featured {
