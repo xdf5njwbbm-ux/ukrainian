@@ -2432,7 +2432,7 @@ section {
 }
 
 /* DESKTOP LAYOUT (2-Column SaaS Grid) */
-@media (min-width: 900px) {
+@media (min-width: 1025px) {
     .method-stepper {
         display: grid;
         grid-template-columns: 380px 1fr;
@@ -3644,7 +3644,7 @@ section {
 }
 
 /* ===== Responsive Design ===== */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -5674,9 +5674,9 @@ div:empty {
         }
 
         .hero-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
             gap: 16px;
             /* Reduced from 24px */
         }
