@@ -5714,20 +5714,22 @@ div:empty {
             display: none !important;
         }
 
-        /* Swipeable Pricing Carousel - Rounded & Centered */
+        /* Swipeable Pricing Carousel - Perfect Centering & Disappearing Effect */
         .pricing-grid {
             display: flex !important;
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
-            gap: 16px !important;
-            padding: 40px 16px !important;
+            gap: 20vw !important;
+            /* Large gap ensures only one card is visible */
+            padding: 40px 10vw !important;
+            /* Padding matches card half-width for perfect centering */
             scrollbar-width: none !important;
             /* Hide scrollbar Firefox */
             -ms-overflow-style: none !important;
             /* Hide scrollbar IE/Edge */
             margin: 0 -16px !important;
-            /* Negative margin to pull to edges */
             width: 100vw !important;
+            box-sizing: border-box !important;
         }
 
         .pricing-grid::-webkit-scrollbar {
@@ -5736,8 +5738,8 @@ div:empty {
         }
 
         .pricing-card {
-            flex: 0 0 calc(100vw - 80px) !important;
-            /* Fixed width to show hints */
+            flex: 0 0 80vw !important;
+            /* Mathematically perfect width for 10vw padding */
             scroll-snap-align: center !important;
             margin: 0 !important;
             height: auto !important;
