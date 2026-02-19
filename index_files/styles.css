@@ -5713,6 +5713,43 @@ div:empty {
         .hero-scroll-indicator {
             display: none !important;
         }
+
+        /* Swipeable Pricing Carousel */
+        .pricing-grid {
+            display: flex !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            gap: 16px !important;
+            padding: 40px 16px !important;
+            /* Vertical padding + side breathing room */
+            scrollbar-width: none !important;
+            /* Hide scrollbar Firefox */
+            -ms-overflow-style: none !important;
+            /* Hide scrollbar IE/Edge */
+            margin: 0 !important;
+            width: 100vw !important;
+            margin-left: -16px !important;
+            /* Offset parent container padding */
+        }
+
+        .pricing-grid::-webkit-scrollbar {
+            display: none !important;
+            /* Hide scrollbar Chrome/Safari */
+        }
+
+        .pricing-card {
+            flex: 0 0 85% !important;
+            scroll-snap-align: center !important;
+            margin: 0 !important;
+            height: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1) !important;
+            /* Remove scale transform to prevent layout issues in carousel */
+        }
     }
 
     @media (max-width: 600px) {
