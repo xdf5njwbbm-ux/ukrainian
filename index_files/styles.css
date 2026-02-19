@@ -5843,8 +5843,9 @@ div:empty {
 
         /* 7. Header Refinements */
         .header-inner {
-            padding: 0 12px !important;
-            /* Pull to edges */
+            padding: 0 8px !important;
+            /* Pull even closer to edges */
+            width: 100% !important;
             gap: 12px !important;
             display: flex !important;
             justify-content: space-between !important;
@@ -5873,156 +5874,207 @@ div:empty {
             padding: 24px !important;
             box-sizing: border-box !important;
             overflow: visible !important;
+            border: none !important;
         }
 
-        border: none !important;
     }
 
-}
-
-/* =========================================
+    /* =========================================
        SMALL MOBILE FIXES (<600px) - Strict Stack
        ========================================= */
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
 
-    /* Global Mobile Reset */
-    html,
-    body {
+        /* Global Mobile Reset */
+        html,
+        body {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #071a2b !important;
+            box-sizing: border-box !important;
+        }
+
+        .main-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            background: #071a2b !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Essential Container Centering */
+        .container,
+        .faq .container,
+        .contact-wrap,
+        .hero-container {
+            max-width: 480px !important;
+            width: 100% !important;
+            /* Full width on small mobile */
+            margin: 0 auto !important;
+            padding: 0 12px !important;
+            /* Tighter side padding */
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        /* Hero Overhaul */
+        .hero {
+            min-height: auto !important;
+            padding: 80px 0 40px 0 !important;
+            background: #071a2b !important;
+            text-align: center !important;
+        }
+
+        .hero-content {
+            width: 100% !important;
+            transform: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .hero-title {
+            font-size: 28px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 12px !important;
+        }
+
+        .hero-subtitle {
+            font-size: 16px !important;
+            margin-bottom: 24px !important;
+            max-width: 100% !important;
+        }
+
+        /* Button Responsiveness */
+        .hero-cta {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 12px !important;
+            margin-bottom: 32px !important;
+        }
+
+        .hero-cta .btn,
+        .cta-button {
+            width: 100% !important;
+            max-width: 320px !important;
+            height: 52px !important;
+            margin: 0 auto !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* Stats Row - Centered and Bound */
+        .hero-stats {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            width: 100% !important;
+            gap: 16px !important;
+            transform: none !important;
+            margin-bottom: 32px !important;
+        }
+
+        .stat {
+            flex: 0 1 auto !important;
+            min-width: 80px !important;
+            text-align: center !important;
+        }
+
+        /* Chat Bubbles & CTA - Centered */
+        .hero-visual {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .chat-bubbles-container,
+        #hero-chat-link {
+            width: 100% !important;
+            max-width: 340px !important;
+            margin: 0 auto !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        /* FAQ & Pricing Centering */
+        .faq-badge,
+        .pricing-note,
+        .pill {
+            display: table !important;
+            margin: 24px auto 16px auto !important;
+            /* Added margin-top to nudge pricing note down */
+            text-align: center !important;
+        }
+
+        .section-title,
+        .section-subtitle {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        /* Anti-Horizontal Scroll */
+        * {
+            max-width: 100vw !important;
+            box-sizing: border-box !important;
+        }
+    }
+}
+/* NUCLEAR MOBILE OVERRIDES - AGGRESSIVE ZOOM & EDGE FIX */
+@media (max-width: 1024px) {
+    .header-inner {
+        padding: 0 2px !important;
         width: 100% !important;
         max-width: 100% !important;
-        overflow-x: hidden !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #071a2b !important;
-        box-sizing: border-box !important;
     }
 
+    .brand-box {
+        margin-left: -6px !important;
+        transform: scale(1.1) !important;
+        transform-origin: left center !important;
+    }
+
+    .brand-name {
+        font-size: 1.3rem !important;
+    }
+
+    .brand-tagline {
+        font-size: 0.75rem !important;
+    }
+
+    .brand-flag {
+        font-size: 34px !important;
+    }
+
+    .mobile-menu-btn {
+        margin-right: -6px !important;
+        width: 40px !important;
+        transform: scale(1.1) !important;
+        transform-origin: right center !important;
+    }
+
+    .mobile-toggle span {
+        height: 3px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .container,
+    .hero-container,
+    .faq .container,
+    .contact-wrap,
     .main-wrapper {
         width: 100% !important;
         max-width: 100% !important;
-        background: #071a2b !important;
-        overflow-x: hidden !important;
-    }
-
-    /* Essential Container Centering */
-    .container,
-    .faq .container,
-    .contact-wrap,
-    .hero-container {
-        max-width: 480px !important;
-        width: 95% !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
         margin: 0 auto !important;
-        padding: 0 16px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
     }
-
-    /* Hero Overhaul */
-    .hero {
-        min-height: auto !important;
-        padding: 80px 0 40px 0 !important;
-        background: #071a2b !important;
-        text-align: center !important;
-    }
-
-    .hero-content {
-        width: 100% !important;
-        transform: none !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    .hero-title {
-        font-size: 28px !important;
-        line-height: 1.2 !important;
-        margin-bottom: 12px !important;
-    }
-
-    .hero-subtitle {
-        font-size: 16px !important;
-        margin-bottom: 24px !important;
-        max-width: 100% !important;
-    }
-
-    /* Button Responsiveness */
-    .hero-cta {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        gap: 12px !important;
-        margin-bottom: 32px !important;
-    }
-
-    .hero-cta .btn,
-    .cta-button {
-        width: 100% !important;
-        max-width: 320px !important;
-        height: 52px !important;
-        margin: 0 auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    /* Stats Row - Centered and Bound */
-    .hero-stats {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        width: 100% !important;
-        gap: 16px !important;
-        transform: none !important;
-        margin-bottom: 32px !important;
-    }
-
-    .stat {
-        flex: 0 1 auto !important;
-        min-width: 80px !important;
-        text-align: center !important;
-    }
-
-    /* Chat Bubbles & CTA - Centered */
-    .hero-visual {
-        width: 100% !important;
-        max-width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    .chat-bubbles-container,
-    #hero-chat-link {
-        width: 100% !important;
-        max-width: 340px !important;
-        margin: 0 auto !important;
-        display: flex !important;
-        justify-content: center !important;
-    }
-
-    /* FAQ & Pricing Centering */
-    .faq-badge,
-    .pricing-note,
-    .pill {
-        display: table !important;
-        margin: 24px auto 16px auto !important;
-        /* Added margin-top to nudge pricing note down */
-        text-align: center !important;
-    }
-
-    .section-title,
-    .section-subtitle {
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    /* Anti-Horizontal Scroll */
-    * {
-        max-width: 100vw !important;
-        box-sizing: border-box !important;
-    }
-}
 }
