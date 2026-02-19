@@ -1443,14 +1443,14 @@ section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     /* Tighter vertical padding for professional look */
-    padding: 12px 0;
+    padding: 0;
 }
 
 .header-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 24px;
-    height: 80px;
+    padding: 0 10px;
+    height: 100px;
     /* Grid layout for three-zone separation */
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -5186,12 +5186,12 @@ div:empty {
 /* HERO LAYOUT REFINEMENT */
 /* HERO LAYOUT REFINEMENT */
 .hero {
-    min-height: 80vh;
+    min-height: 80vh !important;
     /* Reduced from 90vh to raise vertical center */
-    padding-top: calc(var(--header-h) + 10px) !important;
-    /* Tighter to header */
-    padding-bottom: 160px !important;
-    /* Extra bottom padding pushes center UP */
+    padding-top: 320px !important;
+    /* Pushes content lower on mobile */
+    padding-bottom: 80px !important;
+    /* Reduced to allow natural centering */
     display: flex;
     align-items: center;
     margin-top: 0 !important;
@@ -5600,343 +5600,70 @@ div:empty {
     }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-        .ptf__grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (max-width: 620px) {
-        .ptf__grid {
-            grid-template-columns: 1fr;
-        }
-
-        .ptf__panel {
-            width: 100vw;
-            height: 78vh;
-            top: auto;
-            bottom: 0;
-            border-left: none;
-            border-top: 1px solid rgba(255, 255, 255, .12);
-            transform: translateY(110%);
-        }
-
-        .ptf--open .ptf__panel {
-            transform: translateY(0);
-        }
-    }
-
     /* =========================================
-   MOBILE RESPONSIVENESS FIXES (User Request)
-   ========================================= */
-
+       CONSOLIDATED MOBILE & TABLET REFINEMENTS
+       ========================================= */
     @media (max-width: 1024px) {
 
-        /* 1. Global & Container Fixes */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 70px;
-            /* Tighter fit for mobile header */
-        }
-
-        body {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        .container,
-        .hero-container {
-            padding-left: 12px;
-            /* Reduced side padding */
-            padding-right: 12px;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        /* 2. Hero Layout */
-        .hero {
-            padding-top: 40px !important;
-            /* Reduced further */
-            padding-bottom: 0px !important;
-            /* Remove bottom padding to let visual sit flush if needed, or keep small */
-            min-height: 100dvh;
-            /* Force full viewport height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            /* Space out content to fill screen */
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero-container {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 16px;
-            /* Reduced from 24px */
-        }
-
-        .hero-content {
-            width: 100%;
-            max-width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform: none !important;
-            /* Unified centering across all platforms */
-        }
-
-        /* 3. Hero Elements */
-
-        /* Badge Fix */
-        .hero-badge {
-            max-width: 100%;
-            white-space: normal;
-            word-break: break-word;
-            display: inline-flex;
-            justify-content: center;
-            text-align: center;
-            margin-bottom: 8px;
-            /* Reduced from 12px */
-            font-size: 0.75rem;
-            /* Slightly smaller */
-            padding: 4px 10px;
-        }
-
-        /* Headline Fix */
-        .hero-title {
-            font-size: clamp(28px, 7vw, 36px);
-            /* Reduced significantly */
-            line-height: 1.1;
-            word-wrap: break-word;
-            overflow-wrap: anywhere;
-            padding: 0 4px;
-            margin-bottom: 8px;
-            /* Reduced from 12px */
-        }
-
-        /* Subheadline Fix */
-        .hero-subtitle {
-            max-width: 100%;
-            width: 100%;
-            margin: 4px auto 16px;
-            /* Reduced margins */
-            font-size: 14px;
-            /* Slightly smaller */
-            line-height: 1.4;
-            white-space: normal;
-        }
-
-        /* Buttons Fix */
-        .hero-cta {
-            flex-direction: row;
-            /* Switch to row to save vertical space if possible, or keep compressed column */
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-            align-items: center;
-            gap: 8px;
-            /* Reduced */
-            margin-bottom: 16px;
-            /* Reduced from 24px */
-        }
-
-        .hero-cta .btn {
-            width: auto;
-            /* Allow auto width to fit side-by-side if small enough */
-            min-width: 140px;
-            max-width: 100%;
-            justify-content: center;
-            margin: 0;
-            padding: 8px 16px;
-            /* More compact */
-            font-size: 0.9rem;
-        }
-
-        /* Stats Row Fix */
-        .hero-stats {
-            display: flex;
-            /* Changed to flex for better centering without grid gaps */
-            justify-content: center;
-            gap: 16px;
-            width: 100%;
-            margin-bottom: 16px;
-            /* Reduced from 24px */
-            position: relative;
-            z-index: 10;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat h4 {
-            font-size: 1rem;
-            /* Smaller */
-            margin-bottom: 0;
-            line-height: 1.2;
-        }
-
-        .stat p {
-            font-size: 0.6rem;
-            /* Smaller */
-            margin: 0;
-        }
-
-        .stat-number {
-            font-size: 1.2rem !important;
-            /* Enforce smaller number */
-        }
-
-        /* Hide divider on mobile */
-        .stat-divider {
-            display: none;
-        }
-
-        /* 4. Visual/Image Fix */
-        .hero-visual {
-            width: 100%;
-            max-width: 100%;
-            margin-top: 0px;
-            /* Reduced */
-            position: relative;
-            z-index: 1;
-        }
-
-        /* 5. Mobile Adjustments for Social Proof */
-        .social-proof-1 {
-            left: -10px !important;
-            transform: scale(0.6) !important;
-            /* Smaller */
-            top: 20px !important;
-        }
-
-        .social-proof-2 {
-            right: -10px !important;
-            left: auto !important;
-            transform: scale(0.6) !important;
-            bottom: 20px !important;
-        }
-
-        .social-proof-3 {
-            left: 0px !important;
-            transform: scale(0.6) !important;
-            top: auto !important;
-            bottom: -10px !important;
-        }
-
-        /* Adjustment for bubbles */
-        .bubble {
-            padding: 8px 12px !important;
-            font-size: 0.8rem !important;
-        }
-
-        .cta-button {
-            padding: 10px 20px !important;
-            font-size: 0.9rem !important;
-        }
-
-        /* 7. Header Refinements */
-        .header-inner {
-            padding: 0 8px !important;
-            /* Pull even closer to edges */
+        /* Authorized Header Fix - Explicit Padding */
+        .header-nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 100% !important;
-            gap: 12px !important;
+            max-width: 100% !important;
+            background: #071a2b !important;
+            z-index: 10000 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .header-inner {
+            padding: 0 16px !important;
+            /* Inward shift from edges */
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 140px !important;
+            padding-top: 10px !important;
             display: flex !important;
             justify-content: space-between !important;
+            align-items: center !important;
         }
 
         .brand-box {
-            margin-left: -4px !important;
-            /* Pull brand left */
+            margin-left: 0 !important;
+            transform: scale(1.3) !important;
+            transform-origin: left center !important;
         }
 
         .mobile-menu-btn {
-            margin-right: -4px !important;
-            /* Push hamburger right */
+            margin-right: 0 !important;
+            transform: scale(1.3) !important;
+            transform-origin: right center !important;
+            width: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
-        /* 8. Resize Hero Visual Box (Round Box Style) */
-        .main-container {
-            width: 92% !important;
-            max-width: 500px !important;
-            margin: 20px auto !important;
-            border-radius: 40px !important;
-            height: auto !important;
-            aspect-ratio: auto;
-            background: #ffffff !important;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
-            padding: 24px !important;
-            box-sizing: border-box !important;
-            overflow: visible !important;
-            border: none !important;
-        }
-
-    }
-
-    /* =========================================
-       SMALL MOBILE FIXES (<600px) - Strict Stack
-       ========================================= */
-    @media (max-width: 600px) {
-
-        /* Global Mobile Reset */
-        html,
-        body {
-            width: 100% !important;
-            max-width: 100% !important;
-            overflow-x: hidden !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #071a2b !important;
-            box-sizing: border-box !important;
-        }
-
-        .main-wrapper {
-            width: 100% !important;
-            max-width: 100% !important;
-            background: #071a2b !important;
-            overflow-x: hidden !important;
-        }
-
-        /* Essential Container Centering */
-        .container,
-        .faq .container,
-        .contact-wrap,
-        .hero-container {
-            max-width: 480px !important;
-            width: 100% !important;
-            /* Full width on small mobile */
-            margin: 0 auto !important;
-            padding: 0 12px !important;
-            /* Tighter side padding */
+        /* Authorized Hero Fix - Restore Spacing */
+        .hero {
+            padding-top: 320px !important;
+            /* Push title lower */
+            min-height: 80vh !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-        }
-
-        /* Hero Overhaul */
-        .hero {
-            min-height: auto !important;
-            padding: 80px 0 40px 0 !important;
-            background: #071a2b !important;
             text-align: center !important;
         }
 
-        .hero-content {
+        .hero-container {
             width: 100% !important;
-            transform: none !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
+            max-width: 100% !important;
+            padding: 0 16px !important;
         }
 
         .hero-title {
-            font-size: 28px !important;
+            font-size: clamp(28px, 8vw, 42px) !important;
             line-height: 1.2 !important;
             margin-bottom: 12px !important;
         }
@@ -5944,138 +5671,71 @@ div:empty {
         .hero-subtitle {
             font-size: 16px !important;
             margin-bottom: 24px !important;
-            max-width: 100% !important;
-        }
-
-        /* Button Responsiveness */
-        .hero-cta {
-            display: flex !important;
-            flex-direction: column !important;
-            width: 100% !important;
-            gap: 12px !important;
-            margin-bottom: 32px !important;
-        }
-
-        .hero-cta .btn,
-        .cta-button {
-            width: 100% !important;
-            max-width: 320px !important;
-            height: 52px !important;
-            margin: 0 auto !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        /* Stats Row - Centered and Bound */
-        .hero-stats {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-            justify-content: center !important;
-            width: 100% !important;
-            gap: 16px !important;
-            transform: none !important;
-            margin-bottom: 32px !important;
-        }
-
-        .stat {
-            flex: 0 1 auto !important;
-            min-width: 80px !important;
-            text-align: center !important;
-        }
-
-        /* Chat Bubbles & CTA - Centered */
-        .hero-visual {
-            width: 100% !important;
-            max-width: 100% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-
-        .chat-bubbles-container,
-        #hero-chat-link {
-            width: 100% !important;
-            max-width: 340px !important;
-            margin: 0 auto !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-
-        /* FAQ & Pricing Centering */
-        .faq-badge,
-        .pricing-note,
-        .pill {
-            display: table !important;
-            margin: 24px auto 16px auto !important;
-            /* Added margin-top to nudge pricing note down */
-            text-align: center !important;
-        }
-
-        .section-title,
-        .section-subtitle {
-            text-align: center !important;
+            max-width: 500px !important;
             margin-left: auto !important;
             margin-right: auto !important;
         }
 
-        /* Anti-Horizontal Scroll */
-        * {
-            max-width: 100vw !important;
-            box-sizing: border-box !important;
+        .hero-cta {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 12px !important;
+            margin-bottom: 32px !important;
+        }
+
+        .hero-stats {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 16px !important;
+        }
+
+        .stat-divider {
+            display: none !important;
+        }
+
+        .hero-visual {
+            margin-top: 20px !important;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .chat-container {
+            width: 100% !important;
+            align-items: center !important;
+        }
+
+        /* Hide conflicting scroll arrow */
+        .hero-scroll-indicator {
+            display: none !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        /* Extra narrow screen adjustments */
+        .hero-title {
+            font-size: 32px !important;
+        }
+
+        .hero-cta {
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .hero-cta .btn {
+            width: 100% !important;
+            max-width: 300px !important;
+        }
+
+        .main-container {
+            width: 95% !important;
+            padding: 15px !important;
         }
     }
 }
-/* NUCLEAR MOBILE OVERRIDES - AGGRESSIVE ZOOM & EDGE FIX */
-@media (max-width: 1024px) {
-    .header-inner {
-        padding: 0 2px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .brand-box {
-        margin-left: -6px !important;
-        transform: scale(1.1) !important;
-        transform-origin: left center !important;
-    }
-
-    .brand-name {
-        font-size: 1.3rem !important;
-    }
-
-    .brand-tagline {
-        font-size: 0.75rem !important;
-    }
-
-    .brand-flag {
-        font-size: 34px !important;
-    }
-
-    .mobile-menu-btn {
-        margin-right: -6px !important;
-        width: 40px !important;
-        transform: scale(1.1) !important;
-        transform-origin: right center !important;
-    }
-
-    .mobile-toggle span {
-        height: 3px !important;
-    }
-}
-
-@media (max-width: 600px) {
-    .container,
-    .hero-container,
-    .faq .container,
-    .contact-wrap,
-    .main-wrapper {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-        margin: 0 auto !important;
-    }
-}
-
