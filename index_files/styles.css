@@ -275,7 +275,7 @@ section {
 }
 
 /* Desktop-only framing to ensure sections fill the viewport and center content */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     body {
         scroll-snap-type: y mandatory;
     }
@@ -5630,7 +5630,7 @@ div:empty {
    MOBILE RESPONSIVENESS FIXES (User Request)
    ========================================= */
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
 
         /* 1. Global & Container Fixes */
         html {
