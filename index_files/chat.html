@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI Chat</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: var(--font-body, system-ui, -apple-system, Arial);
@@ -15,7 +19,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 24px;
-            box-sizing: border-box;
+            overflow-x: hidden;
         }
 
         .phone {
@@ -109,7 +113,10 @@
             display: flex;
             gap: 12px;
             padding: 24px;
+            padding-right: calc(24px + env(safe-area-inset-right));
             border-top: 1px solid rgba(255, 255, 255, .1);
+            width: 100%;
+            max-width: 100%;
         }
 
         input {
@@ -146,6 +153,28 @@
 
         button:active {
             transform: scale(0.98);
+        }
+
+        @media (max-width: 480px) {
+            button {
+                width: 72px;
+                padding: 16px 8px;
+                font-size: 0.95rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .inputbar {
+                padding: 20px 16px;
+                padding-right: calc(16px + env(safe-area-inset-right));
+                gap: 10px;
+            }
+
+            input {
+                padding: 14px 16px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
