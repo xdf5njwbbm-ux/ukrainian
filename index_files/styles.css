@@ -5687,8 +5687,8 @@ div:empty {
             display: flex;
             flex-direction: column;
             align-items: center;
-            transform: translateX(-15%);
-            /* Stronger nudge left for visual balance */
+            transform: none !important;
+            /* Unified centering across all platforms */
         }
 
         /* 3. Hero Elements */
