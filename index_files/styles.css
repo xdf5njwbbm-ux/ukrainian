@@ -220,19 +220,23 @@ body {
 html {
     margin: 0;
     padding: 0;
-    /* Smooth scrolling behavior (JS handles offsets) */
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h, 105px);
+    overflow-x: hidden;
+    /* Prevent horizontal scroll on mobile */
 }
 
 body {
     margin: 0;
     padding: 0;
+    overflow: visible;
+    /* CRITICAL: Sticky positioning needs visible overflow on ancestors */
 }
 
 /* Anchor offset so section titles aren't hidden behind sticky header */
 section[id],
 [id].section {
-    scroll-margin-top: calc(var(--header-h) + 16px);
+    scroll-margin-top: var(--header-h);
 }
 
 .page-shell,
@@ -256,17 +260,46 @@ body {
     line-height: 1.6;
     color: var(--color-gray-800);
     /* background-color: var(--color-white); Removed for global dark theme */
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* REMOVED padding-top to eliminate top gap - header is now flush to viewport top */
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
+    /* Snappier scroll transitions */
 }
 
 section {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    /* Changed from hidden to avoid breaking sticky/animations */
     scroll-snap-align: start;
+}
+
+/* Base style for sections to ensure they fill the viewport */
+.about,
+.roadmap-section,
+.testimonials,
+.pricing,
+.faq,
+#speak,
+.contact-ua {
+    min-height: calc(100vh - var(--header-h, 105px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center content vertically */
+    align-items: center;
+    /* Center content horizontally */
+    padding: 80px 20px;
+    /* Standardized padding */
+    width: 100%;
+}
+
+.about .container,
+.pricing .container,
+.faq .container,
+.contact-ua .container {
+    width: 100%;
+    max-width: 1200px;
 }
 
 img {
@@ -1190,7 +1223,7 @@ section {
     /* Remove any accidental negative margins */
     margin-top: 0;
     /* Scroll offset for anchor navigation */
-    scroll-margin-top: 90px;
+    /* Removed hardcoded scroll-margin-top */
 }
 
 .about .section-tag {
@@ -2478,7 +2511,7 @@ section {
 #fluency-roadmap {
     background: #071a2b;
     padding: 120px 0;
-    scroll-margin-top: 90px;
+    /* Removed hardcoded scroll-margin-top */
     position: relative;
 }
 
@@ -5025,7 +5058,7 @@ div:empty {
     padding-top: 80px;
     padding-bottom: 60px;
     margin-top: 0;
-    scroll-margin-top: 90px;
+    /* Removed hardcoded scroll-margin-top */
     /* Scroll offset for anchor navigation */
 }
 

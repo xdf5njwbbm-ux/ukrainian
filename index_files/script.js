@@ -13,18 +13,20 @@ window.addEventListener('scroll', () => {
 // Smooth-scroll nav links to full sections (accounts for sticky header)
 (() => {
     const header = document.querySelector("header, .header, .site-header, .navbar");
-    const getHeaderH = () => (header ? Math.round(header.getBoundingClientRect().height) : 0);
-    const EXTRA_GAP = 16;
+    const getHeaderH = () => {
+        const height = header ? header.getBoundingClientRect().height : 0;
+        document.documentElement.style.setProperty('--header-h', `${height}px`);
+        return height;
+    };
 
     function scrollToHash(hash) {
         const el = document.querySelector(hash);
         if (!el) return;
 
         const headerH = getHeaderH();
-        const y = el.getBoundingClientRect().top + window.scrollY - headerH - EXTRA_GAP;
+        const y = el.getBoundingClientRect().top + window.scrollY - headerH;
 
         window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-        // Keep URL updated without hard jump
         history.pushState(null, "", hash);
     }
 
@@ -221,85 +223,9 @@ document.getElementById('startRoute')?.addEventListener('click', () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 });
 
-// ===== Mobile Menu Toggle =====
-(() => {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenuPanel');
-    const header = document.querySelector('.header-nav');
+// Mobile Menu Toggle logic moved to consolidated block at end of file
 
-    if (!mobileMenuBtn || !mobileMenu) return;
-
-    // Toggle menu open/close
-    function toggleMenu() {
-        const isOpen = mobileMenu.classList.contains('open');
-
-        if (isOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    }
-
-    function openMenu() {
-        mobileMenu.classList.add('open');
-        mobileMenuBtn.classList.add('active');
-        mobileMenuBtn.setAttribute('aria-expanded', 'true');
-        if (header) header.classList.add('menu-open');
-    }
-
-    function closeMenu() {
-        mobileMenu.classList.remove('open');
-        mobileMenuBtn.classList.remove('active');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        if (header) header.classList.remove('menu-open');
-    }
-
-    // Click hamburger to toggle
-    mobileMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent immediate click-outside trigger
-        toggleMenu();
-    });
-
-    // Close when clicking a nav link
-    mobileMenu.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            closeMenu();
-        }
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-        const isOpen = mobileMenu.classList.contains('open');
-        if (!isOpen) return;
-
-        // Don't close if clicking inside menu or on hamburger
-        if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            closeMenu();
-        }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-            closeMenu();
-        }
-    });
-})();
-
-// ===== Smooth Scroll for Anchor Links =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+// Redundant smooth scroll listener removed in favor of scrollToHash at top of file
 
 // ===== Intersection Observer for Animations =====
 const observerOptions = {
@@ -498,144 +424,9 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// ===== Interactive Phone Grid for Learning Options =====
-const LEARNING_OPTIONS_CONFIG = {
-    badge: "OUR SERVICES",
-    headline: "Learning Options for",
-    highlight: "Everyone",
-    subhead: "Choose your preferred learning style and start speaking Ukrainian today.",
+// Services logic removed as requested
 
-    aiAvatarSrc: "https://api.dicebear.com/9.x/bottts/svg?seed=AI_Tutor", // Placeholder avatar
-
-    phones: [
-        {
-            key: "errors",
-            title: "Correct Errors",
-            cta: "Fix My Message",
-            chat: [
-                { role: "user", text: "Ми карліти фото?\nSorry if my Ukrainian is bad, I’m still learning." },
-                { role: "ai", text: "Думаю, ти мав на увазі:\nМи дивилися фото?" },
-                { role: "note", text: "Пояснення:\n• Дивитися = to look / to watch\n• «карліти» ❌ — такого слова в українській немає" },
-                { role: "ai", text: "Не хвилюйся 🙂 Помилки — це нормально, коли вчиш мову." },
-                { role: "user", text: "Ми дивилися фото? 😊" },
-                { role: "ai", text: "Чудово ✅ Хочеш ще один приклад?" }
-            ]
-        },
-        {
-            key: "casual",
-            title: "Casual Chat",
-            cta: "Start Texting",
-            chat: [
-                { role: "ai", text: "Привіт! Як справи?" },
-                { role: "user", text: "Привіт! Добре, в порядку. А у тебе?" },
-                { role: "ai", text: "Добре! Сьогодні багато справ, трохи втомився." },
-                { role: "user", text: "Треба відпочити. Може, подивишся фільм? 😄" },
-                { role: "ai", text: "Класна ідея! Який жанр любиш?" }
-            ]
-        },
-        {
-            key: "lesson",
-            title: "Structured Lesson",
-            cta: "Continue Lesson",
-            chat: [
-                { role: "note", text: "Сьогоднішній урок: «треба»\nYou use «треба» when you need / must do something." },
-                { role: "ai", text: "Давай потренуємось:\nТреба купити їжу." },
-                { role: "user", text: "I need to buy food." },
-                { role: "ai", text: "Добре! Тепер скажи українською:\nYou need to work tomorrow." },
-                { role: "user", text: "Треба працювати завтра." },
-                { role: "ai", text: "Чудово ✅" }
-            ]
-        },
-        {
-            key: "jokes",
-            title: "Jokes & Fun",
-            cta: "Get a Joke",
-            chat: [
-                { role: "user", text: "Розкажи жарт!" },
-                { role: "ai", text: "Добре 😄\nЧому програмісти люблять каву? ☕" },
-                { role: "user", text: "Не знаю 😄" },
-                { role: "ai", text: "Бо без кави код не працює! 😂" },
-                { role: "user", text: "Ахах, ще один!" },
-                { role: "ai", text: "Який у програміста улюблений напій?\n— Java ☕😅" }
-            ]
-        }
-    ]
-};
-
-function escapeHTML(str) {
-    return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-function buildPhonesSectionHTML(cfg) {
-    const phonesHTML = cfg.phones.map(p => `
-    < div class="phone-card" data - phone="${p.key}" >
-        <h3 class="phone-title">${escapeHTML(p.title)}</h3>
-
-        <div class="phone-mock">
-          <div class="chat-header">
-            <div class="chat-left">
-              <img class="chat-avatar" data-avatar="ai" src="${escapeHTML(cfg.aiAvatarSrc)}" alt="AI avatar">
-              <span>AI Tutor</span>
-            </div>
-            <span style="opacity:.75;color:#fff;font-size:12px;">18:11</span>
-          </div>
-
-          <div class="chat-body" data-chat="${p.key}"></div>
-        </div>
-
-        <button class="phone-cta" type="button">${escapeHTML(p.cta)}</button>
-      </div >
-    `).join("");
-
-    return `
-    < div style = "text-align:center; padding: 22px 0 6px;" >
-        <div style="
-          display:inline-flex;
-          padding:6px 12px;
-          border-radius:999px;
-          border:1px solid rgba(255,255,255,0.18);
-          background: rgba(22,119,255,0.18);
-          color:#fff;
-          font-weight:700;
-          letter-spacing:.08em;
-          font-size:12px;
-        ">${escapeHTML(cfg.badge)}</div>
-
-        <h2 style="margin:14px 0 8px; font-size:44px; color:#fff; line-height:1.05;">
-          ${escapeHTML(cfg.headline)} <span style="color:#ffd54a;">${escapeHTML(cfg.highlight)}</span>
-        </h2>
-
-        <p style="margin:0 auto; max-width: 760px; color: rgba(255,255,255,0.8);">
-          ${escapeHTML(cfg.subhead)}
-        </p>
-      </div >
-
-    <div class="phones-grid">
-        ${phonesHTML}
-    </div>
-`;
-}
-
-function renderPhoneChats(cfg) {
-    cfg.phones.forEach(p => {
-        const chatEl = document.querySelector(`[data - chat= "${p.key}"]`);
-        if (!chatEl) return;
-
-        chatEl.innerHTML = p.chat.map(m => `
-    < div class="bubble ${m.role}" > ${escapeHTML(m.text)}</div >
-
-
-
-        `).join("");
-    });
-}
-
-// Script ready
+// Courses initialization removed
 
 // Smooth scroll reveal (professional touch)
 (() => {
@@ -684,59 +475,16 @@ function renderPhoneChats(cfg) {
             });
         }
 
-        // 2. Mobile Menu Logic (Fixed & Dynamic)
+        // 2. Mobile Menu Logic (Consolidated)
         const toggle = document.querySelector('.mobile-toggle');
         const mobileNav = document.getElementById('mobileMenuPanel');
-        const desktopNav = document.querySelector('.nav-center');
-        const desktopActions = document.querySelector('.nav-actions');
-
-        console.log('Mobile menu init:', { toggle: !!toggle, mobileNav: !!mobileNav, desktopNav: !!desktopNav });
 
         if (toggle && mobileNav) {
-            // --- Dynamic Content Injection ---
-            // 1. Clone main nav links
-            if (desktopNav) {
-                const navLinks = desktopNav.querySelectorAll('a');
-                console.log('Found', navLinks.length, 'nav links');
-
-                navLinks.forEach(a => {
-                    const link = a.cloneNode(true);
-                    link.className = 'mobile-nav-link'; // Add class for styling
-                    console.log('Cloning link:', link.textContent, link.href);
-                    mobileNav.appendChild(link);
-                });
-            }
-
-            // 2. Clone/Create Actions (Login + CTA)
-            if (desktopActions) {
-                const mobileActionsDiv = document.createElement('div');
-                mobileActionsDiv.className = 'mobile-actions';
-
-                // Login (simplified from dropdown to direct link)
-                const loginLink = document.createElement('a');
-                loginLink.href = '#login';
-                loginLink.className = 'mobile-login';
-                loginLink.textContent = 'Log in';
-                mobileActionsDiv.appendChild(loginLink);
-
-                // CTA
-                const ctaBtn = desktopActions.querySelector('.btn-cta');
-                if (ctaBtn) {
-                    const mobileCta = ctaBtn.cloneNode(true);
-                    mobileCta.className = 'mobile-cta';
-                    mobileActionsDiv.appendChild(mobileCta);
-                }
-
-                mobileNav.appendChild(mobileActionsDiv);
-            }
-
-            console.log('Mobile menu populated with', mobileNav.children.length, 'items');
-            // ---------------------------------
-
             // Toggle
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent immediate closing
                 mobileNav.classList.toggle('open');
+                toggle.classList.toggle('active');
                 const isOpen = mobileNav.classList.contains('open');
                 toggle.setAttribute('aria-expanded', isOpen);
             });
@@ -748,6 +496,7 @@ function renderPhoneChats(cfg) {
                     !toggle.contains(e.target)) {
 
                     mobileNav.classList.remove('open');
+                    toggle.classList.remove('active');
                     toggle.setAttribute('aria-expanded', 'false');
                 }
             });
@@ -756,14 +505,16 @@ function renderPhoneChats(cfg) {
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
                     mobileNav.classList.remove('open');
+                    toggle.classList.remove('active');
                     toggle.setAttribute('aria-expanded', 'false');
                 }
             });
 
-            // Close on Link Click (Delegation for dynamically added links)
+            // Close on Link Click
             mobileNav.addEventListener('click', (e) => {
                 if (e.target.tagName === 'A') {
                     mobileNav.classList.remove('open');
+                    toggle.classList.remove('active');
                     toggle.setAttribute('aria-expanded', 'false');
                 }
             });

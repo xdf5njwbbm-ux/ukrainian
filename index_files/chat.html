@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Chat</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: var(--font-body, system-ui, -apple-system, Arial);
+            background: #071a2d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .phone {
+            width: 650px;
+            /* Increased from 360px */
+            max-width: 95vw;
+            height: 900px;
+            /* Increased from 720px */
+            max-height: 90vh;
+            background: #0b2542;
+            border-radius: 36px;
+            padding: 20px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, .6);
+            border: 2px solid rgba(255, 255, 255, .1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .topbar {
+            padding: 18px 24px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            font-size: 1.25rem;
+        }
+
+        .back {
+            color: #9bd0ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back:hover {
+            color: #fff;
+        }
+
+        .name {
+            font-weight: 700;
+        }
+
+        .chat {
+            flex: 1;
+            padding: 24px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .bubble {
+            max-width: 85%;
+            padding: 16px 20px;
+            border-radius: 22px;
+            line-height: 1.4;
+            color: #fff;
+            font-size: 1.15rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai {
+            background: rgba(255, 255, 255, .12);
+            align-self: flex-start;
+            border-top-left-radius: 6px;
+        }
+
+        .me {
+            background: #1b8cff;
+            align-self: flex-end;
+            border-top-right-radius: 6px;
+            box-shadow: 0 4px 15px rgba(27, 140, 255, 0.3);
+        }
+
+        .inputbar {
+            display: flex;
+            gap: 12px;
+            padding: 24px;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        input {
+            flex: 1;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            padding: 16px 20px;
+            outline: none;
+            font-size: 1.15rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #1b8cff;
+        }
+
+        button {
+            border: 0;
+            border-radius: 18px;
+            padding: 16px 24px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #1b8cff;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background: #0077e6;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone">
+        <div class="topbar">
+            <a class="back" href="../index.html">← Back</a>
+            <div class="name">Ukrainian AI Tutor</div>
+        </div>
+
+        <div class="chat" id="chat">
+            <div class="bubble ai">Привіт! 👋 Want to practice Ukrainian?</div>
+            <div class="bubble ai">Type anything — I’ll reply.</div>
+        </div>
+
+        <form class="inputbar" id="form">
+            <input id="msg" placeholder="Type a message…" autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const chat = document.getElementById('chat');
+        const form = document.getElementById('form');
+        const msg = document.getElementById('msg');
+
+        function addBubble(text, who) {
+            const div = document.createElement('div');
+            div.className = 'bubble ' + who;
+            div.textContent = text;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = msg.value.trim();
+            if (!text) return;
+            addBubble(text, 'me');
+            msg.value = '';
+
+            // Placeholder AI reply (swap this later with your real AI API)
+            setTimeout(() => addBubble("Nice! Let's try: Як справи? 🙂", 'ai'), 500);
+        });
+    </script>
+</body>
+
+</html>

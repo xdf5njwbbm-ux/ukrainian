@@ -139,7 +139,7 @@
             <header class="header-nav" id="navbar">
                 <div class="header-inner">
                     <!-- 1. Left: Brand -->
-                    <a href="https://ukrainiantutor.com/#top" class="brand-box" aria-label="Learn Ukrainian Home">
+                    <a href="#top" class="brand-box" aria-label="Learn Ukrainian Home">
                         <span class="brand-flag">🇺🇦</span>
                         <div class="brand-info">
                             <span class="brand-name">Learn Ukrainian</span>
@@ -149,10 +149,9 @@
 
                     <!-- 2. Center: Navigation -->
                     <nav class="nav-center">
-                        <a href="#how">How It Works</a>
-                        <a href="#how">Our Method</a>
+                        <a href="#about">How It Works</a>
+                        <a href="#fluency-roadmap">Our Method</a>
                         <a href="#speak">Speak Now</a>
-                        <a href="#courses">Courses</a>
                         <a href="#reviews">Reviews</a>
                         <a href="#pricing">Pricing</a>
                     </nav>
@@ -172,19 +171,20 @@
                         <a href="#start" class="btn-cta">Start Learning</a>
 
                         <!-- Mobile Burger -->
-                        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Menu" aria-expanded="false"
-                            aria-controls="mobileMenuPanel">
+                        <button class="mobile-toggle mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu"
+                            aria-expanded="false" aria-controls="mobileMenuPanel">
                             <span></span><span></span><span></span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Mobile Menu Container (Populated dynamically via JS) -->
-                <div class="mobile-nav-menu" id="mobileMenuPanel"><a href="#how" class="mobile-nav-link">How It
-                        Works</a><a href="#how" class="mobile-nav-link">Our Method</a><a href="#speak"
-                        class="mobile-nav-link">Speak Now</a><a href="#courses" class="mobile-nav-link">Courses</a><a
-                        href="#reviews" class="mobile-nav-link">Reviews</a><a href="#pricing"
-                        class="mobile-nav-link">Pricing</a>
+                <div class="mobile-nav-menu" id="mobileMenuPanel">
+                    <a href="#about" class="mobile-nav-link">How It Works</a>
+                    <a href="#fluency-roadmap" class="mobile-nav-link">Our Method</a>
+                    <a href="#speak" class="mobile-nav-link">Speak Now</a>
+                    <a href="#reviews" class="mobile-nav-link">Reviews</a>
+                    <a href="#pricing" class="mobile-nav-link">Pricing</a>
                     <div class="mobile-actions"><a href="#login" class="mobile-login">Log
                             in</a><a href="#start" class="mobile-cta">Start Learning</a>
                     </div>
@@ -211,14 +211,14 @@
                             <strong>Start speaking Ukrainian with confidence.</strong>
                         </p>
                         <div class="hero-cta animate-slide-up delay-2">
-                            <a href="https://ukrainiantutor.com/#contact" class="btn btn-primary btn-lg">
+                            <a href="#speak" class="btn btn-primary btn-lg">
                                 <span>Book Free Trial</span>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="https://ukrainiantutor.com/#method" class="btn btn-secondary btn-lg">
+                            <a href="#about" class="btn btn-secondary btn-lg">
                                 <span>See How It Works</span>
                             </a>
                         </div>
@@ -245,7 +245,7 @@
                             <div class="chat-header">
                                 <div class="bubble bubble-1">Hey! Want to try some Ukrainian the easy way?</div>
                                 <div class="bubble bubble-2">I'm your Ukrainian AI tutor!</div>
-                                <a href="https://ukrainiantutor.com/#contact" class="cta-button">
+                                <a href="#speak" class="cta-button">
                                     <svg class="yellow-arrow-icon" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -277,8 +277,8 @@
                                     </div>
 
                                     <!-- AI Tutor Video with glow -->
-                                    <a href="https://ukrainiantutor.com/#pricing" class="hero-image-link"
-                                        id="hero-cartoon-link" aria-label="Scroll to Pricing">
+                                    <a href="index_files/chat.html" class="hero-image-link" id="hero-cartoon-link"
+                                        aria-label="Open AI Tutor Chat">
                                         <video src="ai-tutor-video.mp4" alt="AI Tutor speaking Ukrainian"
                                             class="hero-image hero-video cartoon-char" autoplay="" loop="" muted=""
                                             playsinline=""></video>
@@ -372,8 +372,6 @@
     </div>
     <div class="route-overlay" id="routeOverlay"></div>
 
-    <!-- Services Section -->
-    <!-- Services Section (Dynamic Phone Grid) -->
     <!-- Services Section -->
 
 
@@ -822,7 +820,7 @@
                 </ul>
             </div>
             <div class="contact-right floating">
-                <form class="contact-form-ua" action="https://formspree.io/f/mqedazwl" method="POST">
+                <form class="contact-form-ua" id="contactForm" action="https://formspree.io/f/mqedazwl" method="POST">
                     <label>Your Name</label>
                     <input type="text" name="name" placeholder="John Doe" required="">
 
