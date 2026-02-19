@@ -263,8 +263,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* REMOVED padding-top to eliminate top gap - header is now flush to viewport top */
-    scroll-snap-type: y mandatory;
-    /* Snappier scroll transitions */
+    scroll-snap-type: y proximity;
+    /* Gentler snapping by default */
 }
 
 section {
@@ -274,24 +274,30 @@ section {
     scroll-snap-align: start;
 }
 
-/* Base style for sections to ensure they fill the viewport */
-.about,
-.roadmap-section,
-.testimonials,
-.pricing,
-.faq,
-#speak,
-.contact-ua {
-    min-height: calc(100vh - var(--header-h, 105px));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* Center content vertically */
-    align-items: center;
-    /* Center content horizontally */
-    padding: 80px 20px;
-    /* Standardized padding */
-    width: 100%;
+/* Desktop-only framing to ensure sections fill the viewport and center content */
+@media (min-width: 769px) {
+    body {
+        scroll-snap-type: y mandatory;
+    }
+
+    .about,
+    .roadmap-section,
+    .testimonials,
+    .pricing,
+    .faq,
+    #speak,
+    .contact-ua {
+        min-height: calc(100vh - var(--header-h, 105px));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Center content vertically */
+        align-items: center;
+        /* Center content horizontally */
+        padding: 80px 20px;
+        /* Standardized padding */
+        width: 100%;
+    }
 }
 
 .about .container,
@@ -5681,6 +5687,8 @@ div:empty {
             display: flex;
             flex-direction: column;
             align-items: center;
+            transform: translateX(-15%);
+            /* Stronger nudge left for visual balance */
         }
 
         /* 3. Hero Elements */
@@ -5887,8 +5895,8 @@ div:empty {
             margin: 0 !important;
             padding-left: 0 !important;
             padding-right: 0 !important;
-            align-items: flex-start !important;
-            text-align: left !important;
+            align-items: center !important;
+            text-align: center !important;
         }
 
         /* 1. Hero Formatting */
@@ -5914,14 +5922,14 @@ div:empty {
             font-size: 26px !important;
             line-height: 1.2 !important;
             margin-bottom: 12px !important;
-            text-align: left !important;
+            text-align: center !important;
         }
 
         .hero-subtitle {
             font-size: 15px !important;
             line-height: 1.4 !important;
             margin-bottom: 20px !important;
-            text-align: left !important;
+            text-align: center !important;
         }
 
         /* 3. Bubbles */
@@ -5934,13 +5942,13 @@ div:empty {
             box-sizing: border-box !important;
             margin-bottom: 12px !important;
             white-space: normal !important;
-            align-self: flex-start !important;
+            align-self: center !important;
         }
 
         /* 4. CTA Buttons & Stats */
         .hero-cta {
-            align-items: flex-start !important;
-            justify-content: flex-start !important;
+            align-items: center !important;
+            justify-content: center !important;
             gap: 12px !important;
             flex-direction: row !important;
             flex-wrap: wrap !important;
@@ -5961,7 +5969,7 @@ div:empty {
             white-space: nowrap !important;
             height: auto !important;
             margin: 0 !important;
-            align-self: flex-start !important;
+            align-self: center !important;
         }
 
         .hero-stats {
@@ -5974,12 +5982,14 @@ div:empty {
             gap: 8px !important;
             margin-top: 16px !important;
             padding: 0 !important;
-            align-items: flex-start !important;
+            align-items: center !important;
+            transform: translateX(-15%) !important;
+            /* Match hero content nudge */
         }
 
         .stat {
             flex: 1 !important;
-            text-align: left !important;
+            text-align: center !important;
             min-width: 0 !important;
         }
 
