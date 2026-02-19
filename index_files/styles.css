@@ -5647,8 +5647,8 @@ div:empty {
 
         /* Authorized Hero Fix - Restore Spacing */
         .hero {
-            padding-top: 160px !important;
-            /* Pull content up */
+            padding-top: 200px !important;
+            /* Push title lower */
             min-height: 80vh !important;
             display: flex !important;
             flex-direction: column !important;
