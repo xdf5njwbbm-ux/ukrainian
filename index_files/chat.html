@@ -197,87 +197,50 @@
         </form>
     </div>
 
-    <script>
-        const chat = document.getElementById('chat');
-        const form = document.getElementById('form');
-        const msg = document.getElementById('msg');
+    <script><script>
+  const WEBHOOK_URL = "https://grantcraft355.app.n8n.cloud/webhook/ukr-chat";
 
-        function addBubble(text, who) {
-            const div = document.createElement('div');
-            div.className = 'bubble ' + who;
-            div.textContent = text;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-        }
+  const chat = document.getElementById('chat');
+  const form = document.getElementById('form');
+  const msg  = document.getElementById('msg');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const text = msg.value.trim();
-            if (!text) return;
-            addBubble(text, 'me');
-            msg.value = '';
+  function addBubble(text, who) {
+    const div = document.createElement('div');
+    div.className = 'bubble ' + who;   // assumes you have .bubble.me and .bubble.ai styles
+    div.textContent = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+  }
 
-            // Placeholder AI reply (swap this later with your real AI API)
-            setTimeout(() => addBubble("Nice! Let's try: Як справи? 🙂", 'ai'), 500);
-        });
-    </script>
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const text = msg.value.trim();
+    if (!text) return;
+
+    addBubble(text, 'me');
+    msg.value = '';
+
+    // optional typing bubble
+    const typing = addBubble('Typing…', 'ai');
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      typing.textContent = data.reply ?? JSON.stringify(data);
+    } catch (err) {
+      typing.textContent = "Error connecting to tutor.";
+      console.error(err);
+    }
+  });
+</script>
 </body>
 
-</html><script>
-const WEBHOOK_URL = "https://grantcraft355.app.n8n.cloud/webhook/ukr-chat";
-
-// CHANGE THESE 3 LINES to match your actual HTML ids/classes:
-const inputEl = document.querySelector("#userInput");      // your text input
-const sendBtn = document.querySelector("#sendBtn");        // your send button
-const messagesEl = document.querySelector("#messages");    // chat container
-
-function addMsg(who, text) {
-  const row = document.createElement("div");
-  row.className = who === "user" ? "msg user" : "msg ai";
-  row.textContent = text;
-  messagesEl.appendChild(row);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-}
-
-async function sendMessageToAI() {
-  const message = inputEl.value.trim();
-  if (!message) return;
-
-  addMsg("user", message);
-  inputEl.value = "";
-
-  // Optional “typing…” indicator
-  const typing = document.createElement("div");
-  typing.className = "msg ai";
-  typing.textContent = "Typing…";
-  messagesEl.appendChild(typing);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-
-  try {
-    const res = await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
-    });
-
-    if (!res.ok) throw new Error("HTTP " + res.status);
-
-    const data = await res.json();
-    typing.remove();
-
-    addMsg("ai", data.reply ?? JSON.stringify(data));
-  } catch (err) {
-    typing.remove();
-    addMsg("ai", "Error connecting to tutor. (" + err.message + ")");
-    console.error(err);
-  }
-}
-
-// Button click
-sendBtn.addEventListener("click", sendMessageToAI);
-
-// Enter key sends too
-inputEl.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessageToAI();
-});
-</script>
