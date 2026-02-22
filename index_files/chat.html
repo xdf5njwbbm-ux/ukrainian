@@ -197,50 +197,51 @@
         </form>
     </div>
 
-    <script><script>
-  const WEBHOOK_URL = "https://grantcraft355.app.n8n.cloud/webhook/ukr-chat";
+    <script>
+        const WEBHOOK_URL = "https://grantcraft355.app.n8n.cloud/webhook/ukr-chat";
 
-  const chat = document.getElementById('chat');
-  const form = document.getElementById('form');
-  const msg  = document.getElementById('msg');
+        const chat = document.getElementById('chat');
+        const form = document.getElementById('form');
+        const msg = document.getElementById('msg');
 
-  function addBubble(text, who) {
-    const div = document.createElement('div');
-    div.className = 'bubble ' + who;   // assumes you have .bubble.me and .bubble.ai styles
-    div.textContent = text;
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
-    return div;
-  }
+        function addBubble(text, who) {
+            const div = document.createElement('div');
+            div.className = 'bubble ' + who;   // assumes you have .bubble.me and .bubble.ai styles
+            div.textContent = text;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            return div;
+        }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    const text = msg.value.trim();
-    if (!text) return;
+            const text = msg.value.trim();
+            if (!text) return;
 
-    addBubble(text, 'me');
-    msg.value = '';
+            addBubble(text, 'me');
+            msg.value = '';
 
-    // optional typing bubble
-    const typing = addBubble('Typing…', 'ai');
+            // optional typing bubble
+            const typing = addBubble('Typing…', 'ai');
 
-    try {
-      const res = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text })
-      });
+            try {
+                const res = await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const data = await res.json();
-      typing.textContent = data.reply ?? JSON.stringify(data);
-    } catch (err) {
-      typing.textContent = "Error connecting to tutor.";
-      console.error(err);
-    }
-  });
-</script>
+                const data = await res.json();
+                typing.textContent = data.reply ?? JSON.stringify(data);
+            } catch (err) {
+                typing.textContent = "Error connecting to tutor.";
+                console.error(err);
+            }
+        });
+    </script>
 </body>
 
+</html>
