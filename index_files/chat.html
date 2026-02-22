@@ -223,4 +223,61 @@
     </script>
 </body>
 
-</html>
+</html><script>
+const WEBHOOK_URL = "https://grantcraft355.app.n8n.cloud/webhook/ukr-chat";
+
+// CHANGE THESE 3 LINES to match your actual HTML ids/classes:
+const inputEl = document.querySelector("#userInput");      // your text input
+const sendBtn = document.querySelector("#sendBtn");        // your send button
+const messagesEl = document.querySelector("#messages");    // chat container
+
+function addMsg(who, text) {
+  const row = document.createElement("div");
+  row.className = who === "user" ? "msg user" : "msg ai";
+  row.textContent = text;
+  messagesEl.appendChild(row);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+async function sendMessageToAI() {
+  const message = inputEl.value.trim();
+  if (!message) return;
+
+  addMsg("user", message);
+  inputEl.value = "";
+
+  // Optional “typing…” indicator
+  const typing = document.createElement("div");
+  typing.className = "msg ai";
+  typing.textContent = "Typing…";
+  messagesEl.appendChild(typing);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+
+    if (!res.ok) throw new Error("HTTP " + res.status);
+
+    const data = await res.json();
+    typing.remove();
+
+    addMsg("ai", data.reply ?? JSON.stringify(data));
+  } catch (err) {
+    typing.remove();
+    addMsg("ai", "Error connecting to tutor. (" + err.message + ")");
+    console.error(err);
+  }
+}
+
+// Button click
+sendBtn.addEventListener("click", sendMessageToAI);
+
+// Enter key sends too
+inputEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessageToAI();
+});
+</script>
