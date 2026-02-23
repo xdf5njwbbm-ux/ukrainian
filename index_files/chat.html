@@ -256,8 +256,9 @@
 
                 // Check common response fields
                 const reply =
-                    (typeof data === 'object' ? (data.reply || data.text || data.output || data.response) : null) ||
+                    (typeof data === 'object' ? (data.reply || data.text || data.output || data.response || data.message) : null) ||
                     (typeof data === 'string' ? data : null) ||
+                    (typeof data === 'object' ? JSON.stringify(data) : null) ||
                     raw ||
                     "AI agent returned an empty or invalid response.";
 
