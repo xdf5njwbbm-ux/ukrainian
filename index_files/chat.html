@@ -209,6 +209,7 @@
             div.textContent = text;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
+            return div;
         }
 
         form.addEventListener("submit", async (e) => {
@@ -220,17 +221,24 @@
             addBubble(text, "me");
             msg.value = "";
 
+            // Add typing indicator
+            const typing = addBubble("Thinking...", "ai");
+            typing.classList.add("typing");
+
             try {
                 const res = await fetch(WEBHOOK_URL, {
                     method: "POST",
                     mode: "cors",
-                    headers: { "Content-Type": "text/plain;charset=UTF-8" },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: text })
                 });
 
                 const raw = await res.text();
                 console.log("STATUS", res.status);
                 console.log("RAW", raw);
+
+                // Remove typing indicator
+                typing.remove();
 
                 // If server returns non-JSON (like `1`), we still show it.
                 let data;
@@ -244,6 +252,7 @@
 
             } catch (err) {
                 console.error("FETCH ERROR:", err);
+                typing.remove();
                 addBubble("Error connecting to tutor.", "ai");
             }
         });
