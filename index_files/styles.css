@@ -893,6 +893,35 @@ body {
     animation-delay: 4s;
 }
 
+/* Mobile scaling for social proof badges */
+@media (max-width: 1024px) {
+    .social-proof {
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 480px) {
+    .social-proof {
+        transform: scale(0.75);
+    }
+
+    .social-proof-1 {
+        left: -30px;
+        top: 5%;
+    }
+
+    .social-proof-2 {
+        bottom: 10px;
+        right: 0;
+        font-size: 1.1rem !important;
+    }
+
+    .social-proof-3 {
+        left: -20px;
+        bottom: 2%;
+    }
+}
+
 .proof-stars {
     font-size: var(--text-sm);
     margin-bottom: 4px;
