@@ -258,7 +258,15 @@
             } catch (err) {
                 console.error("FETCH ERROR:", err);
                 typing.remove();
-                addBubble("Error connecting to tutor.", "ai");
+
+                let errorMsg = "Error connecting to tutor.";
+                if (err.message.includes("Failed to fetch")) {
+                    errorMsg += " (Connection blocked or invalid URL. Check n8n CORS settings.)";
+                } else {
+                    errorMsg += " (" + err.message + ")";
+                }
+
+                addBubble(errorMsg, "ai");
             }
         });
     </script>
