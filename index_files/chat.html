@@ -224,23 +224,26 @@
                 const res = await fetch(WEBHOOK_URL, {
                     method: "POST",
                     mode: "cors",
-                    headers: {
-                        "Content-Type": "text/plain;charset=UTF-8"
-                    },
+                    headers: { "Content-Type": "text/plain;charset=UTF-8" },
                     body: JSON.stringify({ message: text })
                 });
 
                 const raw = await res.text();
+                console.log("STATUS", res.status);
+                console.log("RAW", raw);
 
-                if (!res.ok) {
-                    throw new Error(`HTTP ${res.status}: ${raw}`);
-                }
+                // If server returns non-JSON (like `1`), we still show it.
+                let data;
+                try { data = JSON.parse(raw); }
+                catch { data = { reply: raw }; }
 
-                const data = JSON.parse(raw);
-                addBubble(data.reply || "No reply returned.", "ai");
+                const reply =
+                    data.reply ?? data.text ?? data.output ?? data.response ?? raw ?? "No reply returned.";
+
+                addBubble(reply, "ai");
 
             } catch (err) {
-                console.error(err);
+                console.error("FETCH ERROR:", err);
                 addBubble("Error connecting to tutor.", "ai");
             }
         });
