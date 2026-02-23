@@ -240,13 +240,18 @@
                 // Remove typing indicator
                 typing.remove();
 
-                // If server returns non-JSON (like `1`), we still show it.
-                let data;
-                try { data = JSON.parse(raw); }
-                catch { data = { reply: raw }; }
+                const data = JSON.parse(raw);
+                console.log("PARSED DATA:", data);
 
+                // Check common response fields (using || to skip empty strings)
                 const reply =
-                    data.reply ?? data.text ?? data.output ?? data.response ?? raw ?? "No reply returned.";
+                    data.reply ||
+                    data.text ||
+                    data.output ||
+                    data.response ||
+                    (typeof data === 'string' ? data : null) ||
+                    raw ||
+                    "AI agent returned an empty response. Check your n8n workflow output.";
 
                 addBubble(reply, "ai");
 
