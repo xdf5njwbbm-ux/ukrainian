@@ -240,8 +240,11 @@
                 // Remove typing indicator
                 typing.remove();
 
+                console.log("DEBUG: Response Status =", res.status);
+                console.log("DEBUG: Raw Response Body =", raw);
+
                 if (!raw || raw.trim() === "") {
-                    addBubble(`AI agent returned an empty response (Status: ${res.status}). Make sure your n8n workflow has a 'Respond to Webhook' node correctly configured.`, "ai");
+                    addBubble(`AI agent connected (Status 200) but sent NO text. This means your 'Respond to Webhook' node in n8n has an empty body.`, "ai");
                     return;
                 }
 
