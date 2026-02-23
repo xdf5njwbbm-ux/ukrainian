@@ -203,6 +203,8 @@
         const form = document.getElementById("form");
         const msg = document.getElementById("msg");
 
+        const userLevel = localStorage.getItem("ukr_level") || "Beginner";
+
         function addBubble(text, who) {
             const div = document.createElement("div");
             div.className = "bubble " + who;
@@ -230,7 +232,10 @@
                     method: "POST",
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text })
+                    body: JSON.stringify({
+                        message: text,
+                        level: userLevel
+                    })
                 });
 
                 const raw = await res.text();
@@ -240,15 +245,8 @@
                 // Remove typing indicator
                 typing.remove();
 
-                console.log("DEBUG: Response Status =", res.status);
-                // Log all headers for debugging
-                const headers = {};
-                res.headers.forEach((v, k) => headers[k] = v);
-                console.log("DEBUG: Response Headers =", headers);
-                console.log("DEBUG: Raw Response Body =", raw);
-
                 if (!raw || raw.trim() === "") {
-                    addBubble(`AI agent connected (Status 200) but sent NO text. This means your 'Respond to Webhook' node in n8n has an empty body.`, "ai");
+                    addBubble("AI agent returned an empty response. Please check the n8n workflow.", "ai");
                     return;
                 }
 
@@ -286,6 +284,5 @@
             }
         });
     </script>
-</body>
 
 </html>
