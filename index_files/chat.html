@@ -204,6 +204,7 @@
         const msg = document.getElementById("msg");
 
         const userLevel = localStorage.getItem("ukr_level") || "Beginner";
+        const sessionId = "session_" + Math.random().toString(36).substr(2, 9) + "_" + Date.now();
 
         function addBubble(text, who) {
             const div = document.createElement("div");
@@ -234,7 +235,8 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         message: text,
-                        level: userLevel
+                        level: userLevel,
+                        sessionId: sessionId
                     })
                 });
 
