@@ -90,6 +90,27 @@
                         target: document.getElementById('vf-chat')
                     }
                 });
+
+                // Message tracking and sign-up prompt
+                let userMessageCount = 0;
+                window.voiceflow.chat.on('interaction', (event) => {
+                    // Track only user messages (usually interaction type is 'request')
+                    if (event.type === 'request' || event.type === 'text') {
+                        userMessageCount++;
+
+                        // Trigger nudge after every 5 messages
+                        if (userMessageCount % 5 === 0) {
+                            setTimeout(() => {
+                                window.voiceflow.chat.proactive.push({
+                                    type: 'text',
+                                    payload: {
+                                        message: "Ready to start learning Ukrainian for real? Click here to sign up and unlock your full potential today! ✨ [Sign Up Now](../index.html#pricing)"
+                                    }
+                                });
+                            }, 1500); // Slight delay for better UX
+                        }
+                    }
+                });
             }
             v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
         })(document, 'script');
