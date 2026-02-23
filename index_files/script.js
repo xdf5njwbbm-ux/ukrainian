@@ -327,49 +327,49 @@ window.addEventListener('scroll', () => {
 // ===== Add CSS for scroll animations =====
 const style = document.createElement('style');
 style.textContent = `
-    .animate - on - scroll {
+    .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
     
-    .animate - on - scroll.animate - visible {
+    .animate-on-scroll.animate-visible {
     opacity: 1;
     transform: translateY(0);
 }
     
-    .about - card.animate - on - scroll: nth - child(1) { transition - delay: 0.1s; }
-    .about - card.animate - on - scroll: nth - child(2) { transition - delay: 0.2s; }
-    .about - card.animate - on - scroll: nth - child(3) { transition - delay: 0.3s; }
-    .about - card.animate - on - scroll: nth - child(4) { transition - delay: 0.4s; }
-    .about - card.animate - on - scroll: nth - child(5) { transition - delay: 0.5s; }
-    .about - card.animate - on - scroll: nth - child(6) { transition - delay: 0.6s; }
+    .about-card.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+    .about-card.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+    .about-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+    .about-card.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+    .about-card.animate-on-scroll:nth-child(5) { transition-delay: 0.5s; }
+    .about-card.animate-on-scroll:nth-child(6) { transition-delay: 0.6s; }
     
-    .service - card.animate - on - scroll: nth - child(1) { transition - delay: 0.1s; }
-    .service - card.animate - on - scroll: nth - child(2) { transition - delay: 0.2s; }
-    .service - card.animate - on - scroll: nth - child(3) { transition - delay: 0.3s; }
-    .service - card.animate - on - scroll: nth - child(4) { transition - delay: 0.4s; }
+    .service-card.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+    .service-card.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+    .service-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+    .service-card.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
     
-    .method - step.animate - on - scroll: nth - child(1) { transition - delay: 0.1s; }
-    .method - step.animate - on - scroll: nth - child(2) { transition - delay: 0.2s; }
-    .method - step.animate - on - scroll: nth - child(3) { transition - delay: 0.3s; }
-    .method - step.animate - on - scroll: nth - child(4) { transition - delay: 0.4s; }
+    .method-step.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+    .method-step.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+    .method-step.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+    .method-step.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
     
-    .testimonial - card.animate - on - scroll: nth - child(odd) { transition - delay: 0.1s; }
-    .testimonial - card.animate - on - scroll: nth - child(even) { transition - delay: 0.2s; }
+    .testimonial-card.animate-on-scroll:nth-child(odd) { transition-delay: 0.1s; }
+    .testimonial-card.animate-on-scroll:nth-child(even) { transition-delay: 0.2s; }
     
-    .pricing - card.animate - on - scroll: nth - child(1) { transition - delay: 0.1s; }
-    .pricing - card.animate - on - scroll: nth - child(2) { transition - delay: 0.2s; }
-    .pricing - card.animate - on - scroll: nth - child(3) { transition - delay: 0.3s; }
+    .pricing-card.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+    .pricing-card.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+    .pricing-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
 
     /* Mobile menu button animation */
-    .mobile - menu - btn.active span: nth - child(1) {
+    .mobile-menu-btn.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
-    .mobile - menu - btn.active span: nth - child(2) {
+    .mobile-menu-btn.active span:nth-child(2) {
     opacity: 0;
 }
-    .mobile - menu - btn.active span: nth - child(3) {
+    .mobile-menu-btn.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 `;
@@ -396,9 +396,9 @@ const createTypingEffect = () => {
 const gradientStyle = document.createElement('style');
 gradientStyle.textContent = `
 @keyframes gradientShift {
-    0 %, 100 % { background- position: 0 % 50 %;
+    0%, 100% { background-position: 0% 50%;
 }
-50 % { background- position: 100 % 50 %; }
+50% { background-position: 100% 50%; }
     }
 `;
 document.head.appendChild(gradientStyle);
