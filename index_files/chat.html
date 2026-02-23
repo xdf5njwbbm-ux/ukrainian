@@ -203,7 +203,8 @@
         const form = document.getElementById("form");
         const msg = document.getElementById("msg");
 
-        const userLevel = localStorage.getItem("ukr_level") || "Beginner";
+        let ukrLevel = localStorage.getItem("ukr_level") || "";
+        let askedLevel = localStorage.getItem("asked_level") === "1";
         const sessionId = "session_" + Math.random().toString(36).substr(2, 9) + "_" + Date.now();
 
         function addBubble(text, who) {
@@ -220,13 +221,13 @@
 
             const text = msg.value.trim();
             const t = text.trim().toLowerCase();
-const isGreeting = ["hi","hello","hey","привіт","привет","добрий день","добрий вечір"].includes(t);
+            const isGreeting = ["hi", "hello", "hey", "привіт", "привет", "добрий день", "добрий вечір"].includes(t);
 
-// If we already asked level and user just says hi again, don't call AI.
-if (askedLevel && isGreeting && !ukrLevel) {
-  addBubble("Ukrainian: Просто вибери A / B / C 🙂\n\nEnglish: Just pick A / B / C 🙂\n\nA) Beginner  B) A little  C) Intermediate", "ai");
-  return;
-}
+            // If we already asked level and user just says hi again, don't call AI.
+            if (askedLevel && isGreeting && !ukrLevel) {
+                addBubble("Ukrainian: Просто вибери A / B / C 🙂\n\nEnglish: Just pick A / B / C 🙂\n\nA) Beginner  B) A little  C) Intermediate", "ai");
+                return;
+            }
             if (!text) return;
 
             addBubble(text, "me");
@@ -243,7 +244,7 @@ if (askedLevel && isGreeting && !ukrLevel) {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         message: text,
-                        level: userLevel,
+                        level: ukrLevel || "Beginner",
                         sessionId: sessionId
                     })
                 });
@@ -279,10 +280,10 @@ if (askedLevel && isGreeting && !ukrLevel) {
 
                 addBubble(reply, "ai");
                 // If the AI asked the level question (A/B/C), remember that we asked it
-if (!askedLevel && /A\)\s*Beginner/i.test(reply) && /B\)\s*A little/i.test(reply) && /C\)\s*Intermediate/i.test(reply)) {
-  askedLevel = true;
-  localStorage.setItem("asked_level", "1");
-}
+                if (!askedLevel && /A\)\s*Beginner/i.test(reply) && /B\)\s*A little/i.test(reply) && /C\)\s*Intermediate/i.test(reply)) {
+                    askedLevel = true;
+                    localStorage.setItem("asked_level", "1");
+                }
 
             } catch (err) {
                 console.error("FETCH ERROR:", err);
@@ -299,6 +300,6 @@ if (!askedLevel && /A\)\s*Beginner/i.test(reply) && /B\)\s*A little/i.test(reply
             }
         });
     </script>
+</body>
 
-</html>let ukrLevel = localStorage.getItem("ukr_level") || "";
-let askedLevel = localStorage.getItem("asked_level") === "1";
+</html>
