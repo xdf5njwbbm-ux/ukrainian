@@ -185,32 +185,31 @@
             <div class="name">Ukrainian AI Tutor</div>
         </div>
 
-        <div class="chat" id="chat">
-            <div class="bubble ai">Привіт! 👋 Want to practice Ukrainian?</div>
-            <div class="bubble ai">Type anything — I’ll reply.</div>
+        <div class="chat" id="vf-chat" style="width: 100%; height: 100%;">
+            <!-- Voiceflow chat will be embedded here -->
         </div>
-
-        <form class="inputbar" id="form">
-            <input id="msg" placeholder="Type a message…" autocomplete="off" />
-            <button type="submit">Send</button>
-        </form>
     </div>
 
+    <script type="text/javascript">
+        (function (d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function () {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '699c84e4d035fc070381058c' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: "https://runtime-api.voiceflow.com"
+                    },
+                    render: {
+                        mode: 'embedded',
+                        target: document.getElementById('vf-chat')
+                    }
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
 </body>
-<script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '699c84e4d035fc070381058c' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
+
 </html>
