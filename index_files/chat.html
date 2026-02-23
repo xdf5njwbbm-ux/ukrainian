@@ -241,7 +241,7 @@
                 typing.remove();
 
                 if (!raw || raw.trim() === "") {
-                    addBubble("AI agent returned an empty response. Make sure your n8n workflow has a 'Respond to Webhook' node or a final output.", "ai");
+                    addBubble(`AI agent returned an empty response (Status: ${res.status}). Make sure your n8n workflow has a 'Respond to Webhook' node correctly configured.`, "ai");
                     return;
                 }
 
