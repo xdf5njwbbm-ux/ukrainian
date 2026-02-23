@@ -241,6 +241,10 @@
                 typing.remove();
 
                 console.log("DEBUG: Response Status =", res.status);
+                // Log all headers for debugging
+                const headers = {};
+                res.headers.forEach((v, k) => headers[k] = v);
+                console.log("DEBUG: Response Headers =", headers);
                 console.log("DEBUG: Raw Response Body =", raw);
 
                 if (!raw || raw.trim() === "") {
