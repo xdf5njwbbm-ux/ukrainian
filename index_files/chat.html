@@ -223,10 +223,22 @@
             const t = text.trim().toLowerCase();
             const isGreeting = ["hi", "hello", "hey", "привіт", "привет", "добрий день", "добрий вечір"].includes(t);
 
-            // If we already asked level and user just says hi again, don't call AI.
+            // 1. Handle Level Selection (A/B/C) via text
+            if (askedLevel && !ukrLevel) {
+                const choice = t.toUpperCase();
+                if (choice === "A") ukrLevel = "Beginner";
+                else if (choice === "B") ukrLevel = "A little";
+                else if (choice === "C") ukrLevel = "Intermediate";
+
+                if (ukrLevel) {
+                    localStorage.setItem("ukr_level", ukrLevel);
+                }
+            }
+
+            // 2. Greeting check (Don't block, just fallback if still no level)
             if (askedLevel && isGreeting && !ukrLevel) {
                 addBubble("Ukrainian: Просто вибери A / B / C 🙂\n\nEnglish: Just pick A / B / C 🙂\n\nA) Beginner  B) A little  C) Intermediate", "ai");
-                return;
+                // Removed return; to let the fetch proceed so they aren't stuck
             }
             if (!text) return;
 
