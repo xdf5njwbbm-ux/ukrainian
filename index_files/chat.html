@@ -240,18 +240,26 @@
                 // Remove typing indicator
                 typing.remove();
 
-                const data = JSON.parse(raw);
-                console.log("PARSED DATA:", data);
+                if (!raw || raw.trim() === "") {
+                    addBubble("AI agent returned an empty response. Make sure your n8n workflow has a 'Respond to Webhook' node or a final output.", "ai");
+                    return;
+                }
 
-                // Check common response fields (using || to skip empty strings)
+                let data;
+                try {
+                    data = JSON.parse(raw);
+                    console.log("PARSED DATA:", data);
+                } catch (jsonErr) {
+                    console.warn("Response is not JSON:", raw);
+                    data = raw; // Use raw text if not JSON
+                }
+
+                // Check common response fields
                 const reply =
-                    data.reply ||
-                    data.text ||
-                    data.output ||
-                    data.response ||
+                    (typeof data === 'object' ? (data.reply || data.text || data.output || data.response) : null) ||
                     (typeof data === 'string' ? data : null) ||
                     raw ||
-                    "AI agent returned an empty response. Check your n8n workflow output.";
+                    "AI agent returned an empty or invalid response.";
 
                 addBubble(reply, "ai");
 
