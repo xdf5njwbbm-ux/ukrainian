@@ -5763,6 +5763,11 @@ div:empty {
             margin-right: auto !important;
         }
 
+        .hero-badge {
+            justify-content: center !important;
+            margin: 0 auto 16px !important;
+        }
+
         .hero-stats {
             display: flex !important;
             flex-direction: column !important;
