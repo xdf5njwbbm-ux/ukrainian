@@ -5924,6 +5924,14 @@ div:empty {
             font-size: 32px !important;
         }
 
+        .hero {
+            padding-top: 185px !important;
+        }
+
+        .hero-badge {
+            margin-bottom: 30px !important;
+        }
+
         .hero-cta {
             flex-direction: column !important;
             align-items: center !important;
