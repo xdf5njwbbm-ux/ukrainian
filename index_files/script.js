@@ -530,31 +530,41 @@ window.addEventListener('load', () => {
 })();
 
 // ===== Fluency Roadmap Accordion Logic =====
-document.addEventListener('DOMContentLoaded', () => {
-    const accordionItems = document.querySelectorAll('.accordion-item');
+(function initRoadmapAccordion() {
+    function setupRoadmap() {
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        if (!accordionItems.length) return;
 
-    accordionItems.forEach(item => {
-        const header = item.querySelector('.accordion-header');
-        if (!header) return;
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            if (!header) return;
 
-        header.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
+            header.addEventListener('click', (e) => {
+                e.stopPropagation(); // Better reliability
+                const isActive = item.classList.contains('active');
 
-            // Auto-close others
-            accordionItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
-                const otherHeader = otherItem.querySelector('.accordion-header');
-                if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+                // Auto-close others
+                accordionItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const otherHeader = otherItem.querySelector('.accordion-header');
+                    if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current
+                if (!isActive) {
+                    item.classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                }
             });
-
-            // Toggle current
-            if (!isActive) {
-                item.classList.add('active');
-                header.setAttribute('aria-expanded', 'true');
-            }
         });
-    });
-});
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupRoadmap);
+    } else {
+        setupRoadmap();
+    }
+})();
 
 // ===== FAQ Exclusive Accordion Logic =====
 document.querySelectorAll('.faq-item').forEach((details) => {
