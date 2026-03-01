@@ -2919,11 +2919,12 @@ section {
 }
 
 .testimonials-dark .testimonial-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
     font-size: var(--text-lg);
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.8;
     margin-bottom: var(--space-6);
-    font-style: italic;
 }
 
 .testimonials-dark .testimonial-author {
@@ -2978,11 +2979,12 @@ section {
 }
 
 .testimonial-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
     font-size: var(--text-lg);
     color: var(--color-gray-700);
     line-height: 1.8;
     margin-bottom: var(--space-6);
-    font-style: italic;
 }
 
 .testimonial-author {
@@ -3675,6 +3677,8 @@ section {
     }
 
     .testimonial-text {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
         font-size: 1rem;
         line-height: 1.6;
     }
