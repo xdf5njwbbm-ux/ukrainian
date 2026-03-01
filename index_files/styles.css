@@ -5928,10 +5928,19 @@ div:empty {
         }
 
         .pricing-card.premium {
+            background: radial-gradient(circle at top right, #1a2a6c, #0057b8) !important;
             border: 2px solid #ffd700 !important;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1) !important;
+            box-shadow: 0 15px 40px rgba(0, 87, 184, 0.4) !important;
             position: relative;
             overflow: hidden;
+            color: #fff !important;
+        }
+
+        .pricing-card.premium .pricing-header h3,
+        .pricing-card.premium .pricing-header p,
+        .pricing-card.premium .pricing-price,
+        .pricing-card.premium .pricing-features li {
+            color: #fff !important;
         }
 
         .pricing-card.premium::before {
@@ -5941,8 +5950,8 @@ div:empty {
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(transparent, rgba(255, 215, 0, 0.1), transparent 30%);
-            animation: rotatePremium 4s linear infinite;
+            background: conic-gradient(transparent, rgba(255, 215, 0, 0.2), transparent 20%, rgba(0, 212, 255, 0.3), transparent 50%);
+            animation: rotatePremium 3s linear infinite;
             pointer-events: none;
         }
 
