@@ -5881,9 +5881,9 @@ div:empty {
             /* Hide scrollbar Firefox */
             -ms-overflow-style: none !important;
             /* Hide scrollbar IE/Edge */
-            margin: 0 !important;
-            /* Removed negative margin to help centering */
-            width: 100% !important;
+            margin: 0 calc(50% - 50vw) !important;
+            /* Force breakout from container */
+            width: 100vw !important;
             box-sizing: border-box !important;
             justify-content: flex-start !important;
             /* Allow snapping to work */
