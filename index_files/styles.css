@@ -5926,6 +5926,29 @@ div:empty {
             transform: scale(1) !important;
             /* Remove scale transform to prevent layout issues in carousel */
         }
+
+        .swipe-arrow-indicator {
+            display: block !important;
+            color: var(--color-secondary) !important;
+            font-size: 2.5rem !important;
+            margin-top: 20px !important;
+            text-align: center !important;
+            animation: arrowBounce 1.5s infinite ease-in-out !important;
+        }
+
+        @keyframes arrowBounce {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateX(15px);
+                opacity: 1;
+            }
+        }
     }
 
     @media (max-width: 600px) {
