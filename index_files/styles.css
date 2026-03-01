@@ -5786,7 +5786,7 @@ div:empty {
             justify-content: center !important;
             align-items: center !important;
             gap: 24px !important;
-            margin: 20px auto 10px !important;
+            margin: 15px auto 0 !important;
             width: 100% !important;
         }
 
@@ -5803,7 +5803,7 @@ div:empty {
         }
 
         .hero-visual {
-            margin: 15px 0 !important;
+            margin: -5px 0 15px !important;
             padding: 0 !important;
             width: 100% !important;
             max-width: 100% !important;
@@ -5933,7 +5933,7 @@ div:empty {
         }
 
         .hero-visual {
-            margin: 5px 0 !important;
+            margin: -25px 0 5px !important;
         }
 
         .hero-cta {
