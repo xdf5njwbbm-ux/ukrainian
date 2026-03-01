@@ -5225,8 +5225,15 @@ div:empty {
 }
 
 #pricing .pricing-features li svg {
-    stroke: #00d4ff;
-    /* Brighter Ukrainian Blue */
+    stroke: #0057b8;
+    /* Standard Ukrainian Blue */
+}
+
+#pricing .pricing-card.premium .pricing-features li svg {
+    stroke: #00e5ff !important;
+    /* Darker but vibrant cyan-blue */
+    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.8)) !important;
+    /* Glowing look */
 }
 
 /* Featured Card Highlight */
