@@ -5739,7 +5739,7 @@ div:empty {
 
         /* Authorized Hero Fix - Restore Spacing */
         .hero {
-            padding-top: 140px !important;
+            padding-top: 170px !important;
             /* Pull up */
             min-height: auto !important;
             display: flex !important;
@@ -5777,17 +5777,25 @@ div:empty {
 
         .hero-badge {
             justify-content: center !important;
-            margin: 0 auto 16px !important;
+            margin: 0 auto 32px !important;
         }
 
         .hero-stats {
             display: flex !important;
-            flex-direction: column !important;
+            flex-direction: row !important;
+            justify-content: center !important;
             align-items: center !important;
-            /* Critical for centering */
-            gap: 16px !important;
+            gap: 24px !important;
             margin: 20px auto 30px !important;
             width: 100% !important;
+        }
+
+        .hero-stats .stat-number {
+            font-size: 20px !important;
+        }
+
+        .hero-stats .stat-label {
+            font-size: 11px !important;
         }
 
         .stat-divider {
@@ -5795,16 +5803,24 @@ div:empty {
         }
 
         .hero-visual {
-            margin-top: 20px !important;
+            margin: 40px 0 !important;
+            padding: 0 !important;
             width: 100% !important;
+            max-width: 100% !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
+            justify-content: center !important;
+            overflow: visible !important;
         }
 
         .chat-container {
             width: 100% !important;
+            max-width: 480px !important;
+            display: flex !important;
+            flex-direction: column !important;
             align-items: center !important;
+            margin: 0 auto !important;
         }
 
         .hero-content {
@@ -5920,8 +5936,51 @@ div:empty {
         }
 
         .main-container {
-            width: 95% !important;
-            padding: 15px !important;
+            width: 90% !important;
+            max-width: 420px !important;
+            aspect-ratio: 1/1 !important;
+            margin: 0 auto !important;
+            border-width: 8px !important;
+            box-shadow: 10px 10px 0px #000000 !important;
+            border-radius: 30px !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #fff !important;
+        }
+
+        .social-proof {
+            transform: scale(0.7) !important;
+            white-space: nowrap !important;
+        }
+
+        .social-proof-1 {
+            top: 2% !important;
+            left: -20px !important;
+        }
+
+        .social-proof-2 {
+            bottom: 25px !important;
+            right: -10px !important;
+            transform: scale(0.8) !important;
+        }
+
+        .social-proof-3 {
+            bottom: 2% !important;
+            left: -15px !important;
+        }
+
+        .cta-button {
+            width: 90% !important;
+            max-width: 320px !important;
+            padding: 12px 20px !important;
+            font-size: 0.95rem !important;
+            margin: 0 auto !important;
+            display: flex !important;
+            white-space: normal !important;
+            text-align: center !important;
+            line-height: 1.3 !important;
         }
     }
 }
