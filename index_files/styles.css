@@ -5875,7 +5875,7 @@ div:empty {
             display: flex !important;
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
-            gap: 120px !important;
+            gap: 250px !important;
             padding: 40px 15vw !important;
             /* Restored symmetrical padding for centering */
             /* Large left padding to push right */
