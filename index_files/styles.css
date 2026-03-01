@@ -413,47 +413,6 @@ h6 {
     width: 100%;
 }
 
-.pricing-carousel-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.swipe-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 215, 0, 0.2);
-    border: 2px solid var(--color-secondary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-secondary);
-    font-size: 1.2rem;
-    z-index: 10;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-    transition: all var(--transition-base);
-    display: none;
-    /* Hidden by default, show on mobile */
-}
-
-.left-arrow {
-    left: 10px;
-    transform: translateY(-50%) rotate(180deg);
-}
-
-.right-arrow {
-    right: 10px;
-}
-
-.swipe-arrow:hover {
-    background: var(--color-secondary);
-    color: var(--color-primary-dark);
-}
-
 .pricing {
     position: relative;
     background: var(--nav-bg);
@@ -4743,7 +4702,7 @@ div:empty {
     aspect-ratio: 9 / 19;
     /* separation without boxes */
     filter:
-        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.08));
+        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45)) drop_shadow(0 0 22px rgba(255, 255, 255, 0.08));
     transform: translateZ(0);
 
     /* Reset previous styles to avoid conflicts */
@@ -5912,34 +5871,6 @@ div:empty {
         }
 
         /* Swipeable Pricing Carousel - Perfect Centering & Disappearing Effect */
-        .pricing-carousel-wrapper {
-            display: block !important;
-        }
-
-        .swipe-arrow {
-            display: flex !important;
-            animation: arrowBlink 2s infinite ease-in-out;
-        }
-
-        @keyframes arrowBlink {
-
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: translateY(-50%) scale(0.9);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translateY(-50%) scale(1.1);
-            }
-        }
-
-        .left-arrow {
-            animation-delay: 1s;
-            transform: translateY(-50%) rotate(180deg) !important;
-        }
-
         .pricing-grid {
             display: flex !important;
             overflow-x: auto !important;
