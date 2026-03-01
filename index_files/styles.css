@@ -1783,8 +1783,8 @@ section {
 }
 
 .mobile-actions {
-    margin-top: 12px;
-    padding-top: 16px;
+    margin-top: 4px;
+    padding-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;
