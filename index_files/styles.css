@@ -1781,17 +1781,22 @@ section {
 
 .mobile-cta {
     text-align: center;
+    background: #ffd700;
+    color: #071a2b;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.mobile-login {
+    text-align: center;
     background: #0057b8;
     color: #fff;
     padding: 14px;
     border-radius: 8px;
     font-weight: 600;
-}
-
-.mobile-login {
-    text-align: center;
-    color: #fff;
-    opacity: 0.8;
+    box-shadow: 0 4px 15px rgba(0, 87, 184, 0.3);
 }
 
 @media (max-width: 1024px) {
