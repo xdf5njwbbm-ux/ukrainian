@@ -528,161 +528,29 @@ window.addEventListener('load', () => {
         setupHeader();
     }
 })();
-// ===== Fluency Roadmap Interaction =====
+
+// ===== Fluency Roadmap Accordion Logic =====
 (() => {
-    // Stage data with all content
-    const stages = [
-        {
-            id: 1,
-            title: "Pick Your Persona",
-            description: "Choose an AI conversation partner that matches your learning style and personality. Whether you prefer a friendly local, a professional tutor, or a casual peer, selecting the right persona creates psychological comfort and consistent motivation for daily practice.",
-            checklist: [
-                "Browse available tutor personas",
-                "Match their personality and teaching style",
-                "Start your first conversation"
-            ],
-            result: "You'll have a personalized AI guide who adapts to your pace and keeps you engaged for the long term."
-        },
-        {
-            id: 2,
-            title: "Start Texting",
-            description: "Build your foundation through low-pressure text conversations that let you compose at your own pace. This silent practice helps you expand vocabulary, refine grammar, and gain confidence before speaking aloud. You'll develop natural phrasing while maintaining full control of the learning tempo.",
-            checklist: [
-                "Start daily text conversations",
-                "Practice grammar and vocabulary",
-                "Build confidence privately"
-            ],
-            result: "You'll develop a strong foundation in Ukrainian grammar and phrases without the pressure of real-time speaking."
-        },
-        {
-            id: 3,
-            title: "Voice Call",
-            description: "Transition to voice mode to bridge the gap between knowing Ukrainian and using it in real time. Regular voice practice sharpens your pronunciation, trains your ear for native speech, and helps you develop the natural conversational rhythm essential for fluency. This step transforms passive knowledge into active speaking ability.",
-            checklist: [
-                "Switch to voice conversations",
-                "Improve pronunciation and listening",
-                "Develop natural speaking rhythm"
-            ],
-            result: "You'll gain the confidence and skill to hold real-time Ukrainian conversations with natural flow and accurate pronunciation."
-        },
-        {
-            id: 4,
-            title: "Get Feedback",
-            description: "Accelerate your progress with instant corrections and detailed insights after every session. By tracking patterns in your errors and celebrating your improvements, you develop self-awareness and strategic focus. This feedback loop ensures you're always moving toward authentic fluency, not just memorizing phrases.",
-            checklist: [
-                "Receive instant corrections",
-                "Track your progress over time",
-                "Identify improvement areas"
-            ],
-            result: "You'll have clear visibility into your strengths and weaknesses, allowing you to focus practice where it matters most."
-        }
-    ];
+    const accordionItems = document.querySelectorAll('.accordion-item');
 
-    const detailsCard = document.querySelector('.details-card');
-    const stageNodes = document.querySelectorAll('.stage-node');
-    const prevBtn = document.querySelector('.nav-prev');
-    const nextBtn = document.querySelector('.nav-next');
-    const progressText = document.querySelector('.progress-text');
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
 
-    if (!detailsCard || !stageNodes.length) return;
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
 
-    let currentStage = 1;
+            // Auto-close others
+            accordionItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+            });
 
-    // Update the details panel content
-    function updateStageDetails(stageNum) {
-        const stage = stages[stageNum - 1];
-        if (!stage) return;
-
-        // Fade out
-        detailsCard.style.opacity = '0';
-
-        setTimeout(() => {
-            // Update content
-            detailsCard.querySelector('.details-title').textContent = stage.title;
-            detailsCard.querySelector('.details-desc').textContent = stage.description;
-
-            // Update checklist
-            const checklistUl = detailsCard.querySelector('.details-checklist ul');
-            checklistUl.innerHTML = stage.checklist
-                .map(item => `<li>${item}</li>`)
-                .join('');
-
-            // Update result
-            detailsCard.querySelector('.details-result').innerHTML =
-                `<strong>Result:</strong> ${stage.result}`;
-
-            // Update progress text
-            if (progressText) {
-                progressText.textContent = `Step ${stageNum} of 4`;
-            }
-
-            // Update navigation buttons
-            if (prevBtn) {
-                prevBtn.disabled = stageNum === 1;
-            }
-            if (nextBtn) {
-                nextBtn.disabled = stageNum === 4;
-            }
-
-            // Fade in
-            detailsCard.style.opacity = '1';
-        }, 150);
-
-        // Update active node state
-        stageNodes.forEach((node, index) => {
-            const isActive = index + 1 === stageNum;
-            node.classList.toggle('active', isActive);
-            node.setAttribute('aria-selected', isActive);
-        });
-
-        currentStage = stageNum;
-    }
-
-    // Stage node click handlers
-    stageNodes.forEach((node) => {
-        node.addEventListener('click', () => {
-            const stageNum = parseInt(node.dataset.stage);
-            if (stageNum && stageNum !== currentStage) {
-                updateStageDetails(stageNum);
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         });
-    });
-
-    // Previous/Next button handlers
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            if (currentStage > 1) {
-                updateStageDetails(currentStage - 1);
-            }
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (currentStage < 4) {
-                updateStageDetails(currentStage + 1);
-            }
-        });
-    }
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        // Only handle if we're focused on the roadmap section
-        const roadmapSection = document.getElementById('fluency-roadmap');
-        if (!roadmapSection) return;
-
-        const rect = roadmapSection.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-        if (!isInViewport) return;
-
-        if (e.key === 'ArrowRight' && currentStage < 4) {
-            e.preventDefault();
-            updateStageDetails(currentStage + 1);
-        } else if (e.key === 'ArrowLeft' && currentStage > 1) {
-            e.preventDefault();
-            updateStageDetails(currentStage - 1);
-        }
     });
 })();
 

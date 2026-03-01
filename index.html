@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link href="./index_files/css2" rel="stylesheet">
-    <link rel="stylesheet" href="./index_files/styles.css?v=7.7">
+    <link rel="stylesheet" href="./index_files/styles.css?v=7.8">
     <link rel="stylesheet" href="./index_files/faq.css">
     <style>
         .animate-on-scroll {
@@ -373,66 +373,117 @@
                 <p class="roadmap-subtitle">A proven 4-stage roadmap to natural Ukrainian conversation</p>
             </div>
 
-            <!-- Split Layout: Timeline + Details Panel -->
-            <div class="roadmap-split">
-                <!-- Left: Timeline with Stage Nodes -->
-                <div class="roadmap-timeline">
-                    <!-- Connector Line (animated) -->
-                    <div class="timeline-connector"></div>
-
-                    <!-- Stage Nodes -->
-                    <div class="stage-nodes">
-                        <button class="stage-node active" data-stage="1" aria-selected="true">
-                            <div class="node-number">1</div>
-                            <h3 class="node-title">Pick Your Persona</h3>
-                            <p class="node-tagline">Choose your tutor style</p>
-                        </button>
-
-                        <button class="stage-node" data-stage="2" aria-selected="false">
-                            <div class="node-number">2</div>
-                            <h3 class="node-title">Start Texting</h3>
-                            <p class="node-tagline">Build confidence by texting</p>
-                        </button>
-
-                        <button class="stage-node" data-stage="3" aria-selected="false">
-                            <div class="node-number">3</div>
-                            <h3 class="node-title">Voice Call</h3>
-                            <p class="node-tagline">Unlock real speaking</p>
-                        </button>
-
-                        <button class="stage-node" data-stage="4" aria-selected="false">
-                            <div class="node-number">4</div>
-                            <h3 class="node-title">Get Feedback</h3>
-                            <p class="node-tagline">Refine with instant feedback</p>
-                        </button>
+            <!-- Accordion Layout -->
+            <div class="roadmap-accordion">
+                <!-- Step 1 -->
+                <div class="accordion-item active">
+                    <button class="accordion-header" aria-expanded="true">
+                        <span class="step-num">1</span>
+                        <h3 class="step-title">Pick Your Persona</h3>
+                        <span class="chevron">➤</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="content-inner">
+                            <p class="details-desc">Choose an AI conversation partner that matches your learning style
+                                and personality. Whether you prefer a friendly local, a professional tutor, or a casual
+                                peer, selecting the right persona creates psychological comfort and consistent
+                                motivation for daily practice.</p>
+                            <div class="details-checklist">
+                                <h4>What you do:</h4>
+                                <ul>
+                                    <li>Browse available tutor personas</li>
+                                    <li>Match their personality and teaching style</li>
+                                    <li>Start your first conversation</li>
+                                </ul>
+                            </div>
+                            <p class="details-result"><strong>Result:</strong> You'll have a personalized AI guide who
+                                adapts to your pace and keeps you engaged for the long term.</p>
+                            <span class="progress-text">Step 1 of 4</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right: Stage Details Panel -->
-                <div class="stage-details">
-                    <div class="details-card">
-                        <h3 class="details-title">Pick Your Persona</h3>
-                        <p class="details-desc">Choose an AI conversation partner that matches your learning style and
-                            personality. Whether you prefer a friendly local, a professional tutor, or a casual peer,
-                            selecting the right persona creates psychological comfort and consistent motivation for
-                            daily practice.</p>
-
-                        <div class="details-checklist">
-                            <h4>What you do:</h4>
-                            <ul>
-                                <li>Browse available tutor personas</li>
-                                <li>Match their personality and teaching style</li>
-                                <li>Start your first conversation</li>
-                            </ul>
+                <!-- Step 2 -->
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="step-num">2</span>
+                        <h3 class="step-title">Start Texting</h3>
+                        <span class="chevron">➤</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="content-inner">
+                            <p class="details-desc">Build your foundation through low-pressure text conversations that
+                                let you compose at your own pace. This silent practice helps you expand vocabulary,
+                                refine grammar, and gain confidence before speaking aloud. You'll develop natural
+                                phrasing while maintaining full control of the learning tempo.</p>
+                            <div class="details-checklist">
+                                <h4>What you do:</h4>
+                                <ul>
+                                    <li>Start daily text conversations</li>
+                                    <li>Practice grammar and vocabulary</li>
+                                    <li>Build confidence privately</li>
+                                </ul>
+                            </div>
+                            <p class="details-result"><strong>Result:</strong> You'll develop a strong foundation in
+                                Ukrainian grammar and phrases without the pressure of real-time speaking.</p>
+                            <span class="progress-text">Step 2 of 4</span>
                         </div>
+                    </div>
+                </div>
 
-                        <p class="details-result"><strong>Result:</strong> You'll have a personalized AI guide who
-                            adapts to your pace and keeps you engaged for the long term.</p>
+                <!-- Step 3 -->
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="step-num">3</span>
+                        <h3 class="step-title">Voice Call</h3>
+                        <span class="chevron">➤</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="content-inner">
+                            <p class="details-desc">Transition to voice mode to bridge the gap between knowing Ukrainian
+                                and using it in real time. Regular voice practice sharpens your pronunciation, trains
+                                your ear for native speech, and helps you develop the natural conversational rhythm
+                                essential for fluency. This step transforms passive knowledge into active speaking
+                                ability.</p>
+                            <div class="details-checklist">
+                                <h4>What you do:</h4>
+                                <ul>
+                                    <li>Switch to voice conversations</li>
+                                    <li>Improve pronunciation and listening</li>
+                                    <li>Develop natural speaking rhythm</li>
+                                </ul>
+                            </div>
+                            <p class="details-result"><strong>Result:</strong> You'll gain the confidence and skill to
+                                hold real-time Ukrainian conversations with natural flow and accurate pronunciation.</p>
+                            <span class="progress-text">Step 3 of 4</span>
+                        </div>
+                    </div>
+                </div>
 
-                        <div class="details-nav">
-                            <button class="nav-prev" disabled="" aria-label="Previous stage">← Previous</button>
-                            <span class="progress-text">Step 1 of 4</span>
-                            <button class="nav-next" aria-label="Next stage">Next →</button>
+                <!-- Step 4 -->
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="step-num">4</span>
+                        <h3 class="step-title">Get Feedback</h3>
+                        <span class="chevron">➤</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="content-inner">
+                            <p class="details-desc">Accelerate your progress with instant corrections and detailed
+                                insights after every session. By tracking patterns in your errors and celebrating your
+                                improvements, you develop self-awareness and strategic focus. This feedback loop ensures
+                                you're always moving toward authentic fluency, not just memorizing phrases.</p>
+                            <div class="details-checklist">
+                                <h4>What you do:</h4>
+                                <ul>
+                                    <li>Receive instant corrections</li>
+                                    <li>Track your progress over time</li>
+                                    <li>Identify improvement areas</li>
+                                </ul>
+                            </div>
+                            <p class="details-result"><strong>Result:</strong> You'll have clear visibility into your
+                                strengths and weaknesses, allowing you to focus practice where it matters most.</p>
+                            <span class="progress-text">Step 4 of 4</span>
                         </div>
                     </div>
                 </div>
