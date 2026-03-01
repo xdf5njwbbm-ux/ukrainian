@@ -4702,7 +4702,7 @@ div:empty {
     aspect-ratio: 9 / 19;
     /* separation without boxes */
     filter:
-        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45)) drop_shadow(0 0 22px rgba(255, 255, 255, 0.08));
+        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.08));
     transform: translateZ(0);
 
     /* Reset previous styles to avoid conflicts */
