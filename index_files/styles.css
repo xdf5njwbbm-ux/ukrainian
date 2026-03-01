@@ -5786,7 +5786,7 @@ div:empty {
             justify-content: center !important;
             align-items: center !important;
             gap: 24px !important;
-            margin: 20px auto 30px !important;
+            margin: 20px auto 10px !important;
             width: 100% !important;
         }
 
@@ -5803,7 +5803,7 @@ div:empty {
         }
 
         .hero-visual {
-            margin: 40px 0 !important;
+            margin: 15px 0 !important;
             padding: 0 !important;
             width: 100% !important;
             max-width: 100% !important;
@@ -5930,6 +5930,10 @@ div:empty {
 
         .hero-badge {
             margin-bottom: 30px !important;
+        }
+
+        .hero-visual {
+            margin: 5px 0 !important;
         }
 
         .hero-cta {
