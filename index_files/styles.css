@@ -5876,13 +5876,14 @@ div:empty {
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
             gap: 20px !important;
-            padding: 40px 10vw !important;
+            padding: 40px 15vw !important;
+            /* Balanced padding for centering */
             scrollbar-width: none !important;
             /* Hide scrollbar Firefox */
             -ms-overflow-style: none !important;
             /* Hide scrollbar IE/Edge */
             margin: 0 calc(50% - 50vw) !important;
-            /* Force breakout from container */
+            /* Center container relative to viewport */
             width: 100vw !important;
             box-sizing: border-box !important;
             justify-content: flex-start !important;
@@ -5895,8 +5896,8 @@ div:empty {
         }
 
         .pricing-card {
-            flex: 0 0 80vw !important;
-            /* Mathematically perfect width for 10vw padding */
+            flex: 0 0 70vw !important;
+            /* 15vw (padding) + 70vw (card) + 15vw (padding) = 100vw perfect center */
             scroll-snap-align: center !important;
             margin: 0 !important;
             height: auto !important;
