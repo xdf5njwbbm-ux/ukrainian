@@ -530,11 +530,12 @@ window.addEventListener('load', () => {
 })();
 
 // ===== Fluency Roadmap Accordion Logic =====
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
     const accordionItems = document.querySelectorAll('.accordion-item');
 
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
+        if (!header) return;
 
         header.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
@@ -542,7 +543,8 @@ window.addEventListener('load', () => {
             // Auto-close others
             accordionItems.forEach(otherItem => {
                 otherItem.classList.remove('active');
-                otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                const otherHeader = otherItem.querySelector('.accordion-header');
+                if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
             });
 
             // Toggle current
@@ -552,7 +554,7 @@ window.addEventListener('load', () => {
             }
         });
     });
-})();
+});
 
 // ===== FAQ Exclusive Accordion Logic =====
 document.querySelectorAll('.faq-item').forEach((details) => {

@@ -1705,7 +1705,21 @@ section {
     height: 2px;
     background: #fff;
     border-radius: 2px;
-    transition: 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Perfect X Animation */
+.mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* Mobile Responsive */
@@ -1771,7 +1785,6 @@ section {
 .mobile-actions {
     margin-top: 12px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     gap: 12px;
