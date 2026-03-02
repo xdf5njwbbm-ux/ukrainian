@@ -5939,6 +5939,7 @@ div:empty {
         text-align: center !important;
         animation: arrowBounce 1.5s infinite ease-in-out !important;
         transition: transform 0.3s ease, opacity 0.3s ease !important;
+        font-family: Arial, sans-serif !important;
     }
 
     #texting-arrow {
