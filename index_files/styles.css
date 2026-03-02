@@ -1536,6 +1536,14 @@ section {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    line-height: 1.1;
+}
+
+.brand-tagline span {
+    display: block;
 }
 
 /* 2. Center: Navigation - Separated across full width */
