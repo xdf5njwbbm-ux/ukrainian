@@ -5293,8 +5293,12 @@ div:empty {
         /* 1 column mobile */
     }
 
-    min-height: auto;
-}
+    #about,
+    .about-section {
+        padding-top: 100px !important;
+        padding-bottom: 100px !important;
+        min-height: auto;
+    }
 }
 
 /* =========================
@@ -6068,6 +6072,5 @@ div:empty {
         justify-content: center !important;
         align-items: center !important;
     }
-}
 }
 }
