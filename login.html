@@ -221,6 +221,10 @@
             gap: 8px;
         }
 
+        .text-yellow {
+            color: #ffd700;
+        }
+
         @media (max-width: 480px) {
             .auth-card {
                 padding: 32px 24px;
@@ -235,19 +239,26 @@
 
 <body>
 
-    <header class="auth-header">
-        <div class="auth-logo">
-            <span class="flag">🇺🇦</span>
-            <h1>Ukrainian AI Tutor</h1>
-        </div>
-        <div class="auth-tagline">
-            <span>Powered by AI</span>
-            <span>Built for real conversations</span>
+    <header class="header-nav" id="navbar"
+        style="position: fixed; top: 0; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); background: var(--nav-bg);">
+        <div class="header-inner"
+            style="max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; align-items: center; justify-content: flex-start;">
+            <a href="index.html" class="brand-box"
+                style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                <span class="brand-flag">🇺🇦</span>
+                <div class="brand-info">
+                    <span class="brand-name">Ukrainian AI Tutor</span>
+                    <div class="brand-tagline">
+                        <span>POWERED BY AI</span>
+                        <span>BUILT FOR REAL CONVERSATIONS</span>
+                    </div>
+                </div>
+            </a>
         </div>
     </header>
 
-    <main class="auth-card">
-        <h2>Welcome Back</h2>
+    <main class="auth-card" style="margin-top: 100px;">
+        <h2>Welcome <span class="text-yellow">Back</span></h2>
         <p>Continue your Ukrainian progress.</p>
 
         <form>
