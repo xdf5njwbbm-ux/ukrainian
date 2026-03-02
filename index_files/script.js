@@ -431,9 +431,17 @@ function toggleServiceCard(selectedCard) {
     selectedCard.classList.toggle('active');
 }
 
-// ===== Preloader (if needed) =====
+// ===== Preloader & Video Autoplay =====
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+
+    // Force hero video to play immediately on reload/load
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+        heroVideo.play().catch(err => {
+            console.log("Autoplay prevented or failed, retrying on interaction check.", err);
+        });
+    }
 });
 
 // Services logic removed as requested
