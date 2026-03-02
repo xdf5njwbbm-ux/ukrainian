@@ -5836,6 +5836,8 @@ div:empty {
         scroll-snap-align: center !important;
         margin: 0 !important;
         height: auto !important;
+        min-height: 520px !important;
+        /* Sync height for arrow alignment */
         padding: 20px 16px !important;
         display: flex !important;
         flex-direction: column !important;
