@@ -5941,6 +5941,10 @@ div:empty {
             transition: transform 0.3s ease, opacity 0.3s ease !important;
         }
 
+        #texting-arrow {
+            animation: none !important;
+        }
+
         .swipe-arrow-indicator.is-reversed {
             transform: scaleX(-1) !important;
             color: var(--color-secondary) !important;
