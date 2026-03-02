@@ -5663,7 +5663,7 @@ div:empty {
         /* Inward shift from edges */
         width: 100% !important;
         max-width: 100% !important;
-        height: 140px !important;
+        height: 115px !important;
         padding-top: 10px !important;
         display: flex !important;
         justify-content: space-between !important;
@@ -5688,7 +5688,7 @@ div:empty {
 
     /* Authorized Hero Fix - Restore Spacing */
     .hero {
-        padding-top: 170px !important;
+        padding-top: 140px !important;
         /* Pull up */
         min-height: auto !important;
         display: flex !important;
@@ -5726,7 +5726,7 @@ div:empty {
 
     .hero-badge {
         justify-content: center !important;
-        margin: 0 auto 32px !important;
+        margin: 0 auto 20px !important;
     }
 
     .hero-stats {
