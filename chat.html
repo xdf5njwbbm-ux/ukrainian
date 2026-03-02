@@ -13,10 +13,13 @@
         :root {
             --app-bg: #071a2b;
             --app-nav-bg: #071a2b;
-            --app-accent: #0057b8;
-            --app-gray: #f2f2f7;
-            --app-text: #000000;
-            --app-text-dim: #8e8e93;
+            --app-accent: #ffd700;
+            /* Vibrant Ukrainian Yellow */
+            --app-primary: #0057b8;
+            /* Vibrant Ukrainian Blue */
+            --app-text: #ffffff;
+            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
         }
 
         body {
@@ -31,14 +34,35 @@
             flex-direction: column;
         }
 
+        /* Top Yellow Glow Line */
+        .top-glow-line {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
         /* Top Navigation */
         .app-header {
-            background: var(--app-nav-bg);
-            padding: 44px 16px 10px;
+            background: var(--header-gradient);
+            padding: 24px 20px 8px;
+            /* Compact like calls.html */
             color: white;
             display: flex;
             flex-direction: column;
             gap: 12px;
+            text-align: center;
+        }
+
+        .header-top h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         .tab-bar {
@@ -58,7 +82,7 @@
 
         .tab-item.active {
             opacity: 1;
-            border-bottom: 3px solid #007aff;
+            border-bottom: 3px solid var(--app-accent);
         }
 
         /* Search Bar */
@@ -67,12 +91,13 @@
         }
 
         .search-bar {
-            background: #f0f0f0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 10px;
-            padding: 8px 12px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             color: var(--app-text-dim);
         }
 
@@ -137,7 +162,7 @@
         }
 
         .footer-item.active {
-            color: #007aff;
+            color: var(--app-accent);
         }
 
         .footer-icon {
@@ -148,10 +173,15 @@
 
 <body>
 
+    <div class="top-glow-line"></div>
+
     <header class="app-header">
         <div class="tab-bar">
             <div class="tab-item active">Messages</div>
             <div class="tab-item" onclick="location.href='calls.html'">Calls</div>
+        </div>
+        <div class="header-top">
+            <h1>Messages</h1>
         </div>
     </header>
 
