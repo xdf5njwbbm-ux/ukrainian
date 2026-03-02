@@ -160,7 +160,7 @@ const routeData = {
     focus: {
         icon: '🎯',
         title: 'Personalized Focus',
-        desc: 'Every mistake becomes progress. Your AI learns your level and improves your weak spots naturally.',
+        desc: 'Every mistake becomes progress. Your AI adapts your level and improves your weak spots naturally.',
         buttonText: 'Start Learning',
         time: '~8 min',
         steps: [
