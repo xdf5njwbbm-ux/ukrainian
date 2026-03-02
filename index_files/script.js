@@ -96,6 +96,7 @@ const routeData = {
         icon: '🎧',
         title: 'AI Voice Calling',
         desc: 'Learn how voice calling accelerates your Ukrainian fluency.',
+        buttonText: 'Start Speaking',
         time: '~10 min',
         steps: [
             { title: 'Why Voice Matters', text: 'Speaking out loud activates different neural pathways than reading. Your brain learns faster when your mouth moves!', activity: '🎯 Try saying "Привіт" (Hello) out loud right now' },
@@ -108,6 +109,7 @@ const routeData = {
         icon: '💬',
         title: 'Instant Texting',
         desc: 'Perfect for busy schedules—practice Ukrainian anytime, anywhere.',
+        buttonText: 'Start Texting',
         time: '~8 min',
         steps: [
             { title: 'Learn at Your Pace', text: 'No pressure to respond immediately. Think through your responses and learn grammar as you go.', activity: '✍️ Type "Дякую" (Thank you) to get started' },
@@ -120,6 +122,7 @@ const routeData = {
         icon: '🌙',
         title: 'Available 24/7',
         desc: 'Your AI tutor never sleeps—practice at 3 AM or 3 PM.',
+        buttonText: 'Start Anytime',
         time: '~5 min',
         steps: [
             { title: 'No Scheduling', text: 'Forget booking appointments. Your AI tutor is ready the moment you are.', activity: '⚡ Start a session right now—no waiting!' },
@@ -132,6 +135,7 @@ const routeData = {
         icon: '🌱',
         title: 'Beginner Friendly',
         desc: 'Start from absolute zero—no prior knowledge needed.',
+        buttonText: 'Start Learning',
         time: '~7 min',
         steps: [
             { title: 'Zero Assumptions', text: 'Never learned a Slavic language? Perfect. We start with the Cyrillic alphabet.', activity: '🔤 Learn your first 5 letters today' },
@@ -144,6 +148,7 @@ const routeData = {
         icon: '💡',
         title: 'Topic Mastery',
         desc: 'Talk about what YOU love—from cooking to quantum physics.',
+        buttonText: 'Start Learning',
         time: '~6 min',
         steps: [
             { title: 'Your Interests', text: 'Love cooking? Gaming? Travel? Learn Ukrainian through topics that excite you.', activity: '❤️ Pick your top 3 favorite topics' },
@@ -156,6 +161,7 @@ const routeData = {
         icon: '🎯',
         title: 'Personalized Focus',
         desc: 'The AI remembers YOUR mistakes and helps you fix them.',
+        buttonText: 'Start Learning',
         time: '~8 min',
         steps: [
             { title: 'Smart Memory', text: 'The AI tracks every mistake you make and ensures you don\'t repeat them.', activity: '🧠 Your personal weakness tracker is active' },
@@ -174,6 +180,12 @@ function openRoutePanel(routeKey) {
     routeTitle.textContent = route.title;
     routeDesc.textContent = route.desc;
     routeMeta.textContent = route.time;
+
+    // Update action button text
+    const startBtn = document.getElementById('startRoute');
+    if (startBtn) {
+        startBtn.textContent = route.buttonText || 'Start Learning';
+    }
 
     // Render steps
     routeSteps.innerHTML = route.steps.map((step, i) => `
