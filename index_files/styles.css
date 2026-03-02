@@ -5944,6 +5944,8 @@ div:empty {
         animation: arrowBounce 1.5s infinite ease-in-out !important;
         transition: transform 0.3s ease, opacity 0.3s ease !important;
         font-family: Arial, sans-serif !important;
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.3) !important;
+        /* Super tiny glow */
     }
 
     #texting-arrow {
@@ -6059,3 +6061,4 @@ div:empty {
             align-items: center !important;
         }
     }
+}
