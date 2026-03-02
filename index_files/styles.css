@@ -5941,7 +5941,7 @@ div:empty {
 }
 
 .swipe-arrow-indicator {
-    display: block !important;
+    display: none !important;
     color: #ffff00 !important;
     /* Brighter Yellow */
     font-size: 2.8rem !important;
