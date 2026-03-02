@@ -5953,6 +5953,8 @@ div:empty {
     #confidence-arrow {
         animation-duration: 3s !important;
         white-space: nowrap !important;
+        display: none !important;
+        /* Hidden on desktop */
     }
 
     .swipe-arrow-indicator.is-reversed {
@@ -5971,84 +5973,87 @@ div:empty {
             transform: translateX(15px);
         }
     }
-}
 
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
 
-    /* Extra narrow screen adjustments */
-    .hero-title {
-        font-size: 32px !important;
+        /* Extra narrow screen adjustments */
+        .hero-title {
+            font-size: 32px !important;
+        }
+
+        .hero {
+            padding-top: 185px !important;
+        }
+
+        .hero-badge {
+            margin-bottom: 30px !important;
+        }
+
+        .hero-visual {
+            margin: -25px 0 5px !important;
+        }
+
+        .hero-cta {
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .hero-cta .btn {
+            width: 100% !important;
+            max-width: 300px !important;
+        }
+
+        .main-container {
+            width: 90% !important;
+            max-width: 420px !important;
+            aspect-ratio: 1/1 !important;
+            margin: 0 auto !important;
+            border-width: 8px !important;
+            box-shadow: 10px 10px 0px #000000 !important;
+            border-radius: 30px !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #fff !important;
+        }
+
+        .social-proof {
+            transform: scale(0.7) !important;
+            white-space: nowrap !important;
+        }
+
+        .social-proof-1 {
+            top: 2% !important;
+            left: -20px !important;
+        }
+
+        .social-proof-2 {
+            bottom: 25px !important;
+            right: -10px !important;
+            transform: scale(0.8) !important;
+        }
+
+        .social-proof-3 {
+            bottom: 2% !important;
+            left: -15px !important;
+        }
+
+        .cta-button {
+            width: 90% !important;
+            max-width: 320px !important;
+            padding: 12px 20px !important;
+            font-size: 0.95rem !important;
+            margin: 0 auto !important;
+            display: flex !important;
+            white-space: normal !important;
+            text-align: center !important;
+            line-height: 1.3 !important;
+        }
+
+        #confidence-arrow {
+            display: flex !important;
+            /* Visible on mobile */
+        }
     }
-
-    .hero {
-        padding-top: 185px !important;
-    }
-
-    .hero-badge {
-        margin-bottom: 30px !important;
-    }
-
-    .hero-visual {
-        margin: -25px 0 5px !important;
-    }
-
-    .hero-cta {
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 100% !important;
-    }
-
-    .hero-cta .btn {
-        width: 100% !important;
-        max-width: 300px !important;
-    }
-
-    .main-container {
-        width: 90% !important;
-        max-width: 420px !important;
-        aspect-ratio: 1/1 !important;
-        margin: 0 auto !important;
-        border-width: 8px !important;
-        box-shadow: 10px 10px 0px #000000 !important;
-        border-radius: 30px !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #fff !important;
-    }
-
-    .social-proof {
-        transform: scale(0.7) !important;
-        white-space: nowrap !important;
-    }
-
-    .social-proof-1 {
-        top: 2% !important;
-        left: -20px !important;
-    }
-
-    .social-proof-2 {
-        bottom: 25px !important;
-        right: -10px !important;
-        transform: scale(0.8) !important;
-    }
-
-    .social-proof-3 {
-        bottom: 2% !important;
-        left: -15px !important;
-    }
-
-    .cta-button {
-        width: 90% !important;
-        max-width: 320px !important;
-        padding: 12px 20px !important;
-        font-size: 0.95rem !important;
-        margin: 0 auto !important;
-        display: flex !important;
-        white-space: normal !important;
-        text-align: center !important;
-        line-height: 1.3 !important;
-    }
-}
-}
