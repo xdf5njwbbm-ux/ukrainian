@@ -5947,22 +5947,8 @@ div:empty {
     }
 
     #confidence-arrow {
-        animation: none !important;
-        display: flex !important;
-        justify-content: center !important;
-        gap: 15px !important;
+        animation-duration: 3s !important;
         white-space: nowrap !important;
-    }
-
-    #confidence-arrow span {
-        display: inline-block !important;
-        animation: arrowBounce 3s infinite ease-in-out !important;
-        color: var(--color-secondary) !important;
-    }
-
-    /* Stagger the second arrow slightly for a premium feel */
-    #confidence-arrow span:last-child {
-        animation-delay: 0.1s !important;
     }
 
     .swipe-arrow-indicator.is-reversed {
