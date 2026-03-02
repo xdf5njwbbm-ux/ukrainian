@@ -626,18 +626,19 @@ document.querySelectorAll('.faq-item').forEach((details) => {
             arrows.forEach((arrow, index) => {
                 const isConfidence = arrow.id === 'confidence-arrow';
                 const isFirst = index === 0;
+                const cardWidth = pricingGrid.querySelector('.pricing-card').offsetWidth;
                 const cardThreshold = cardWidth * (index + 0.5);
 
-                // Special "Memory" State: If Confidence card is active and we've swiped back from Fluency
-                if (isConfidence && hasSeenFluency && scrollLeft < cardWidth * 1.5 && scrollLeft > cardWidth * 0.5) {
-                    arrow.textContent = '↔';
+                if (isConfidence) {
+                    // Confidence Plan always shows two arrows moving slowly
+                    arrow.textContent = '← ➔';
                     arrow.classList.remove('is-reversed');
                 } else if (isFirst) {
-                    // Texting Plan arrow stays fixed pointing right
+                    // Texting Plan arrow stays fixed pointing right and stationary
                     arrow.textContent = '➔';
                     arrow.classList.remove('is-reversed');
                 } else {
-                    // Standard Bidirectional Logic for others
+                    // Standard Bidirectional Logic for others (Fluency)
                     arrow.textContent = '➔';
                     if (scrollLeft > cardThreshold) {
                         arrow.classList.add('is-reversed');
