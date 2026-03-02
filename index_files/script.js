@@ -95,7 +95,7 @@ const routeData = {
     voice: {
         icon: '🎧',
         title: 'AI Voice Calling',
-        desc: 'Learn how voice calling accelerates your Ukrainian fluency.',
+        desc: 'Speak Ukrainian out loud with instant AI feedback.',
         buttonText: 'Start Speaking',
         time: '~10 min',
         steps: [
@@ -108,7 +108,7 @@ const routeData = {
     text: {
         icon: '💬',
         title: 'Instant Texting',
-        desc: 'Perfect for busy schedules—practice Ukrainian anytime, anywhere.',
+        desc: 'Text your AI tutor anytime, anywhere.',
         buttonText: 'Start Texting',
         time: '~8 min',
         steps: [
@@ -121,7 +121,7 @@ const routeData = {
     always: {
         icon: '🌙',
         title: 'Available 24/7',
-        desc: 'Your AI tutor never sleeps—practice at 3 AM or 3 PM.',
+        desc: 'Your personal Ukrainian AI is ready the moment you are - no waiting, no scheduling.',
         buttonText: 'Start Anytime',
         time: '~5 min',
         steps: [
@@ -134,7 +134,7 @@ const routeData = {
     beginner: {
         icon: '🌱',
         title: 'Beginner Friendly',
-        desc: 'Start from absolute zero—no prior knowledge needed.',
+        desc: 'Start where you feel comfortable. No pressure. Just steady progress.',
         buttonText: 'Start Slow',
         time: '~7 min',
         steps: [
@@ -147,7 +147,7 @@ const routeData = {
     topics: {
         icon: '💡',
         title: 'Topic Mastery',
-        desc: 'Talk about what YOU love—from cooking to quantum physics.',
+        desc: 'Talk about your favorite topics, from secret talents to future goals.',
         buttonText: 'Pick the Topic',
         time: '~6 min',
         steps: [
@@ -160,7 +160,7 @@ const routeData = {
     focus: {
         icon: '🎯',
         title: 'Personalized Focus',
-        desc: 'The AI remembers YOUR mistakes and helps you fix them.',
+        desc: 'Every mistake becomes progress. Your AI learns your level and improves your weak spots naturally.',
         buttonText: 'Start Learning',
         time: '~8 min',
         steps: [
