@@ -882,8 +882,9 @@ body {
 }
 
 .social-proof-1 {
-    top: 10%;
-    left: -60px;
+    top: 5%;
+    left: -85px;
+    /* Half on/half off */
     animation-delay: 0s;
     font-size: 1.15em;
     padding: var(--space-4) var(--space-5);
@@ -891,17 +892,20 @@ body {
 
 .social-proof-2 {
     position: absolute;
-    bottom: 30px;
-    right: 10px;
+    bottom: 35px;
+    right: -45px;
+    /* Half on/half off */
     font-size: 1.5rem;
     z-index: 10;
-    animation: none !important;
-    transform: none !important;
+    animation: floatBadge 6s ease-in-out infinite !important;
+    /* Enable floating */
+    animation-delay: 2s;
 }
 
 .social-proof-3 {
     bottom: 4%;
-    left: -40px;
+    left: -70px;
+    /* Half on/half off */
     animation-delay: 4s;
 }
 
@@ -6029,18 +6033,21 @@ div:empty {
 
         .social-proof-1 {
             top: 2% !important;
-            left: -20px !important;
+            left: -45px !important;
+            /* Half on/half off mobile */
         }
 
         .social-proof-2 {
             bottom: 25px !important;
-            right: -10px !important;
+            right: -35px !important;
+            /* Half on/half off mobile */
             transform: scale(0.8) !important;
         }
 
         .social-proof-3 {
             bottom: 2% !important;
-            left: -15px !important;
+            left: -35px !important;
+            /* Half on/half off mobile */
         }
 
         .cta-button {
