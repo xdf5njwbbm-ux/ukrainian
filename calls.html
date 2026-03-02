@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Recent Calls | Learn Ukrainian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_files/styles.css?v=23.0">
+    <style>
+        :root {
+            --app-bg: #071a2b;
+            --app-nav-bg: #071a2b;
+            --app-accent: #ffd700;
+            --app-text: #ffffff;
+            --app-text-dim: rgba(255, 255, 255, 0.6);
+            --glossy-blue: linear-gradient(135deg, #071a2b 0%, #102a43 100%);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0a1e30);
+        }
+
+        body {
+            background: var(--app-bg);
+            color: var(--app-text);
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Yellow Glow Line */
+        .top-glow-line {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--app-accent), transparent);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Header */
+        .app-header {
+            background: var(--header-gradient);
+            padding: 44px 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-top h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        /* Toggle Tabs */
+        .toggle-tab-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2px;
+            align-self: center;
+            width: 160px;
+        }
+
+        .toggle-item {
+            flex: 1;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--app-accent);
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 4px 0 8px;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--app-text-dim);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            width: 100%;
+            font-size: 17px;
+            color: white;
+            outline: none;
+        }
+
+        /* Call List */
+        .call-list {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        .call-item {
+            display: flex;
+            padding: 12px 20px;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 0.5px solid rgba(255, 215, 0, 0.1);
+            transition: background 0.2s;
+        }
+
+        .call-item:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d3b66 0%, #0057b8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(0, 87, 184, 0.4);
+            border: 1.5px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .call-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .call-name {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .call-type {
+            font-size: 14px;
+            color: var(--app-text-dim);
+        }
+
+        /* Missed Call Styling */
+        .missed .call-name {
+            color: #ff6b6b;
+        }
+
+        .call-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .call-time {
+            font-size: 15px;
+            color: var(--app-text-dim);
+        }
+
+        .info-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid var(--app-accent);
+            color: var(--app-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: serif;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        /* Bottom Tab Bar */
+        .app-footer {
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 0 24px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--app-text-dim);
+            cursor: pointer;
+        }
+
+        .footer-item.active {
+            color: var(--app-accent);
+        }
+
+        .footer-icon {
+            font-size: 24px;
+        }
+
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-weight: 600;
+            font-size: 17px;
+            padding-bottom: 10px;
+        }
+
+        .tab-item {
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .tab-item.active {
+            opacity: 1;
+            border-bottom: 3px solid var(--app-accent);
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-glow-line"></div>
+
+    <header class="app-header">
+        <div class="tab-bar">
+            <div class="tab-item" onclick="location.href='chat.html'">Messages</div>
+            <div class="tab-item active">Calls</div>
+        </div>
+        <div class="header-top">
+            <h1>Recent Calls</h1>
+            <div class="toggle-tab-container">
+                <div class="toggle-item active">All</div>
+                <div class="toggle-item">Missed</div>
+            </div>
+        </div>
+        <div class="search-container">
+            <div class="search-bar">
+                <span>🔍</span>
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+    </header>
+
+    <main class="call-list">
+        <!-- Call Entry 1 -->
+        <div class="call-item">
+            <div class="profile-container">
+                <div class="profile-icon">🎤</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">AI Tutor (Voice Lesson)</span>
+                <span class="call-type">AI Voice Session</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">14:12</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+
+        <!-- Call Entry 2 -->
+        <div class="call-item missed">
+            <div class="profile-container">
+                <div class="profile-icon">🌟</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">Beginner Practice</span>
+                <span class="call-type">Missed Voice Lesson</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">Yesterday</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+
+        <!-- Call Entry 3 -->
+        <div class="call-item">
+            <div class="profile-container">
+                <div class="profile-icon">📝</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">Grammar Review</span>
+                <span class="call-type">AI Voice Session</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">Yesterday</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+
+        <!-- Call Entry 4 -->
+        <div class="call-item">
+            <div class="profile-container">
+                <div class="profile-icon">🎭</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">Roleplay Session</span>
+                <span class="call-type">Ukrainian Practice Call</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">Saturday</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+
+        <!-- Call Entry 5 -->
+        <div class="call-item">
+            <div class="profile-container">
+                <div class="profile-icon">🗣️</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">Pronunciation Drill</span>
+                <span class="call-type">AI Voice Session</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">Friday</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+
+        <!-- Repeated for scroll testing -->
+        <div class="call-item">
+            <div class="profile-container">
+                <div class="profile-icon">🎤</div>
+            </div>
+            <div class="call-details">
+                <span class="call-name">AI Tutor (Voice Lesson)</span>
+                <span class="call-type">AI Voice Session</span>
+            </div>
+            <div class="call-meta">
+                <span class="call-time">Thursday</span>
+                <div class="info-btn">i</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-item" onclick="location.href='chat.html'">
+            <span class="footer-icon">💬</span>
+            <span>Learn</span>
+        </div>
+        <div class="footer-item active">
+            <span class="footer-icon">📞</span>
+            <span>AI Tutors</span>
+        </div>
+        <div class="footer-item">
+            <span class="footer-icon">👤</span>
+            <span>Progress</span>
+        </div>
+        <div class="footer-item">
+            <span class="footer-icon">⚙️</span>
+            <span>Account</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

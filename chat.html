@@ -143,28 +143,6 @@
         .footer-icon {
             font-size: 24px;
         }
-
-        /* Floating Action Button */
-        .fab {
-            position: absolute;
-            bottom: 90px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #34c759;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
-            cursor: pointer;
-        }
-
-        .fab svg {
-            color: white;
-            width: 32px;
-            height: 32px;
-        }
     </style>
 </head>
 
@@ -173,7 +151,7 @@
     <header class="app-header">
         <div class="tab-bar">
             <div class="tab-item active">Messages</div>
-            <div class="tab-item">Calls</div>
+            <div class="tab-item" onclick="location.href='calls.html'">Calls</div>
         </div>
     </header>
 
@@ -192,18 +170,13 @@
         </div>
     </main>
 
-    <div class="fab">
-        <svg fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" />
-        </svg>
-    </div>
 
     <footer class="app-footer">
         <div class="footer-item active">
             <span class="footer-icon">💬</span>
             <span>Learn</span>
         </div>
-        <div class="footer-item">
+        <div class="footer-item" onclick="location.href='calls.html'">
             <span class="footer-icon">📞</span>
             <span>AI Tutors</span>
         </div>
