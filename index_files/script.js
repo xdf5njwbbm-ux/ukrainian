@@ -582,18 +582,7 @@ window.addEventListener('load', () => {
             header.addEventListener('click', (e) => {
                 e.stopPropagation();
 
-                // Mobile specific: Expand ALL into grid view
-                if (window.innerWidth <= 768) {
-                    accordion.classList.add('expanded-all');
-                    accordionItems.forEach(i => {
-                        i.classList.add('active');
-                        const h = i.querySelector('.accordion-header');
-                        if (h) h.setAttribute('aria-expanded', 'true');
-                    });
-                    return;
-                }
-
-                // Desktop: Standard Toggle behavior
+                // Desktop & Mobile: Standard Toggle behavior
                 const isActive = item.classList.contains('active');
 
                 // Auto-close others
