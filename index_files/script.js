@@ -135,7 +135,7 @@ const routeData = {
         icon: '🌱',
         title: 'Beginner Friendly',
         desc: 'Start from absolute zero—no prior knowledge needed.',
-        buttonText: 'Start Learning',
+        buttonText: 'Start Slow',
         time: '~7 min',
         steps: [
             { title: 'Zero Assumptions', text: 'Never learned a Slavic language? Perfect. We start with the Cyrillic alphabet.', activity: '🔤 Learn your first 5 letters today' },
@@ -148,7 +148,7 @@ const routeData = {
         icon: '💡',
         title: 'Topic Mastery',
         desc: 'Talk about what YOU love—from cooking to quantum physics.',
-        buttonText: 'Start Learning',
+        buttonText: 'Pick the Topic',
         time: '~6 min',
         steps: [
             { title: 'Your Interests', text: 'Love cooking? Gaming? Travel? Learn Ukrainian through topics that excite you.', activity: '❤️ Pick your top 3 favorite topics' },
