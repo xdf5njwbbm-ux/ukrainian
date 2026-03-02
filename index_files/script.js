@@ -437,16 +437,28 @@ window.addEventListener('load', () => {
 
     const heroVid = document.querySelector('.hero-video');
     if (heroVid) {
-        // Try immediate play
-        heroVid.play().catch(() => {
-            // If blocked, play on first interaction
-            const playOnInteraction = () => {
-                heroVid.play();
-                document.removeEventListener('touchstart', playOnInteraction);
-                document.removeEventListener('click', playOnInteraction);
-            };
-            document.addEventListener('touchstart', playOnInteraction);
-            document.addEventListener('click', playOnInteraction);
+        const attemptPlay = () => {
+            heroVid.play().catch(() => {
+                // If blocked, play on first interaction
+                const playOnInteraction = () => {
+                    heroVid.play();
+                    ['touchstart', 'mousedown', 'keydown'].forEach(evt =>
+                        document.removeEventListener(evt, playOnInteraction)
+                    );
+                };
+                ['touchstart', 'mousedown', 'keydown'].forEach(evt =>
+                    document.addEventListener(evt, playOnInteraction)
+                );
+            });
+        };
+
+        // Try immediately
+        attemptPlay();
+
+        // Also retry on various "active" events to bypass mobile restrictions
+        window.addEventListener('pageshow', attemptPlay);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') attemptPlay();
         });
     }
 });
