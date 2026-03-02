@@ -435,11 +435,18 @@ function toggleServiceCard(selectedCard) {
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 
-    // Force hero video to play immediately on reload/load
-    const heroVideo = document.querySelector('.hero-video');
-    if (heroVideo) {
-        heroVideo.play().catch(err => {
-            console.log("Autoplay prevented or failed, retrying on interaction check.", err);
+    const heroVid = document.querySelector('.hero-video');
+    if (heroVid) {
+        // Try immediate play
+        heroVid.play().catch(() => {
+            // If blocked, play on first interaction
+            const playOnInteraction = () => {
+                heroVid.play();
+                document.removeEventListener('touchstart', playOnInteraction);
+                document.removeEventListener('click', playOnInteraction);
+            };
+            document.addEventListener('touchstart', playOnInteraction);
+            document.addEventListener('click', playOnInteraction);
         });
     }
 });
