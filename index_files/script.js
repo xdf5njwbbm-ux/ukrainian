@@ -603,13 +603,26 @@ document.querySelectorAll('.faq-item').forEach((details) => {
             });
         }
     });
-
-    // Optional: Smooth scroll into view if needed
-    // details.addEventListener('click', (e) => {
-    //     if (!details.open) {
-    //         setTimeout(() => {
-    //             details.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    //         }, 300);
-    //     }
-    // });
 });
+
+// ===== Dynamic Pricing Carousel Arrows =====
+(function () {
+    const pricingGrid = document.querySelector('.pricing-grid');
+    const arrows = document.querySelectorAll('.swipe-arrow-indicator');
+
+    if (pricingGrid && arrows.length > 0) {
+        pricingGrid.addEventListener('scroll', () => {
+            const scrollLeft = pricingGrid.scrollLeft;
+            const threshold = 100; // Switch direction after 100px scroll
+
+            arrows.forEach(arrow => {
+                if (scrollLeft > threshold) {
+                    arrow.classList.add('is-reversed');
+                    arrow.textContent = '➔'; // Character stays same, CSS flips it
+                } else {
+                    arrow.classList.remove('is-reversed');
+                }
+            });
+        }, { passive: true });
+    }
+})();

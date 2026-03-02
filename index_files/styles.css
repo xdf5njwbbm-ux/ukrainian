@@ -5845,7 +5845,16 @@ div:empty {
 
         .pricing-card.featured {
             transform: scale(1) !important;
-            /* Remove scale transform to prevent layout issues in carousel */
+            padding: var(--space-6) 16px !important;
+            /* Standardize padding to match others */
+        }
+
+        .pricing-card.featured .pricing-header {
+            margin-bottom: var(--space-4) !important;
+        }
+
+        .pricing-card.featured .pricing-features {
+            margin-bottom: var(--space-4) !important;
         }
 
         .pricing-card.premium {
@@ -5912,10 +5921,16 @@ div:empty {
         .swipe-arrow-indicator {
             display: block !important;
             color: var(--color-secondary) !important;
-            font-size: 2.5rem !important;
-            margin-top: 20px !important;
+            font-size: 2rem !important;
+            margin-top: 15px !important;
             text-align: center !important;
             animation: arrowBounce 1.5s infinite ease-in-out !important;
+            transition: transform 0.3s ease, opacity 0.3s ease !important;
+        }
+
+        .swipe-arrow-indicator.is-reversed {
+            transform: scaleX(-1) !important;
+            color: var(--color-gray-400) !important;
         }
 
         @keyframes arrowBounce {
