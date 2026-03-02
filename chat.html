@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Tutor Chat | Learn Ukrainian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_files/styles.css?v=22.0">
+    <style>
+        :root {
+            --app-bg: #ffffff;
+            --app-nav-bg: #071a2b;
+            --app-accent: #0057b8;
+            --app-gray: #f2f2f7;
+            --app-text: #000000;
+            --app-text-dim: #8e8e93;
+        }
+
+        body {
+            background-color: var(--app-bg);
+            color: var(--app-text);
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation */
+        .app-header {
+            background: var(--app-nav-bg);
+            padding: 44px 16px 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .tab-item {
+            padding-bottom: 8px;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .tab-item.active {
+            opacity: 1;
+            border-bottom: 3px solid #007aff;
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 8px 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .search-bar {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--app-text-dim);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Main Content */
+        .app-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tutor-avatar {
+            width: 280px;
+            height: auto;
+            margin-bottom: 24px;
+        }
+
+        .empty-state h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            color: #1c1c1e;
+        }
+
+        .empty-state p {
+            color: var(--app-text-dim);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Bottom Tab Bar */
+        .app-footer {
+            background: white;
+            border-top: 1px solid #e5e5e5;
+            padding: 8px 0 24px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--app-text-dim);
+            cursor: pointer;
+        }
+
+        .footer-item.active {
+            color: #007aff;
+        }
+
+        .footer-icon {
+            font-size: 24px;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: absolute;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #34c759;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+            cursor: pointer;
+        }
+
+        .fab svg {
+            color: white;
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="tab-bar">
+            <div class="tab-item active">Messages</div>
+            <div class="tab-item">Calls</div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" placeholder="Search">
+        </div>
+    </div>
+
+    <main class="app-content">
+        <img src="./index_files/ai_tutor.png" alt="AI Humanoid Tutor" class="tutor-avatar">
+        <div class="empty-state">
+            <h1>No conversations yet</h1>
+            <p>Send a message to start a conversation!</p>
+        </div>
+    </main>
+
+    <div class="fab">
+        <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" />
+        </svg>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-item active">
+            <span class="footer-icon">💬</span>
+            <span>Chats</span>
+        </div>
+        <div class="footer-item">
+            <span class="footer-icon">📞</span>
+            <span>Calls</span>
+        </div>
+        <div class="footer-item">
+            <span class="footer-icon">👤</span>
+            <span>Contacts</span>
+        </div>
+        <div class="footer-item">
+            <span class="footer-icon">⚙️</span>
+            <span>Settings</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
