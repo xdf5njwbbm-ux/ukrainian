@@ -1811,10 +1811,11 @@ section {
     text-align: center;
 }
 
-.mobile-cta {
+.mobile-cta,
+#mobileMenuPanel a.mobile-cta {
     text-align: center;
     background: #ffd700;
-    color: #000000;
+    color: #000000 !important;
     padding: 14px;
     border-radius: 8px;
     font-weight: 700;
@@ -6061,4 +6062,5 @@ div:empty {
             align-items: center !important;
         }
     }
+}
 }
