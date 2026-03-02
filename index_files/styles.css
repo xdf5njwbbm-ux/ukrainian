@@ -3210,6 +3210,12 @@ section {
     margin-bottom: var(--space-6);
 }
 
+.pricing-savings.premium-savings {
+    background: rgba(0, 150, 255, 0.2);
+    border: 1px solid rgba(0, 150, 255, 0.4);
+    color: #4dc3ff;
+}
+
 .pricing-features {
     margin-bottom: var(--space-8);
 }
