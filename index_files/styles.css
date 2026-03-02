@@ -5959,10 +5959,7 @@ div:empty {
     /* Super tiny glow */
 }
 
-#texting-arrow {
-    animation: none !important;
-}
-
+#texting-arrow,
 #confidence-arrow {
     animation-duration: 3s !important;
     white-space: nowrap !important;
@@ -6068,6 +6065,7 @@ div:empty {
         line-height: 1.3 !important;
     }
 
+    #texting-arrow,
     #confidence-arrow {
         display: flex !important;
         /* Visible on mobile */
