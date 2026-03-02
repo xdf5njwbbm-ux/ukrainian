@@ -6055,5 +6055,7 @@ div:empty {
         #confidence-arrow {
             display: flex !important;
             /* Visible on mobile */
+            justify-content: center !important;
+            align-items: center !important;
         }
     }
