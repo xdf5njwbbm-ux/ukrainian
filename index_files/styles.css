@@ -878,7 +878,8 @@ body {
     z-index: 10;
     animation: floatBadge 6s ease-in-out infinite;
     border: 2px solid rgba(0, 87, 184, 0.1);
-    transform: scale(1.15);
+    transform: scale(1.35);
+    /* Increased size */
 }
 
 .social-proof-1 {
@@ -912,13 +913,15 @@ body {
 /* Mobile scaling for social proof badges */
 @media (max-width: 1024px) {
     .social-proof {
-        transform: scale(0.9);
+        transform: scale(1.1);
+        /* Increased mobile scale */
     }
 }
 
 @media (max-width: 480px) {
     .social-proof {
-        transform: scale(0.75);
+        transform: scale(0.9);
+        /* Increased mobile scale */
     }
 
     .social-proof-1 {
