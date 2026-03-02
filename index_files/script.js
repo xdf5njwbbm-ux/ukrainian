@@ -532,15 +532,29 @@ window.addEventListener('load', () => {
 // ===== Fluency Roadmap Accordion Logic =====
 (function initRoadmapAccordion() {
     function setupRoadmap() {
+        const accordion = document.querySelector('.roadmap-accordion');
         const accordionItems = document.querySelectorAll('.accordion-item');
-        if (!accordionItems.length) return;
+        if (!accordion || !accordionItems.length) return;
 
         accordionItems.forEach(item => {
             const header = item.querySelector('.accordion-header');
             if (!header) return;
 
             header.addEventListener('click', (e) => {
-                e.stopPropagation(); // Better reliability
+                e.stopPropagation();
+
+                // Mobile specific: Expand ALL into grid view
+                if (window.innerWidth <= 768) {
+                    accordion.classList.add('expanded-all');
+                    accordionItems.forEach(i => {
+                        i.classList.add('active');
+                        const h = i.querySelector('.accordion-header');
+                        if (h) h.setAttribute('aria-expanded', 'true');
+                    });
+                    return;
+                }
+
+                // Desktop: Standard Toggle behavior
                 const isActive = item.classList.contains('active');
 
                 // Auto-close others

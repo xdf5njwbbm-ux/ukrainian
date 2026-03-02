@@ -2748,6 +2748,84 @@ section {
     font-size: 15px;
 }
 
+/* Roadmap Mobile Expansion (Show All View) */
+@media (max-width: 768px) {
+    .roadmap-section {
+        padding: 40px 0 !important;
+    }
+
+    .roadmap-header {
+        margin-bottom: 24px !important;
+    }
+
+    .roadmap-title {
+        font-size: 28px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .roadmap-accordion.expanded-all {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .roadmap-accordion.expanded-all .accordion-item {
+        margin-bottom: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 12px !important;
+        min-height: 140px;
+    }
+
+    .roadmap-accordion.expanded-all .accordion-header {
+        padding: 10px !important;
+        gap: 8px !important;
+        pointer-events: none;
+        /* Stay open */
+    }
+
+    .roadmap-accordion.expanded-all .step-num {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 12px !important;
+        border-radius: 5px !important;
+    }
+
+    .roadmap-accordion.expanded-all .step-title {
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+    }
+
+    .roadmap-accordion.expanded-all .chevron {
+        display: none !important;
+    }
+
+    .roadmap-accordion.expanded-all .accordion-content {
+        max-height: none !important;
+        opacity: 1 !important;
+    }
+
+    .roadmap-accordion.expanded-all .content-inner {
+        padding: 0 10px 12px 10px !important;
+    }
+
+    .roadmap-accordion.expanded-all .details-desc {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0 !important;
+        opacity: 0.9;
+    }
+
+    /* Hide bulky details in the compact grid view */
+    .roadmap-accordion.expanded-all .details-checklist,
+    .roadmap-accordion.expanded-all .details-result,
+    .roadmap-accordion.expanded-all .progress-text {
+        display: none !important;
+    }
+}
+
 .details-checklist li::before {
     content: "✓";
     position: absolute;
