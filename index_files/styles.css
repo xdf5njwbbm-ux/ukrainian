@@ -5945,6 +5945,11 @@ div:empty {
             animation: none !important;
         }
 
+        #confidence-arrow {
+            animation-duration: 3s !important;
+            white-space: nowrap !important;
+        }
+
         .swipe-arrow-indicator.is-reversed {
             transform: scaleX(-1) !important;
             color: var(--color-secondary) !important;
