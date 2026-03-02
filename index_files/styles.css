@@ -5810,12 +5810,11 @@ div:empty {
         }
 
         .pricing-card {
-            flex: 0 0 60vw !important;
-            /* 20vw (padding) + 60vw (card) + 20vw (padding) = 100vw perfect center */
+            flex: 0 0 85vw !important;
             scroll-snap-align: center !important;
             margin: 0 !important;
             height: auto !important;
-            padding: var(--space-6) 16px !important;
+            padding: 20px 16px !important;
             display: flex !important;
             flex-direction: column !important;
             box-sizing: border-box !important;
@@ -5845,8 +5844,11 @@ div:empty {
 
         .pricing-card.featured {
             transform: scale(1) !important;
-            padding: var(--space-6) 16px !important;
-            /* Standardize padding to match others */
+            padding: 24px 16px !important;
+        }
+
+        .pricing-card.featured .swipe-arrow-indicator {
+            color: var(--color-secondary) !important;
         }
 
         .pricing-card.featured .pricing-header {

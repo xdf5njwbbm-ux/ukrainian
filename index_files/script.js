@@ -611,16 +611,31 @@ document.querySelectorAll('.faq-item').forEach((details) => {
     const arrows = document.querySelectorAll('.swipe-arrow-indicator');
 
     if (pricingGrid && arrows.length > 0) {
+        let hasSeenFluency = false;
+        const confidenceArrow = document.getElementById('confidence-arrow');
+
         pricingGrid.addEventListener('scroll', () => {
             const scrollLeft = pricingGrid.scrollLeft;
-            const threshold = 100; // Switch direction after 100px scroll
+            const cardWidth = pricingGrid.querySelector('.pricing-card').offsetWidth;
+
+            // Fluency plan is roughly at scrollLeft = cardWidth * 2
+            if (scrollLeft > cardWidth * 1.5) {
+                hasSeenFluency = true;
+            }
 
             arrows.forEach(arrow => {
-                if (scrollLeft > threshold) {
+                const isConfidence = arrow.id === 'confidence-arrow';
+
+                // If it's the confidence arrow and we've swiped back from fluency
+                if (isConfidence && hasSeenFluency && scrollLeft < cardWidth * 1.5 && scrollLeft > cardWidth * 0.5) {
+                    arrow.textContent = '↔';
+                    arrow.classList.remove('is-reversed');
+                } else if (scrollLeft > 100) {
                     arrow.classList.add('is-reversed');
-                    arrow.textContent = '➔'; // Character stays same, CSS flips it
+                    arrow.textContent = '➔';
                 } else {
                     arrow.classList.remove('is-reversed');
+                    arrow.textContent = '➔';
                 }
             });
         }, { passive: true });
