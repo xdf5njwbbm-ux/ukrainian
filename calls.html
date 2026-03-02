@@ -14,10 +14,13 @@
             --app-bg: #071a2b;
             --app-nav-bg: #071a2b;
             --app-accent: #ffd700;
+            /* Vibrant Ukrainian Yellow */
+            --app-primary: #0057b8;
+            /* Vibrant Ukrainian Blue */
             --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.6);
-            --glossy-blue: linear-gradient(135deg, #071a2b 0%, #102a43 100%);
-            --header-gradient: linear-gradient(to bottom, #071a2b, #0a1e30);
+            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --glossy-blue: linear-gradient(135deg, #0057b8 0%, #3d7fd4 100%);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
         }
 
         body {
@@ -149,14 +152,14 @@
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #0d3b66 0%, #0057b8 100%);
+            background: linear-gradient(135deg, #0057b8 0%, #3d7fd4 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 20px;
-            box-shadow: 0 0 15px rgba(0, 87, 184, 0.4);
-            border: 1.5px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 87, 184, 0.6);
+            border: 2px solid rgba(255, 215, 0, 0.4);
         }
 
         .call-details {
@@ -256,6 +259,10 @@
             border-bottom: 3px solid var(--app-accent);
             padding-bottom: 4px;
         }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -270,8 +277,8 @@
         <div class="header-top">
             <h1>Recent Calls</h1>
             <div class="toggle-tab-container">
-                <div class="toggle-item active">All</div>
-                <div class="toggle-item">Missed</div>
+                <div class="toggle-item active" id="all-filter" onclick="filterCalls('all')">All</div>
+                <div class="toggle-item" id="missed-filter" onclick="filterCalls('missed')">Missed</div>
             </div>
         </div>
         <div class="search-container">
@@ -393,6 +400,26 @@
         </div>
     </footer>
 
+    <script>
+        function filterCalls(type) {
+            // Update active state of tabs
+            document.getElementById('all-filter').classList.toggle('active', type === 'all');
+            document.getElementById('missed-filter').classList.toggle('active', type === 'missed');
+
+            const calls = document.querySelectorAll('.call-item');
+            calls.forEach(call => {
+                if (type === 'all') {
+                    call.classList.remove('hidden');
+                } else if (type === 'missed') {
+                    if (call.classList.contains('missed')) {
+                        call.classList.remove('hidden');
+                    } else {
+                        call.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
