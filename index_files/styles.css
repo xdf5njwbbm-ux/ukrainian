@@ -3700,7 +3700,7 @@ section {
 
     .pricing-grid {
         grid-template-columns: 1fr;
-        max-width: 400px;
+        max-width: none !important;
         margin: 0 auto;
     }
 
@@ -5812,14 +5812,14 @@ div:empty {
         display: none !important;
     }
 
-    /* Swipeable Pricing Carousel - Perfect Centering */
+    /* Swipeable Pricing Carousel - Isolate Cards */
     .pricing-grid {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 20px !important;
-        /* Balanced with 85vw card: (100 - 85) / 2 = 7.5 */
-        padding: 40px 7.5vw !important;
+        gap: 20vw !important;
+        /* Balanced with 80vw card: (100 - 80) / 2 = 10% */
+        padding: 40px 10vw !important;
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
         margin: 0 !important;
@@ -5833,7 +5833,7 @@ div:empty {
     }
 
     .pricing-card {
-        flex: 0 0 85vw !important;
+        flex: 0 0 80vw !important;
         scroll-snap-align: center !important;
         margin: 0 !important;
         height: auto !important;
@@ -5847,6 +5847,7 @@ div:empty {
         border: 2px solid rgba(255, 255, 255, 0.1) !important;
         background: rgba(13, 31, 51, 0.6) !important;
         backdrop-filter: blur(10px) !important;
+        position: relative !important;
     }
 
     .pricing-card h3 {
@@ -5872,7 +5873,6 @@ div:empty {
         transform: scale(1) !important;
         padding: 24px 16px !important;
     }
-
 }
 
 .pricing-card.featured .pricing-header {
@@ -5945,7 +5945,7 @@ div:empty {
 }
 
 .swipe-arrow-indicator {
-    display: none !important;
+    display: none;
     color: #ffff00 !important;
     /* Brighter Yellow */
     font-size: 2.8rem !important;
@@ -5965,7 +5965,7 @@ div:empty {
 #confidence-arrow {
     animation-duration: 3s !important;
     white-space: nowrap !important;
-    display: none !important;
+    display: none;
     /* Hidden on desktop */
 }
 
@@ -6067,11 +6067,4 @@ div:empty {
         line-height: 1.3 !important;
     }
 
-    #texting-arrow,
-    #confidence-arrow {
-        display: flex !important;
-        /* Visible on mobile */
-        justify-content: center !important;
-        align-items: center !important;
-    }
 }
