@@ -5812,25 +5812,24 @@ div:empty {
         display: none !important;
     }
 
-    /* Swipeable Pricing Carousel - Perfect Centering & Disappearing Effect */
+    /* Swipeable Pricing Carousel - Perfect Centering */
     .pricing-grid {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 100px !important;
-        padding: 40px 20vw !important;
-        /* Wider padding to peek less of neighbors */
+        gap: 20px !important;
+        /* Balanced with 85vw card: (100 - 85) / 2 = 7.5 */
+        padding: 40px 7.5vw !important;
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
-        margin: 0 -1rem !important;
-        width: calc(100% + 2rem) !important;
+        margin: 0 !important;
+        width: 100% !important;
         box-sizing: border-box !important;
         justify-content: flex-start !important;
     }
 
     .pricing-grid::-webkit-scrollbar {
         display: none !important;
-        /* Hide scrollbar Chrome/Safari */
     }
 
     .pricing-card {
@@ -5839,14 +5838,15 @@ div:empty {
         margin: 0 !important;
         height: auto !important;
         min-height: 520px !important;
-        /* Sync height for arrow alignment */
-        padding: 20px 16px !important;
+        padding: 24px 20px !important;
         display: flex !important;
         flex-direction: column !important;
         box-sizing: border-box !important;
-        border-radius: var(--radius-2xl) !important;
+        border-radius: 20px !important;
         text-align: center !important;
-        border: 2px solid var(--color-gray-200) !important;
+        border: 2px solid rgba(255, 255, 255, 0.1) !important;
+        background: rgba(13, 31, 51, 0.6) !important;
+        backdrop-filter: blur(10px) !important;
     }
 
     .pricing-card h3 {
