@@ -456,7 +456,7 @@ h6 {
 }
 
 .hero-badge {
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: var(--space-2);
     background: rgba(255, 215, 0, 0.15);
@@ -1549,7 +1549,7 @@ section {
     font-size: 0.55rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.85);
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -3239,6 +3239,8 @@ section {
     padding: var(--space-2) 0;
     border-bottom: 1px solid var(--color-gray-100);
     font-size: var(--text-sm);
+    color: #ffffff !important;
+    font-weight: 700 !important;
 }
 
 .pricing-card.featured .pricing-features li {
@@ -5690,15 +5692,13 @@ div:empty {
 
     /* Authorized Hero Fix - Restore Spacing */
     .hero {
-        padding-top: 140px !important;
-        /* Pull up */
+        padding-top: 100px !important;
         min-height: auto !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
         background: var(--nav-bg) !important;
-        /* Force gradient to span full width */
         padding-bottom: 40px !important;
     }
 
@@ -5727,8 +5727,7 @@ div:empty {
     }
 
     .hero-badge {
-        justify-content: center !important;
-        margin: 0 auto 20px !important;
+        display: none !important;
     }
 
     .hero-stats {
@@ -5895,8 +5894,10 @@ div:empty {
 .pricing-card.premium .pricing-header h3,
 .pricing-card.premium .pricing-header p,
 .pricing-card.premium .pricing-price,
-.pricing-card.premium .pricing-features li {
+.pricing-card.premium .pricing-features li,
+.pricing-card.premium * {
     color: #fff !important;
+    font-weight: 400 !important;
 }
 
 .pricing-card.premium::before {
@@ -5970,6 +5971,7 @@ div:empty {
 }
 
 @media (max-width: 1024px) {
+
     #texting-arrow,
     #confidence-arrow {
         display: block !important;
@@ -6001,11 +6003,11 @@ div:empty {
     }
 
     .hero {
-        padding-top: 185px !important;
+        padding-top: 120px !important;
     }
 
     .hero-badge {
-        margin-bottom: 30px !important;
+        display: none !important;
     }
 
     .hero-visual {
