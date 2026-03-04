@@ -24,19 +24,32 @@
 
 
         /* High-Contrast Typography Overrides */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             color: #ffffff !important;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
         }
+
         p {
             color: #ffffff !important;
             opacity: 0.95 !important;
         }
-        .section-title, .group-title, .page-title, .modal-title, .cta-title {
-            color: var(--app-accent) !important; 
+
+        .section-title,
+        .group-title,
+        .page-title,
+        .modal-title,
+        .cta-title {
+            color: var(--app-accent) !important;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
         }
-        .modal-subtitle, .milestone-text {
+
+        .modal-subtitle,
+        .milestone-text {
             color: #ffffff !important;
             opacity: 0.9 !important;
         }
@@ -104,20 +117,20 @@
             border-bottom: 3px solid var(--app-accent);
         }
 
-        /* Search Bar */
+        /* Search Bar Improvements */
         .search-container {
-            padding: 8px 16px;
+            padding: 12px 16px 4px;
         }
 
         .search-bar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
             padding: 10px 14px;
             display: flex;
             align-items: center;
             gap: 10px;
             color: var(--app-text-dim);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .search-bar input {
@@ -126,39 +139,139 @@
             width: 100%;
             font-size: 16px;
             outline: none;
+            color: #ffffff;
         }
 
-        /* Main Content */
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content - Chat List */
         .app-content {
             flex: 1;
             display: flex;
             flex-direction: column;
+            padding: 0 16px 20px 16px;
+            margin-top: 16px;
+            overflow-y: auto;
+            gap: 12px;
+        }
+
+        .chat-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-card:active {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(0.98);
+        }
+
+        .chat-avatar-wrap {
+            position: relative;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .chat-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 0px;
+            width: 14px;
+            height: 14px;
+            background-color: #2ed573;
+            border: 2px solid var(--app-bg);
+            border-radius: 50%;
+        }
+
+        .chat-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff !important;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: none !important;
+        }
+
+        .active-status {
+            font-size: 13px;
+            color: #2ed573 !important;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .chat-preview {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7) !important;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            height: 48px;
+            margin-left: 10px;
+            flex-shrink: 0;
+            gap: 8px;
+        }
+
+        .chat-time {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .unread-badge {
+            background-color: var(--app-accent);
+            color: #071a2b;
+            font-size: 12px;
+            font-weight: 800;
+            height: 22px;
+            min-width: 22px;
+            border-radius: 11px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .tutor-avatar {
-            width: 280px;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .empty-state h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 8px;
-            color: #ffffff;
-        }
-
-        .empty-state p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 16px;
-            margin: 0;
+            padding: 0 6px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
 
         /* Bottom Tab Bar */
@@ -204,16 +317,64 @@
     <div class="search-container">
         <div class="search-bar">
             <span>🔍</span>
-            <input type="text" placeholder="Search">
+            <input type="text" placeholder="Search conversations...">
         </div>
     </div>
 
     <main class="app-content">
-        <img src="./index_files/ai_tutor_circular.png" alt="AI Humanoid Tutor" class="tutor-avatar">
-        <div class="empty-state">
-            <h1>No conversations yet</h1>
-            <p>Send a message to start a conversation!</p>
-        </div>
+        <!-- Chat 1: Main Tutor -->
+        <a href="#" class="chat-card">
+            <div class="chat-avatar-wrap">
+                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar">
+                <div class="status-dot"></div>
+            </div>
+            <div class="chat-info">
+                <div class="chat-header">
+                    <h3 class="chat-name">Beginner Tutor</h3>
+                </div>
+                <p class="active-status">Active now</p>
+                <p class="chat-preview">Привіт! Ready for today's lesson?</p>
+            </div>
+            <div class="chat-meta">
+                <span class="chat-time">2m</span>
+                <div class="unread-badge">1</div>
+            </div>
+        </a>
+
+        <!-- Chat 2: Daily Practice -->
+        <a href="#" class="chat-card">
+            <div class="chat-avatar-wrap">
+                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar"
+                    style="filter: hue-rotate(45deg);">
+            </div>
+            <div class="chat-info">
+                <div class="chat-header">
+                    <h3 class="chat-name">Daily Practice</h3>
+                </div>
+                <p class="chat-preview">Here's a new set of exercises for you</p>
+            </div>
+            <div class="chat-meta">
+                <span class="chat-time">9:41 AM</span>
+                <div class="unread-badge">2</div>
+            </div>
+        </a>
+
+        <!-- Chat 3: Vocab Help -->
+        <a href="#" class="chat-card">
+            <div class="chat-avatar-wrap">
+                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar"
+                    style="filter: hue-rotate(-30deg) brightness(1.1);">
+            </div>
+            <div class="chat-info">
+                <div class="chat-header">
+                    <h3 class="chat-name">Vocabulary Help</h3>
+                </div>
+                <p class="chat-preview">You learned 15 new words yesterday! Want to review?</p>
+            </div>
+            <div class="chat-meta">
+                <span class="chat-time">Yesterday</span>
+            </div>
+        </a>
     </main>
 
 
