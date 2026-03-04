@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Your Progress | Learn Ukrainian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_files/styles.css?v=24.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --app-bg: #071a2b;
+            --app-nav-bg: #071a2b;
+            --app-accent: #ffd700;
+            --app-primary: #0057b8;
+            --app-text: #ffffff;
+            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
+        }
+
+        body {
+            background: var(--app-bg);
+            color: var(--app-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-glow-line {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .app-header {
+            background: var(--header-gradient);
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .app-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 20px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Filter Tabs */
+        .filter-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 4px;
+            margin: 0 auto;
+            max-width: 500px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-item {
+            flex: 0 0 auto;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            color: var(--app-text-dim);
+        }
+
+        .filter-item.active {
+            background: var(--app-accent);
+            color: #071a2b;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            padding: 24px 20px;
+            background: linear-gradient(180deg, #0057b80a 0%, transparent 100%);
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        #progressChart {
+            width: 100% !important;
+            height: 250px !important;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 0 20px 100px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--app-accent);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--app-text-dim);
+            line-height: 1.3;
+        }
+
+        .encouragement {
+            grid-column: span 2;
+            text-align: center;
+            padding: 24px 0;
+            font-style: italic;
+            color: var(--app-accent);
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        /* Bottom Tab Bar */
+        .app-footer {
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 0 24px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--app-text-dim);
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .footer-item.active {
+            color: var(--app-accent);
+        }
+
+        .footer-icon {
+            font-size: 24px;
+        }
+
+        @media (max-width: 360px) {
+            .stat-value {
+                font-size: 18px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-glow-line"></div>
+
+    <header class="app-header">
+        <h1>Your Ukrainian Progress</h1>
+        <div class="filter-container">
+            <div class="filter-item active" data-range="day">Day</div>
+            <div class="filter-item" data-range="week">Week</div>
+            <div class="filter-item" data-range="week2">Week 2</div>
+            <div class="filter-item" data-range="week3">Week 3</div>
+            <div class="filter-item" data-range="month">1 Month</div>
+            <div class="filter-item" data-range="month2">2 Months</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="chart-section">
+            <div class="chart-card">
+                <canvas id="progressChart"></canvas>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">📚</span>
+                <span class="stat-value" id="stat-words">124</span>
+                <span class="stat-label">New words learned</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🗣️</span>
+                <span class="stat-value" id="stat-time">4.5h</span>
+                <span class="stat-label">Total speaking time</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🎯</span>
+                <span class="stat-value" id="stat-errors">92%</span>
+                <span class="stat-label">Accuracy rate</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">✅</span>
+                <span class="stat-value" id="stat-lessons">18</span>
+                <span class="stat-label">Lessons completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🎙️</span>
+                <span class="stat-value" id="stat-pronunciation">12</span>
+                <span class="stat-label">Pronunciation sessions</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🔖</span>
+                <span class="stat-value" id="stat-phrases">34</span>
+                <span class="stat-label">Saved phrases reviewed</span>
+            </div>
+            <div class="stat-card" style="grid-column: span 2;">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-value" id="stat-streak">7 Day Streak!</span>
+                <span class="stat-label">Keep up the momentum!</span>
+            </div>
+            <div class="encouragement">
+                You’re improving every session! 🚀
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-item" onclick="location.href='tutor.html'">
+            <span class="footer-icon">👩‍🏫</span>
+            <span>AI Tutor</span>
+        </div>
+        <div class="footer-item" onclick="location.href='chat.html'">
+            <span class="footer-icon">💬</span>
+            <span>Learn</span>
+        </div>
+        <div class="footer-item active">
+            <span class="footer-icon">📈</span>
+            <span>Progress</span>
+        </div>
+        <div class="footer-item" onclick="location.href='profile.html'">
+            <span class="footer-icon">⚙️</span>
+            <span>Profile</span>
+        </div>
+    </footer>
+
+    <script src="./index_files/progress.js"></script>
+</body>
+
+</html>

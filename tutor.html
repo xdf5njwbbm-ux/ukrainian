@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Your AI Tutor | Learn Ukrainian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_files/styles.css?v=25.0">
+    <style>
+        :root {
+            --app-bg: #071a2b;
+            --app-nav-bg: #071a2b;
+            --app-accent: #ffd700;
+            --app-primary: #0057b8;
+            --app-text: #ffffff;
+            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
+        }
+
+        body {
+            background: var(--app-bg);
+            color: var(--app-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-glow-line {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .app-header {
+            background: var(--header-gradient);
+            padding: 44px 20px 24px;
+            text-align: center;
+        }
+
+        .app-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .app-header p {
+            font-size: 15px;
+            color: var(--app-text-dim);
+            margin: 0;
+        }
+
+        main {
+            padding: 24px 20px 100px;
+            flex: 1;
+        }
+
+        /* Current Tutor Card */
+        .tutor-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .tutor-avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--app-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border: 3px solid var(--app-accent);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .tutor-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 0 8px;
+        }
+
+        .tutor-status {
+            font-size: 14px;
+            color: var(--app-accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Traits Grid */
+        .traits-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .trait-pill {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--app-accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-switch {
+            background: var(--app-accent);
+            color: #071a2b;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .btn-switch:active {
+            transform: scale(0.98);
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 24px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Recommended Mode */
+        .mode-card {
+            background: linear-gradient(135deg, rgba(0, 87, 184, 0.2), rgba(0, 87, 184, 0.1));
+            border: 1px solid rgba(0, 87, 184, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mode-icon {
+            font-size: 32px;
+        }
+
+        .mode-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+
+        .mode-info p {
+            font-size: 13px;
+            color: var(--app-text-dim);
+            margin: 0;
+        }
+
+        /* Lesson Vibes */
+        .vibes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .vibe-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .vibe-card:active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--app-accent);
+        }
+
+        .vibe-icon {
+            font-size: 24px;
+        }
+
+        .vibe-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Bottom Tab Bar */
+        .app-footer {
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 0 24px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--app-text-dim);
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .footer-item.active {
+            color: var(--app-accent);
+        }
+
+        .footer-icon {
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-glow-line"></div>
+
+    <header class="app-header">
+        <h1>Your AI Tutor</h1>
+        <p>Your personal guide to mastering Ukrainian.</p>
+    </header>
+
+    <main>
+        <!-- Current Tutor Card -->
+        <div class="tutor-card">
+            <div class="tutor-avatar-container">👩‍🏫</div>
+            <h2 class="tutor-name">Olena</h2>
+            <div class="tutor-status">Active Persona</div>
+
+            <div class="traits-grid">
+                <span class="trait-pill">Beginner Friendly</span>
+                <span class="trait-pill">Patient</span>
+                <span class="trait-pill">Conversation Focus</span>
+                <span class="trait-pill">Pronunciation Helper</span>
+            </div>
+
+            <button class="btn-switch">Switch Tutor Style</button>
+        </div>
+
+        <!-- Recommended Mode -->
+        <h2 class="section-title">✨ Recommended for you</h2>
+        <div class="mode-card">
+            <div class="mode-icon">🎓</div>
+            <div class="mode-info">
+                <h3>Strict Grammar Coach</h3>
+                <p>Based on your recent mistakes, we suggest focusing on case endings today.</p>
+            </div>
+        </div>
+
+        <!-- Lesson Vibes -->
+        <h2 class="section-title">🎭 Today's Lesson Vibe</h2>
+        <div class="vibes-grid">
+            <div class="vibe-card">
+                <span class="vibe-icon">☕</span>
+                <span class="vibe-name">Casual Chat</span>
+            </div>
+            <div class="vibe-card">
+                <span class="vibe-icon">🎙️</span>
+                <span class="vibe-name">Pronunciation</span>
+            </div>
+            <div class="vibe-card">
+                <span class="vibe-icon">🏗️</span>
+                <span class="vibe-name">Grammar Drill</span>
+            </div>
+            <div class="vibe-card">
+                <span class="vibe-icon">🎭</span>
+                <span class="vibe-name">Roleplay</span>
+            </div>
+            <div class="vibe-card">
+                <span class="vibe-icon">🚀</span>
+                <span class="vibe-name">Vocab Boost</span>
+            </div>
+            <div class="vibe-card">
+                <span class="vibe-icon">❤️</span>
+                <span class="vibe-name">Romantic Style</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-item active">
+            <span class="footer-icon">👩‍🏫</span>
+            <span>AI Tutor</span>
+        </div>
+        <div class="footer-item" onclick="location.href='chat.html'">
+            <span class="footer-icon">💬</span>
+            <span>Learn</span>
+        </div>
+        <div class="footer-item" onclick="location.href='progress.html'">
+            <span class="footer-icon">📈</span>
+            <span>Progress</span>
+        </div>
+        <div class="footer-item" onclick="location.href='profile.html'">
+            <span class="footer-icon">⚙️</span>
+            <span>Profile</span>
+        </div>
+    </footer>
+</body>
+
+</html>

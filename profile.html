@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Profile | Learn Ukrainian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_files/styles.css?v=26.0">
+    <style>
+        :root {
+            --app-bg: #071a2b;
+            --app-nav-bg: #071a2b;
+            --app-accent: #ffd700;
+            --app-primary: #0057b8;
+            --app-text: #ffffff;
+            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
+        }
+
+        body {
+            background: var(--app-bg);
+            color: var(--app-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-glow-line {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .profile-header {
+            background: var(--header-gradient);
+            padding: 60px 20px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-avatar-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--app-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            border: 3px solid #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .edit-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--app-accent);
+            color: #071a2b;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 2px solid var(--app-bg);
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 0 8px;
+        }
+
+        .plan-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .streak-pill {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--app-accent);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        main {
+            padding: 20px 20px 120px;
+        }
+
+        /* Stats Card */
+        .stats-summary-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--app-text-dim);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--app-accent);
+        }
+
+        /* Settings Groups */
+        .settings-group {
+            margin-bottom: 32px;
+        }
+
+        .group-title {
+            font-size: 14px;
+            color: var(--app-text-dim);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        .settings-list {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-item {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .setting-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .setting-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .setting-arrow {
+            color: var(--app-text-dim);
+            font-size: 18px;
+        }
+
+        /* Premium Goal Section */
+        .goal-section {
+            background: linear-gradient(135deg, rgba(0, 87, 184, 0.3), rgba(0, 87, 184, 0.1));
+            border: 1px solid rgba(0, 87, 184, 0.4);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .goal-title {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .goal-percent {
+            color: var(--app-accent);
+            font-weight: 700;
+        }
+
+        .progress-bar-bg {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--app-accent);
+            width: 65%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .milestone-text {
+            font-size: 13px;
+            color: var(--app-text-dim);
+            line-height: 1.4;
+        }
+
+        /* Logout */
+        .logout-btn {
+            color: #ff6b6b;
+            font-weight: 700;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Bottom Tab Bar */
+        .app-footer {
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 0 24px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--app-text-dim);
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .footer-item.active {
+            color: var(--app-accent);
+        }
+
+        .footer-icon {
+            font-size: 24px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #0d2a42;
+            border-radius: 32px 32px 0 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 32px 24px 48px;
+            transform: translateY(100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--app-text-dim);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--app-text-dim);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--app-accent);
+            color: #071a2b;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Selection List */
+        .selection-list-modal {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .selection-card {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .selection-card.active {
+            border-color: var(--app-accent);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .selection-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .selection-card.active .selection-indicator {
+            background: var(--app-accent);
+            border-color: var(--app-accent);
+        }
+
+        .selection-card.active .selection-indicator::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0d2a42;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        /* Dropdown Support */
+        .dropdown-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .dropdown-panel.active {
+            max-height: 200px;
+        }
+
+        .dropdown-row {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+        }
+
+        /* Toggles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--app-accent);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+            background-color: #071a2b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-glow-line"></div>
+
+    <header class="profile-header">
+        <div class="profile-avatar-container" onclick="openModal('edit-profile')">
+            <div class="profile-avatar" id="main-avatar">👨‍💻</div>
+            <div class="edit-badge">✎</div>
+        </div>
+        <h1 class="user-name" id="main-name">Alex Miller</h1>
+        <div class="plan-badge">Fluency Plan Member</div>
+        <div class="streak-pill">🔥 12 Day Streak</div>
+    </header>
+
+    <main>
+        <!-- Stats Summary -->
+        <div class="stats-summary-card">
+            <div class="stat-item">
+                <span class="stat-label">Words Learned</span>
+                <span class="stat-value">1,248</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Speaking Mins</span>
+                <span class="stat-value">342m</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Lessons Done</span>
+                <span class="stat-value">84</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Accuracy</span>
+                <span class="stat-value">94%</span>
+            </div>
+        </div>
+
+        <!-- Goal Section -->
+        <div class="goal-section">
+            <div class="goal-header">
+                <span class="goal-title">Goal: Intermediate</span>
+                <span class="goal-percent">65%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <p class="milestone-text">You're just <strong>12 sessions</strong> away from your next level milestone! Keep
+                it up!</p>
+        </div>
+
+        <!-- Account -->
+        <div class="settings-group">
+            <h3 class="group-title">Account</h3>
+            <div class="settings-list">
+                <div class="setting-item" onclick="openModal('edit-profile')">
+                    <div class="setting-info">
+                        <span class="setting-icon">👤</span>
+                        <span class="setting-label">Edit Profile</span>
+                    </div>
+                    <span class="setting-arrow">›</span>
+                </div>
+                <div class="setting-item" onclick="location.href='billing.html'">
+                    <div class="setting-info">
+                        <span class="setting-icon">💳</span>
+                        <span class="setting-label">Subscription & Billing</span>
+                    </div>
+                    <span class="setting-arrow">›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Preferences -->
+        <div class="settings-group">
+            <h3 class="group-title">Learning Preferences</h3>
+            <div class="settings-list">
+                <div class="setting-item" onclick="openModal('levels')">
+                    <div class="setting-info">
+                        <span class="setting-icon">🌍</span>
+                        <span class="setting-label">Ukrainian Level</span>
+                    </div>
+                    <span class="setting-arrow"><span id="lbl-level">Beginner</span> ›</span>
+                </div>
+                <div class="setting-item" onclick="openModal('speed')">
+                    <div class="setting-info">
+                        <span class="setting-icon">🗣️</span>
+                        <span class="setting-label">Speaking Speed</span>
+                    </div>
+                    <span class="setting-arrow"><span id="lbl-speed">Normal</span> ›</span>
+                </div>
+                <div class="setting-item" onclick="toggleSwitch('trans-sw')">
+                    <div class="setting-info">
+                        <span class="setting-icon">🇺🇸</span>
+                        <span class="setting-label">English Translations</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked id="trans-sw">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Settings -->
+        <div class="settings-group">
+            <h3 class="group-title">App Settings</h3>
+            <div class="settings-list">
+                <div class="setting-item" onclick="openModal('notifications')">
+                    <div class="setting-info">
+                        <span class="setting-icon">🔔</span>
+                        <span class="setting-label">Notifications</span>
+                    </div>
+                    <span class="setting-arrow">›</span>
+                </div>
+                <div class="setting-item" onclick="openModal('audio')">
+                    <div class="setting-info">
+                        <span class="setting-icon">🎙️</span>
+                        <span class="setting-label">Audio Preferences</span>
+                    </div>
+                    <span class="setting-arrow">›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="settings-group">
+            <h3 class="group-title">Support</h3>
+            <div class="settings-list">
+                <div class="setting-item" onclick="toggleDropdown('support-panel', this)">
+                    <div class="setting-info">
+                        <span class="setting-icon">❓</span>
+                        <span class="setting-label">Help Center & FAQ</span>
+                    </div>
+                    <span class="setting-arrow dropdown-indicator">▾</span>
+                </div>
+                <div class="dropdown-panel" id="support-panel">
+                    <div class="dropdown-row" onclick="location.href='contact.html'">
+                        <span>Help Center</span>
+                        <span>›</span>
+                    </div>
+                    <div class="dropdown-row" onclick="location.href='faq.html'">
+                        <span>FAQ</span>
+                        <span>›</span>
+                    </div>
+                </div>
+                <div class="setting-item" onclick="location.href='contact.html'">
+                    <div class="setting-info">
+                        <span class="setting-icon">✉️</span>
+                        <span class="setting-label">Contact Support</span>
+                    </div>
+                    <span class="setting-arrow">›</span>
+                </div>
+                <div class="logout-btn" onclick="openModal('logout')">Log Out</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals Overlay -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeAllModals(event)">
+        <!-- Edit Profile -->
+        <div class="modal-content" id="m-edit-profile">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Profile</h2>
+                <p class="modal-subtitle">Update your personal information</p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Display Name</label>
+                <input type="text" class="form-control" id="form-name" value="Alex Miller">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="form-email" value="alex@example.com">
+            </div>
+            <div class="modal-actions">
+                <div class="btn-modal btn-secondary" onclick="closeAllModals()">Cancel</div>
+                <div class="btn-modal btn-primary" onclick="saveProfile()">Save</div>
+            </div>
+        </div>
+
+        <!-- Level Selector -->
+        <div class="modal-content" id="m-levels">
+            <div class="modal-header">
+                <h2 class="modal-title">Ukrainian Level</h2>
+                <p class="modal-subtitle">Choose the level that best matches your current ability</p>
+            </div>
+            <div class="selection-list-modal">
+                <div class="selection-card" onclick="setPreference('level', 'Absolute Beginner')">
+                    <span>Absolute Beginner</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card active" onclick="setPreference('level', 'Beginner')">
+                    <span>Beginner</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Upper Beginner')">
+                    <span>Upper Beginner</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Elementary')">
+                    <span>Elementary</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Pre-Intermediate')">
+                    <span>Pre-Intermediate</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Intermediate')">
+                    <span>Intermediate</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Advanced')">
+                    <span>Advanced</span>
+                    <div class="selection-indicator"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speed Selector -->
+        <div class="modal-content" id="m-speed">
+            <div class="modal-header">
+                <h2 class="modal-title">Speaking Speed</h2>
+                <p class="modal-subtitle">Adjust how fast your AI tutor speaks</p>
+            </div>
+            <div class="selection-list-modal">
+                <div class="selection-card" onclick="setPreference('speed', 'Very Slow (0.5x)')">
+                    <span>Very Slow (0.5x)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('speed', 'Slow (0.75x)')">
+                    <span>Slow (0.75x)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card active" onclick="setPreference('speed', 'Normal')">
+                    <span>Normal (1.0x)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('speed', 'Fast (1.25x)')">
+                    <span>Fast (1.25x)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="modal-content" id="m-notifications">
+            <div class="modal-header">
+                <h2 class="modal-title">Notifications</h2>
+                <p class="modal-subtitle">Manage your alerts</p>
+            </div>
+            <div class="settings-list" style="background:none; border:none;">
+                <div class="setting-item">
+                    <span class="setting-label">Daily Reminders</span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Streak Alerts</span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-modal btn-primary" onclick="closeAllModals()">Done</div>
+            </div>
+        </div>
+
+        <!-- Audio -->
+        <div class="modal-content" id="m-audio">
+            <div class="modal-header">
+                <h2 class="modal-title">Tutor Voice</h2>
+                <p class="modal-subtitle">Choose your preferred tutor voice</p>
+            </div>
+            <div class="selection-list-modal">
+                <div class="selection-card active" onclick="closeAllModals()">
+                    <span>Warm and Friendly</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="closeAllModals()">
+                    <span>Native Ukrainian (Female)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="closeAllModals()">
+                    <span>Native Ukrainian (Male)</span>
+                    <div class="selection-indicator"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <div class="modal-content" id="m-logout">
+            <div class="modal-header">
+                <h2 class="modal-title">Log Out?</h2>
+                <p class="modal-subtitle">Are you sure you want to log out of your session?</p>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-modal btn-secondary" onclick="closeAllModals()">Cancel</div>
+                <div class="btn-modal" style="background: #ff4757; color: white;" onclick="location.href='index.html'">
+                    Log Out</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-item" onclick="location.href='tutor.html'">
+            <span class="footer-icon">👩‍🏫</span>
+            <span>AI Tutor</span>
+        </div>
+        <div class="footer-item" onclick="location.href='chat.html'">
+            <span class="footer-icon">💬</span>
+            <span>Learn</span>
+        </div>
+        <div class="footer-item" onclick="location.href='progress.html'">
+            <span class="footer-icon">📈</span>
+            <span>Progress</span>
+        </div>
+        <div class="footer-item active">
+            <span class="footer-icon">⚙️</span>
+            <span>Profile</span>
+        </div>
+    </footer>
+
+    <script>
+        const overlay = document.getElementById('modal-overlay');
+        const modals = document.querySelectorAll('.modal-content');
+
+        function openModal(id) {
+            overlay.classList.add('active');
+            modals.forEach(m => m.style.display = 'none');
+            document.getElementById('m-' + id).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals(e) {
+            if (!e || e.target === overlay || e.target.classList.contains('btn-modal')) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function toggleDropdown(id, trigger) {
+            const panel = document.getElementById(id);
+            const ind = trigger.querySelector('.dropdown-indicator');
+            const isActive = panel.classList.toggle('active');
+            ind.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function toggleSwitch(id) {
+            const sw = document.getElementById(id);
+            sw.checked = !sw.checked;
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('form-name').value;
+            document.getElementById('main-name').innerText = name;
+            closeAllModals();
+        }
+
+        function setPreference(type, val) {
+            const lbl = document.getElementById('lbl-' + type);
+            lbl.innerText = val.split(' (')[0];
+
+            // Update active card
+            const cards = document.getElementById('m-' + type).querySelectorAll('.selection-card');
+            cards.forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            setTimeout(closeAllModals, 200);
+        }
+    </script>
+</body>
+
+</html>

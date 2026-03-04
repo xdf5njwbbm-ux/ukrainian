@@ -274,25 +274,25 @@
             background: rgba(255, 255, 255, 0.05) !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
             box-shadow: none !important;
-            width: 220px !important;
-            min-width: unset !important;
-            max-width: 90% !important;
-            margin: 0 auto 24px auto !important;
-            padding: 24px !important;
-            text-align: center;
-            border-radius: 20px;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 0 24px 0 !important;
+            padding: 12px 20px !important;
+            text-align: left;
+            border-radius: 16px;
             display: flex;
-            flex-direction: column !important;
+            flex-direction: row !important;
             align-items: center;
-            justify-content: center;
-            gap: 16px;
+            justify-content: space-between !important;
+            gap: 12px;
+            flex-wrap: nowrap !important;
         }
 
         .plan-card.trial .trial-info {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .plan-card.trial .plan-name {
@@ -313,8 +313,8 @@
 
         .plan-card.trial .plan-features {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            flex-direction: row;
+            gap: 16px;
             margin: 0;
             list-style: none;
             padding: 0;
