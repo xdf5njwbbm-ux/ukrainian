@@ -16,8 +16,27 @@
             --app-accent: #ffd700;
             --app-primary: #0057b8;
             --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --app-text-dim: rgba(255, 255, 255, 0.9);
             --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
+        }
+
+
+        /* High-Contrast Typography Overrides */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+        }
+        p {
+            color: #ffffff !important;
+            opacity: 0.95 !important;
+        }
+        .section-title, .group-title, .page-title, .modal-title, .cta-title {
+            color: var(--app-accent) !important; 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
+        }
+        .modal-subtitle, .milestone-text {
+            color: #ffffff !important;
+            opacity: 0.9 !important;
         }
 
         body {
@@ -73,8 +92,8 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            background: var(--app-primary);
-            color: var(--app-accent);
+            background: var(--app-accent);
+            color: #071a2b;
             width: 32px;
             height: 32px;
             border-radius: 50%;
@@ -82,7 +101,7 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
-            border: 2px solid var(--app-accent);
+            border: 2px solid var(--app-bg);
         }
 
         .user-name {
@@ -397,9 +416,8 @@
         }
 
         .btn-primary {
-            background: var(--app-primary);
-            color: var(--app-accent);
-            border: 1px solid var(--app-accent);
+            background: var(--app-accent);
+            color: #071a2b;
         }
 
         .btn-secondary {
@@ -516,12 +534,12 @@
         }
 
         input:checked+.slider {
-            background-color: var(--app-primary);
+            background-color: var(--app-accent);
         }
 
         input:checked+.slider:before {
             transform: translateX(20px);
-            background-color: var(--app-accent);
+            background-color: #071a2b;
         }
     </style>
 </head>

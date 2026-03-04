@@ -16,8 +16,27 @@
             --app-accent: #ffd700;
             --app-primary: #0057b8;
             --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.7);
+            --app-text-dim: rgba(255, 255, 255, 0.9);
             --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
+        }
+
+
+        /* High-Contrast Typography Overrides */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+        }
+        p {
+            color: #ffffff !important;
+            opacity: 0.95 !important;
+        }
+        .section-title, .group-title, .page-title, .modal-title, .cta-title {
+            color: var(--app-accent) !important; 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
+        }
+        .modal-subtitle, .milestone-text {
+            color: #ffffff !important;
+            opacity: 0.9 !important;
         }
 
         body {
@@ -140,10 +159,9 @@
         }
 
         .btn-contact {
-            background: var(--app-primary);
-            color: var(--app-accent);
-            border: 1px solid var(--app-accent);
-            padding: 13px 27px;
+            background: var(--app-accent);
+            color: #071a2b;
+            padding: 14px 28px;
             border-radius: 12px;
             font-weight: 700;
             display: inline-block;
