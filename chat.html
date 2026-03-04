@@ -89,32 +89,14 @@
             text-align: center;
         }
 
-        .header-top h1 {
-            font-size: 32px;
+        .header-title-large {
+            font-size: 34px;
             font-weight: 800;
-            margin: 0;
             color: #ffffff;
+            margin: 0;
+            text-align: left;
+            padding: 24px 16px 8px 16px;
             letter-spacing: -0.5px;
-        }
-
-        .tab-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-weight: 600;
-            font-size: 17px;
-        }
-
-        .tab-item {
-            padding-bottom: 8px;
-            opacity: 0.6;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .tab-item.active {
-            opacity: 1;
-            border-bottom: 3px solid var(--app-accent);
         }
 
         /* Search Bar Improvements */
@@ -146,48 +128,61 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Main Content - Chat List List View (Long Ways) */
+        /* Main Content - iOS List View */
         .app-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             padding: 0 16px 20px 16px;
-            margin-top: 16px;
+            margin-top: 8px;
             overflow-y: auto;
-            gap: 12px;
+            gap: 0;
+            /* Remove gap, use borders instead */
         }
 
         .chat-card {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 8px;
-            padding: 4px 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0;
+            padding: 16px 0;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease;
             text-decoration: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
             position: relative;
         }
 
+        .chat-card:last-child {
+            border-bottom: none;
+        }
+
         .chat-card:active {
-            background: rgba(255, 255, 255, 0.08);
-            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.05);
+            transform: none;
         }
 
         .chat-avatar-wrap {
             position: relative;
-            margin-right: 8px;
+            margin-right: 14px;
             flex-shrink: 0;
         }
 
         .chat-avatar {
-            width: 32px;
-            height: 32px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #2b3954, #1a2a40);
         }
 
         .status-dot {
@@ -206,17 +201,19 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            justify-content: center;
+            gap: 4px;
         }
 
         .chat-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            width: 100%;
         }
 
         .chat-name {
-            font-size: 14px;
+            font-size: 17px;
             font-weight: 700;
             color: #ffffff !important;
             margin: 0;
@@ -226,38 +223,39 @@
             text-shadow: none !important;
         }
 
-        .active-status {
-            font-size: 11px;
-            color: #2ed573 !important;
-            font-weight: 600;
-            margin: 0;
+        .chat-time-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .chat-time {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+        }
+
+        .chat-chevron {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .chat-preview-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
         .chat-preview {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6) !important;
             margin: 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .chat-meta {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: flex-start;
-            height: 30px;
-            margin-left: 8px;
-            flex-shrink: 0;
-            gap: 4px;
-        }
-
-        .chat-time {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 500;
-            margin-top: 2px;
         }
 
         .unread-badge {
@@ -454,12 +452,7 @@
 
     <div class="top-glow-line"></div>
 
-    <header class="app-header">
-        <div class="tab-bar">
-            <div class="tab-item active">Messages</div>
-            <div class="tab-item" onclick="location.href='calls.html'">Calls</div>
-        </div>
-    </header>
+    <h1 class="header-title-large">Messages</h1>
 
     <div class="search-container">
         <div class="search-bar">
@@ -469,59 +462,64 @@
     </div>
 
     <main class="app-content">
-        <!-- Chat 1: Main Tutor -->
+        <!-- Chat 1: Main Tutor (Initials) -->
         <a class="chat-card"
             onclick="openChat('Beginner Tutor', './index_files/ai_tutor_circular.png', 'Привіт! Ready for today\'s lesson?')">
             <div class="chat-avatar-wrap">
-                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar">
+                <div class="chat-avatar" style="background: linear-gradient(135deg, #0057b8, #1a8fff);">B</div>
                 <div class="status-dot"></div>
             </div>
             <div class="chat-info">
                 <div class="chat-header">
                     <h3 class="chat-name">Beginner Tutor</h3>
+                    <div class="chat-time-wrap">
+                        <span class="chat-time">1:13 PM</span>
+                        <span class="chat-chevron">›</span>
+                    </div>
                 </div>
-                <p class="active-status">Active now</p>
-                <p class="chat-preview">Ready for today's lesson?</p>
-            </div>
-            <div class="chat-meta">
-                <span class="chat-time">2m</span>
-                <div class="unread-badge">1</div>
+                <div class="chat-preview-wrap">
+                    <p class="chat-preview">Привіт! Ready for today's lesson?</p>
+                </div>
             </div>
         </a>
 
-        <!-- Chat 2: Daily Practice (Girl Character) -->
+        <!-- Chat 2: Daily Practice (Text Avatar) -->
         <a class="chat-card"
-            onclick="openChat('Daily Practice', './index_files/ai_tutor_new.png', 'Here&apos;s a new set of exercises for you')">
+            onclick="openChat('Daily Practice', './index_files/ai_tutor_new.png', 'Here\'s a new set of exercises for you')">
             <div class="chat-avatar-wrap">
-                <img src="./index_files/ai_tutor_new.png" alt="Tutor" class="chat-avatar">
+                <div class="chat-avatar" style="background: linear-gradient(135deg, #4b5267, #2b3954);">D</div>
             </div>
             <div class="chat-info">
                 <div class="chat-header">
                     <h3 class="chat-name">Daily Practice</h3>
+                    <div class="chat-time-wrap">
+                        <span class="chat-time">Yesterday</span>
+                        <span class="chat-chevron">›</span>
+                    </div>
                 </div>
-                <p class="chat-preview">New set of exercises</p>
-            </div>
-            <div class="chat-meta">
-                <span class="chat-time">9:41 AM</span>
-                <div class="unread-badge">2</div>
+                <div class="chat-preview-wrap">
+                    <p class="chat-preview">Here's a new set of exercises for you</p>
+                </div>
             </div>
         </a>
 
-        <!-- Chat 3: Vocab Help -->
+        <!-- Chat 3: Vocab Help (Text Avatar) -->
         <a class="chat-card"
             onclick="openChat('Vocabulary Help', './index_files/ai_tutor_circular.png', 'You learned 15 new words yesterday! Want to review?')">
             <div class="chat-avatar-wrap">
-                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar"
-                    style="filter: hue-rotate(-30deg) brightness(1.1);">
+                <div class="chat-avatar" style="background: linear-gradient(135deg, #7e57c2, #512da8);">V</div>
             </div>
             <div class="chat-info">
                 <div class="chat-header">
-                    <h3 class="chat-name">Vocabulary</h3>
+                    <h3 class="chat-name">Vocabulary Help</h3>
+                    <div class="chat-time-wrap">
+                        <span class="chat-time">Monday</span>
+                        <span class="chat-chevron">›</span>
+                    </div>
                 </div>
-                <p class="chat-preview">15 new words yesterday!</p>
-            </div>
-            <div class="chat-meta">
-                <span class="chat-time">Yesterday</span>
+                <div class="chat-preview-wrap">
+                    <p class="chat-preview">You learned 15 new words yesterday! Want to review?</p>
+                </div>
             </div>
         </a>
     </main>
