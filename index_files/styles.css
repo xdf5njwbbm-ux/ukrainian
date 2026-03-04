@@ -1467,6 +1467,8 @@ section {
     opacity: 0.9;
     margin-bottom: 12px;
     line-height: 1.5;
+    display: none;
+    /* User requested removing 'little lettering on the top' */
 }
 
 .progress {
@@ -1489,6 +1491,8 @@ section {
     flex: 1;
     overflow: auto;
     padding-right: 6px;
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
 /* HEADER NAVIGATION SECTION */
@@ -1971,7 +1975,7 @@ section {
         width: 100% !important;
         right: -100% !important;
         /* Start content below site header */
-        padding-top: calc(var(--header-h, 100px) + 10px) !important;
+        padding-top: calc(var(--header-h, 100px) + 24px) !important;
         padding-bottom: 20px !important;
         padding-left: 15px !important;
         padding-right: 15px !important;
@@ -1987,6 +1991,11 @@ section {
     .route-panel .progress {
         margin-top: 0 !important;
         margin-bottom: 12px !important;
+    }
+
+    .route-panel .steps {
+        padding-top: 32px !important;
+        padding-bottom: 24px !important;
     }
 
     /* Shrink steps to fit 3 on screen */
@@ -5960,11 +5969,15 @@ div:empty {
 
 .pricing-card.premium .pricing-header h3,
 .pricing-card.premium .pricing-header p,
-.pricing-card.premium .pricing-price,
-.pricing-card.premium .pricing-features li,
-.pricing-card.premium * {
+.pricing-card.premium .pricing-features li {
     color: #fff !important;
     font-weight: 700 !important;
+}
+
+.pricing-card.premium .pricing-price {
+    font-family: var(--font-display);
+    /* Make the number text white so it pops, but keep the font the same as others */
+    color: #fff !important;
 }
 
 .pricing-card.premium::before {
@@ -5987,7 +6000,7 @@ div:empty {
 
 .btn-premium-yellow {
     background: #ffd700 !important;
-    color: #1a2a6c !important;
+    color: #000000 !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
