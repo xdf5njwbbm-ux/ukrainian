@@ -52,39 +52,31 @@
 <body class="loaded">
     <div class="page-shell">
         <main class="page-content">
-            <!-- Navigation -->
-            <header class="header-nav" id="navbar">
-                <div class="header-inner">
-                    <!-- 1. Left: Brand -->
-                    <a href="index.html#top" class="brand-box" aria-label="Learn Ukrainian Home">
-                        <span class="brand-flag">🇺🇦</span>
-                        <div class="brand-info">
-                            <span class="brand-name">Ukrainian AI Tutor</span>
-                            <div class="brand-tagline">
-                                <span>POWERED BY AI</span>
-                                <span>BUILT FOR REAL CONVERSATIONS</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <!-- 2. Center: Navigation -->
-                    <nav class="nav-center">
-                        <a href="index.html#about">How It Works</a>
-                        <a href="index.html#fluency-roadmap">Our Method</a>
-                        <a href="contact.html">Speak Now</a>
-                        <a href="index.html#reviews">Reviews</a>
-                        <a href="index.html#pricing">Pricing</a>
-                    </nav>
-
-                    <!-- 3. Right: Actions -->
-                    <div class="nav-actions">
-                        <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                    </div>
-                </div>
-            </header>
+            <!-- Back Arrow -->
+            <a href="index.html" id="backArrow" aria-label="Back to home" style="
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: #ffd700;
+                color: #0a1a2f;
+                font-size: 1.5rem;
+                text-decoration: none;
+                box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            " onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 24px rgba(255,215,0,0.6)'"
+                onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 16px rgba(255,215,0,0.4)'">
+                ←
+            </a>
 
             <!-- Contact Section -->
-            <section class="contact-ua" id="speak" style="padding-top: 180px; padding-bottom: 120px;">
+            <section class="contact-ua" id="speak" style="padding-top: 80px; padding-bottom: 120px;">
                 <div class="contact-wrap">
                     <div class="contact-left">
                         <span class="pill">GET IN TOUCH</span>
