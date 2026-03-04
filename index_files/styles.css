@@ -476,6 +476,12 @@ h6 {
     line-height: 1.1;
 }
 
+.hero-title .text-gradient {
+    background: none !important;
+    -webkit-text-fill-color: #ffd700 !important;
+    color: #ffd700 !important;
+}
+
 .hero-subtitle {
     font-size: var(--text-lg);
     color: rgba(255, 255, 255, 0.7);
