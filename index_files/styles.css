@@ -5753,7 +5753,7 @@ div:empty {
 
     /* Authorized Hero Fix - Restore Spacing */
     .hero {
-        padding-top: 70px !important;
+        padding-top: 50px !important;
         min-height: auto !important;
         display: flex !important;
         flex-direction: column !important;
