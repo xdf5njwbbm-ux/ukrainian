@@ -5753,7 +5753,7 @@ div:empty {
 
     /* Authorized Hero Fix - Restore Spacing */
     .hero {
-        padding-top: 50px !important;
+        padding-top: 110px !important;
         min-height: auto !important;
         display: flex !important;
         flex-direction: column !important;
@@ -6064,7 +6064,7 @@ div:empty {
     }
 
     .hero {
-        padding-top: 60px !important;
+        padding-top: 120px !important;
     }
 
     .hero-badge {
