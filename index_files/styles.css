@@ -5964,7 +5964,7 @@ div:empty {
 .pricing-card.premium .pricing-features li,
 .pricing-card.premium * {
     color: #fff !important;
-    font-weight: 400 !important;
+    font-weight: 700 !important;
 }
 
 .pricing-card.premium::before {
