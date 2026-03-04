@@ -272,26 +272,27 @@
 
         .plan-card.trial {
             background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
             box-shadow: none !important;
-            width: fit-content !important;
-            min-width: 280px !important;
+            width: 220px !important;
+            min-width: unset !important;
             max-width: 90% !important;
             margin: 0 auto 24px auto !important;
-            padding: 12px 24px !important;
+            padding: 24px !important;
             text-align: center;
-            border-radius: 16px;
+            border-radius: 20px;
             display: flex;
+            flex-direction: column !important;
             align-items: center;
             justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .plan-card.trial .trial-info {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .plan-card.trial .plan-name {
@@ -312,12 +313,14 @@
 
         .plan-card.trial .plan-features {
             display: flex;
-            gap: 16px;
+            flex-direction: column;
+            gap: 12px;
             margin: 0;
             list-style: none;
             padding: 0;
             font-size: 0.9rem;
             opacity: 0.8;
+            align-items: center;
         }
 
         .trial-btn {
