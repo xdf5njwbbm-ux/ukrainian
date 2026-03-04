@@ -1952,6 +1952,7 @@ section {
     visibility: hidden;
     transition: all var(--transition-base);
     z-index: 1000;
+    touch-action: none;
 }
 
 .route-overlay.open {
@@ -5752,7 +5753,7 @@ div:empty {
 
     /* Authorized Hero Fix - Restore Spacing */
     .hero {
-        padding-top: 100px !important;
+        padding-top: 70px !important;
         min-height: auto !important;
         display: flex !important;
         flex-direction: column !important;
@@ -6063,7 +6064,7 @@ div:empty {
     }
 
     .hero {
-        padding-top: 120px !important;
+        padding-top: 60px !important;
     }
 
     .hero-badge {

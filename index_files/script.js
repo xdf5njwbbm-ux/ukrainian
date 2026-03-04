@@ -204,13 +204,23 @@ function openRoutePanel(routeKey) {
 
     routePanel.classList.add('open');
     routeOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+
+    // Better scroll lock for mobile
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
 }
 
 function closeRoutePanel() {
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+
     routePanel.classList.remove('open');
     routeOverlay.classList.remove('open');
-    document.body.style.overflow = '';
 }
 
 // Card click handlers
