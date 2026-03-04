@@ -5969,6 +5969,13 @@ div:empty {
     /* Hidden on desktop */
 }
 
+@media (max-width: 1024px) {
+    #texting-arrow,
+    #confidence-arrow {
+        display: block !important;
+    }
+}
+
 .swipe-arrow-indicator.is-reversed {
     transform: scaleX(-1) !important;
     color: var(--color-secondary) !important;
