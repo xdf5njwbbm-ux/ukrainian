@@ -146,27 +146,24 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Main Content - Chat List Grid */
+        /* Main Content - Chat List List View (Long Ways) */
         .app-content {
             flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             padding: 0 16px 20px 16px;
             margin-top: 16px;
             overflow-y: auto;
             gap: 12px;
-            align-content: start;
         }
 
         .chat-card {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            padding: 20px 12px;
+            padding: 14px 16px;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
@@ -181,13 +178,13 @@
 
         .chat-avatar-wrap {
             position: relative;
-            margin-bottom: 12px;
+            margin-right: 14px;
             flex-shrink: 0;
         }
 
         .chat-avatar {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -196,7 +193,7 @@
         .status-dot {
             position: absolute;
             bottom: 2px;
-            right: 2px;
+            right: 0px;
             width: 14px;
             height: 14px;
             background-color: #2ed573;
@@ -205,22 +202,21 @@
         }
 
         .chat-info {
-            width: 100%;
+            flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 4px;
         }
 
         .chat-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 100%;
+            gap: 8px;
         }
 
         .chat-name {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 700;
             color: #ffffff !important;
             margin: 0;
@@ -231,36 +227,37 @@
         }
 
         .active-status {
-            font-size: 12px;
+            font-size: 13px;
             color: #2ed573 !important;
             font-weight: 600;
             margin: 0;
         }
 
         .chat-preview {
-            font-size: 13px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.7) !important;
             margin: 0;
-            width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .chat-meta {
-            position: absolute;
-            top: 14px;
-            right: 14px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 6px;
+            justify-content: flex-start;
+            height: 48px;
+            margin-left: 10px;
+            flex-shrink: 0;
+            gap: 8px;
         }
 
         .chat-time {
-            font-size: 12px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.5);
             font-weight: 500;
+            margin-top: 2px;
         }
 
         .unread-badge {
@@ -487,16 +484,16 @@
                 <p class="chat-preview">Ready for today's lesson?</p>
             </div>
             <div class="chat-meta">
-                <div class="unread-badge">1</div>
                 <span class="chat-time">2m</span>
+                <div class="unread-badge">1</div>
             </div>
         </a>
 
         <!-- Chat 2: Daily Practice (Girl Character) -->
         <a class="chat-card"
-            onclick="openChat('Daily Practice', './index_files/ai_tutor.png', 'Here\'s a new set of exercises for you')">
+            onclick="openChat('Daily Practice', './index_files/ai_tutor_new.png', 'Here&apos;s a new set of exercises for you')">
             <div class="chat-avatar-wrap">
-                <img src="./index_files/ai_tutor.png" alt="Tutor" class="chat-avatar">
+                <img src="./index_files/ai_tutor_new.png" alt="Tutor" class="chat-avatar">
             </div>
             <div class="chat-info">
                 <div class="chat-header">
@@ -505,8 +502,8 @@
                 <p class="chat-preview">New set of exercises</p>
             </div>
             <div class="chat-meta">
-                <div class="unread-badge">2</div>
                 <span class="chat-time">9:41 AM</span>
+                <div class="unread-badge">2</div>
             </div>
         </a>
 
