@@ -1981,6 +1981,10 @@ section {
         padding-right: 15px !important;
     }
 
+    .route-panel.open {
+        right: 0 !important;
+    }
+
     /* Hide redundant text above yellow line */
     .route-panel header,
     .route-desc {
