@@ -1970,7 +1970,7 @@ section {
     visibility: visible;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .route-panel {
         width: 100% !important;
         right: 0 !important;
