@@ -146,28 +146,32 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Main Content - Chat List */
+        /* Main Content - Chat List Grid */
         .app-content {
             flex: 1;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             padding: 0 16px 20px 16px;
             margin-top: 16px;
             overflow-y: auto;
             gap: 12px;
+            align-content: start;
         }
 
         .chat-card {
             display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            padding: 14px 16px;
+            padding: 20px 12px;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .chat-card:active {
@@ -177,13 +181,13 @@
 
         .chat-avatar-wrap {
             position: relative;
-            margin-right: 14px;
+            margin-bottom: 12px;
             flex-shrink: 0;
         }
 
         .chat-avatar {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -192,7 +196,7 @@
         .status-dot {
             position: absolute;
             bottom: 2px;
-            right: 0px;
+            right: 2px;
             width: 14px;
             height: 14px;
             background-color: #2ed573;
@@ -201,21 +205,22 @@
         }
 
         .chat-info {
-            flex: 1;
-            min-width: 0;
+            width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 4px;
         }
 
         .chat-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            width: 100%;
         }
 
         .chat-name {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             color: #ffffff !important;
             margin: 0;
@@ -226,52 +231,197 @@
         }
 
         .active-status {
-            font-size: 13px;
+            font-size: 12px;
             color: #2ed573 !important;
             font-weight: 600;
             margin: 0;
         }
 
         .chat-preview {
-            font-size: 15px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.7) !important;
             margin: 0;
+            width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .chat-meta {
+            position: absolute;
+            top: 14px;
+            right: 14px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            justify-content: flex-start;
-            height: 48px;
-            margin-left: 10px;
-            flex-shrink: 0;
-            gap: 8px;
+            gap: 6px;
         }
 
         .chat-time {
-            font-size: 13px;
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.5);
             font-weight: 500;
-            margin-top: 2px;
         }
 
         .unread-badge {
             background-color: var(--app-accent);
             color: #071a2b;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
-            height: 22px;
-            min-width: 22px;
-            border-radius: 11px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 6px;
+            padding: 0 5px;
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Active Chat View Overlay */
+        .active-chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--app-bg);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .active-chat-overlay.open {
+            transform: translateX(0);
+        }
+
+        .chat-overlay-header {
+            background: var(--header-gradient);
+            padding: 50px 20px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .overlay-back-btn {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .overlay-title-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            margin-left: 12px;
+        }
+
+        .overlay-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--app-accent);
+            object-fit: cover;
+        }
+
+        .overlay-name {
+            font-size: 18px;
+            margin: 0;
+            white-space: nowrap;
+            font-weight: 800;
+        }
+
+        .overlay-call-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .overlay-call-btn:active {
+            transform: scale(0.9);
+        }
+
+        .overlay-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .msg-bubble {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .msg-bubble.received {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg-bubble.sent {
+            background: var(--app-primary);
+            color: var(--app-accent);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .overlay-input-area {
+            padding: 16px 16px 34px 16px;
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .overlay-input-area input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 14px 20px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .overlay-input-area input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .overlay-send-btn {
+            background: var(--app-accent);
+            color: var(--app-bg);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            padding-left: 4px;
         }
 
         /* Bottom Tab Bar */
@@ -323,7 +473,8 @@
 
     <main class="app-content">
         <!-- Chat 1: Main Tutor -->
-        <a href="#" class="chat-card">
+        <a class="chat-card"
+            onclick="openChat('Beginner Tutor', './index_files/ai_tutor_circular.png', 'Привіт! Ready for today\'s lesson?')">
             <div class="chat-avatar-wrap">
                 <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar">
                 <div class="status-dot"></div>
@@ -333,49 +484,71 @@
                     <h3 class="chat-name">Beginner Tutor</h3>
                 </div>
                 <p class="active-status">Active now</p>
-                <p class="chat-preview">Привіт! Ready for today's lesson?</p>
+                <p class="chat-preview">Ready for today's lesson?</p>
             </div>
             <div class="chat-meta">
-                <span class="chat-time">2m</span>
                 <div class="unread-badge">1</div>
+                <span class="chat-time">2m</span>
             </div>
         </a>
 
-        <!-- Chat 2: Daily Practice -->
-        <a href="#" class="chat-card">
+        <!-- Chat 2: Daily Practice (Girl Character) -->
+        <a class="chat-card"
+            onclick="openChat('Daily Practice', './index_files/ai_tutor.png', 'Here\'s a new set of exercises for you')">
             <div class="chat-avatar-wrap">
-                <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar"
-                    style="filter: hue-rotate(45deg);">
+                <img src="./index_files/ai_tutor.png" alt="Tutor" class="chat-avatar">
             </div>
             <div class="chat-info">
                 <div class="chat-header">
                     <h3 class="chat-name">Daily Practice</h3>
                 </div>
-                <p class="chat-preview">Here's a new set of exercises for you</p>
+                <p class="chat-preview">New set of exercises</p>
             </div>
             <div class="chat-meta">
-                <span class="chat-time">9:41 AM</span>
                 <div class="unread-badge">2</div>
+                <span class="chat-time">9:41 AM</span>
             </div>
         </a>
 
         <!-- Chat 3: Vocab Help -->
-        <a href="#" class="chat-card">
+        <a class="chat-card"
+            onclick="openChat('Vocabulary Help', './index_files/ai_tutor_circular.png', 'You learned 15 new words yesterday! Want to review?')">
             <div class="chat-avatar-wrap">
                 <img src="./index_files/ai_tutor_circular.png" alt="Tutor" class="chat-avatar"
                     style="filter: hue-rotate(-30deg) brightness(1.1);">
             </div>
             <div class="chat-info">
                 <div class="chat-header">
-                    <h3 class="chat-name">Vocabulary Help</h3>
+                    <h3 class="chat-name">Vocabulary</h3>
                 </div>
-                <p class="chat-preview">You learned 15 new words yesterday! Want to review?</p>
+                <p class="chat-preview">15 new words yesterday!</p>
             </div>
             <div class="chat-meta">
                 <span class="chat-time">Yesterday</span>
             </div>
         </a>
     </main>
+
+    <!-- Active Chat Interface Overlay -->
+    <div id="activeChatOverlay" class="active-chat-overlay">
+        <header class="chat-overlay-header">
+            <div class="overlay-back-btn" onclick="closeChat()">←</div>
+            <div class="overlay-title-info">
+                <img src="./index_files/ai_tutor_circular.png" id="overlayAvatar" class="overlay-avatar">
+                <h2 id="overlayName" class="overlay-name">Beginner Tutor</h2>
+            </div>
+            <a href="calls.html" class="overlay-call-btn" title="Start Call">📞</a>
+        </header>
+
+        <div class="overlay-messages" id="chatMessagesArea">
+            <div class="msg-bubble received" id="overlayFirstMsg">Привіт! Ready for today's lesson?</div>
+        </div>
+
+        <div class="overlay-input-area">
+            <input type="text" id="chatInput" placeholder="Message...">
+            <button class="overlay-send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
 
 
     <footer class="app-footer">
@@ -397,6 +570,50 @@
         </div>
     </footer>
 
+    <script>
+        // Chat Interface Logic
+        function openChat(name, avatarSrc, firstMsg) {
+            document.getElementById('overlayName').innerText = name;
+            document.getElementById('overlayAvatar').src = avatarSrc;
+            document.getElementById('overlayFirstMsg').innerText = firstMsg;
+
+            // Clear previous dynamically added sent messages
+            const msgsArea = document.getElementById('chatMessagesArea');
+            const messages = msgsArea.querySelectorAll('.msg-bubble');
+            for (let i = 1; i < messages.length; i++) {
+                msgsArea.removeChild(messages[i]);
+            }
+
+            document.getElementById('activeChatOverlay').classList.add('open');
+        }
+
+        function closeChat() {
+            document.getElementById('activeChatOverlay').classList.remove('open');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (text) {
+                const msgsArea = document.getElementById('chatMessagesArea');
+                const newMsg = document.createElement('div');
+                newMsg.className = 'msg-bubble sent';
+                newMsg.innerText = text;
+                msgsArea.appendChild(newMsg);
+                input.value = '';
+
+                // Scroll to bottom
+                msgsArea.scrollTop = msgsArea.scrollHeight;
+            }
+        }
+
+        // Allow pressing Enter to send
+        document.getElementById('chatInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 
 </html>
