@@ -291,11 +291,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            height: 100dvh;
+            /* Dynamic viewport height for mobile keyboards */
             background: var(--app-bg);
             z-index: 2000;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            /* Prevent the whole overlay from scrolling */
             transform: translateX(100%);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
