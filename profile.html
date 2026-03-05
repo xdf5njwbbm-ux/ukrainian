@@ -16,27 +16,44 @@
             --app-accent: #ffd700;
             --app-primary: #0057b8;
             --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.9);
+            --app-text-dim: rgba(255, 255, 255, 0.98);
             --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
         }
 
 
         /* High-Contrast Typography Overrides */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             color: #ffffff !important;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+            font-weight: 800 !important;
         }
+
         p {
             color: #ffffff !important;
-            opacity: 0.95 !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
         }
-        .section-title, .group-title, .page-title, .modal-title, .cta-title {
-            color: var(--app-accent) !important; 
+
+        .section-title,
+        .group-title,
+        .page-title,
+        .modal-title,
+        .cta-title {
+            color: var(--app-accent) !important;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
+            font-weight: 800 !important;
         }
-        .modal-subtitle, .milestone-text {
+
+        .modal-subtitle,
+        .milestone-text {
             color: #ffffff !important;
-            opacity: 0.9 !important;
+            opacity: 1 !important;
+            font-weight: 600 !important;
         }
 
         body {
@@ -223,7 +240,8 @@
 
         .setting-label {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 700;
+            color: #ffffff;
         }
 
         .setting-arrow {
@@ -757,24 +775,20 @@
                     <span>Beginner</span>
                     <div class="selection-indicator"></div>
                 </div>
-                <div class="selection-card" onclick="setPreference('level', 'Upper Beginner')">
-                    <span>Upper Beginner</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'Elementary')">
-                    <span>Elementary</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'Pre-Intermediate')">
-                    <span>Pre-Intermediate</span>
-                    <div class="selection-indicator"></div>
-                </div>
                 <div class="selection-card" onclick="setPreference('level', 'Intermediate')">
                     <span>Intermediate</span>
                     <div class="selection-indicator"></div>
                 </div>
+                <div class="selection-card" onclick="setPreference('level', 'High Intermediate')">
+                    <span>High Intermediate</span>
+                    <div class="selection-indicator"></div>
+                </div>
                 <div class="selection-card" onclick="setPreference('level', 'Advanced')">
                     <span>Advanced</span>
+                    <div class="selection-indicator"></div>
+                </div>
+                <div class="selection-card" onclick="setPreference('level', 'Fluent')">
+                    <span>Fluent</span>
                     <div class="selection-indicator"></div>
                 </div>
             </div>
