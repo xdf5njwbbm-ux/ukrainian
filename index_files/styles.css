@@ -696,11 +696,13 @@ h6 {
 }
 
 .bubble-1 {
-    animation-delay: 0.3s;
+    animation-delay: 0.15s;
+    /* Sped up from 0.3s */
 }
 
 .bubble-2 {
-    animation-delay: 2s;
+    animation-delay: 1s;
+    /* Sped up from 2s */
     background: #f0f8ff;
 }
 
@@ -733,7 +735,8 @@ h6 {
     animation:
         popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
         pulseLoop 2s infinite ease-in-out;
-    animation-delay: 4s, 4.5s;
+    animation-delay: 2s, 2.5s;
+    /* Sped up from 4s, 4.5s */
     animation-fill-mode: forwards;
 }
 
@@ -908,14 +911,16 @@ body {
     z-index: 10;
     animation: floatBadge 6s ease-in-out infinite !important;
     /* Enable floating */
-    animation-delay: 2s;
+    animation-delay: 1s;
+    /* Sped up from 2s */
 }
 
 .social-proof-3 {
     bottom: 4%;
     left: -70px;
     /* Half on/half off */
-    animation-delay: 4s;
+    animation-delay: 2s;
+    /* Sped up from 4s */
 }
 
 /* Mobile scaling for social proof badges */
@@ -3338,6 +3343,29 @@ section {
 
 .feature-highlight svg {
     color: var(--color-secondary);
+}
+
+.about-card.clicked {
+    background: var(--color-secondary) !important;
+    border-color: var(--color-secondary-dark);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow-gold);
+}
+
+.about-card.clicked h3,
+.about-card.clicked p {
+    color: var(--color-gray-900);
+}
+
+.about-card.clicked .card-bubble {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
+.black-emoji {
+    filter: grayscale(1) brightness(0);
+    font-size: 32px;
+    display: inline-block;
 }
 
 .feature-fun {

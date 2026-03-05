@@ -214,11 +214,20 @@ function closeRoutePanel() {
 // Card click handlers
 document.querySelectorAll('.about-card[data-route]').forEach(card => {
     card.addEventListener('click', () => {
+        // Toggle highlight logic
+        document.querySelectorAll('.about-card').forEach(c => c.classList.remove('clicked'));
+        card.classList.add('clicked');
+
         openRoutePanel(card.dataset.route);
     });
     card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
+
+            // Toggle highlight logic
+            document.querySelectorAll('.about-card').forEach(c => c.classList.remove('clicked'));
+            card.classList.add('clicked');
+
             openRoutePanel(card.dataset.route);
         }
     });
