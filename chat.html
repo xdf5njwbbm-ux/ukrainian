@@ -481,7 +481,12 @@
 
     <div class="top-glow-line"></div>
 
-    <h1 class="header-title-large">Messages</h1>
+    <div class="header-title-row"
+        style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 8px 16px; border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);">
+        <h1 class="header-title-large" style="padding: 0; border-bottom: none; color: #ffffff !important;">Messages</h1>
+        <a href="calls.html" class="call-log-btn"
+            style="font-size: 24px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: white;">📞</a>
+    </div>
 
     <div class="search-container">
         <div class="search-bar">
@@ -579,20 +584,21 @@
 
     <footer class="app-footer">
         <div class="footer-item" onclick="location.href='tutor.html'">
-            <span class="footer-icon">👩‍🏫</span>
-            <span>AI Tutor</span>
+            <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
+                style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 2px;">
+            <span style="font-weight: 700;">AI Tutor</span>
         </div>
         <div class="footer-item active">
             <span class="footer-icon">💬</span>
-            <span>Learn</span>
+            <span style="font-weight: 700;">Messages</span>
         </div>
         <div class="footer-item" onclick="location.href='progress.html'">
             <span class="footer-icon">📈</span>
-            <span>Progress</span>
+            <span style="font-weight: 700;">Progress</span>
         </div>
         <div class="footer-item" onclick="location.href='profile.html'">
             <span class="footer-icon">⚙️</span>
-            <span>Profile</span>
+            <span style="font-weight: 700;">Profile</span>
         </div>
     </footer>
 

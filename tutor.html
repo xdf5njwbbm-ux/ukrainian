@@ -281,28 +281,54 @@
             margin: 0;
         }
 
-        /* Lesson Vibes */
+        /* Lesson Vibes - Flip Card Implementation */
         .vibes-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
+            perspective: 1000px;
         }
 
-        .vibe-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .vibe-card-inner {
+            position: relative;
+            width: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            min-height: 120px;
+        }
+
+        .vibe-card.flipped .vibe-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .vibe-front,
+        .vibe-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             border-radius: 16px;
             padding: 16px;
-            text-align: center;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
-            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
-        .vibe-card:active {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--app-accent);
+        .vibe-front {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 2;
+        }
+
+        .vibe-back {
+            background: rgba(0, 87, 184, 0.2);
+            border: 1px solid var(--app-accent);
+            transform: rotateY(180deg);
+            text-align: center;
         }
 
         .vibe-icon {
@@ -312,6 +338,12 @@
         .vibe-name {
             font-size: 14px;
             font-weight: 600;
+        }
+
+        .vibe-example {
+            font-size: 11px;
+            color: var(--app-accent);
+            line-height: 1.3;
         }
 
         /* Bottom Tab Bar */
@@ -364,7 +396,7 @@
                 <div class="tutor-avatar-container">
                     <img src="./index_files/tutor-female.png" id="tutorImg" alt="AI Tutor">
                 </div>
-                <h2 class="tutor-name" id="tutorName">Olena</h2>
+                <h2 class="tutor-name" id="tutorName">Ivan</h2>
                 <div class="tutor-status">Your Learning Companion</div>
 
                 <div class="traits-grid" id="traitsGrid">
@@ -395,64 +427,113 @@
 
         <!-- Lesson Vibes -->
         <h2 class="section-title">🎭 Today's Lesson Vibe</h2>
-        <div class="vibes-grid">
-            <div class="vibe-card">
-                <span class="vibe-icon">☕</span>
-                <span class="vibe-name">Casual Chat</span>
+        <div class="vibes-grid" id="vibesGrid">
+            <!-- Casual Chat -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">☕</span>
+                        <span class="vibe-name">Casual Chat</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">"How was your weekend?"<br>Chat about daily life in Kyiv.</div>
+                    </div>
+                </div>
             </div>
-            <div class="vibe-card">
-                <span class="vibe-icon">🎙️</span>
-                <span class="vibe-name">Pronunciation</span>
+            <!-- Pronunciation -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">🎙️</span>
+                        <span class="vibe-name">Pronunciation</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">Master the soft 'ь' and rolled 'р'.<br>Get real-time feedback.</div>
+                    </div>
+                </div>
             </div>
-            <div class="vibe-card">
-                <span class="vibe-icon">🏗️</span>
-                <span class="vibe-name">Grammar Drill</span>
+            <!-- Grammar Drill -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">🏗️</span>
+                        <span class="vibe-name">Grammar Drill</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">Conquering the Genitive Case.<br>Learn logic, not just rules.</div>
+                    </div>
+                </div>
             </div>
-            <div class="vibe-card">
-                <span class="vibe-icon">🎭</span>
-                <span class="vibe-name">Roleplay</span>
+            <!-- Roleplay -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">🎭</span>
+                        <span class="vibe-name">Roleplay</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">Ordering at a Lviv cafe.<br>"One borsch, please!"</div>
+                    </div>
+                </div>
             </div>
-            <div class="vibe-card">
-                <span class="vibe-icon">🚀</span>
-                <span class="vibe-name">Vocab Boost</span>
+            <!-- Vocab Boost -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">🚀</span>
+                        <span class="vibe-name">Vocab Boost</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">10 new essential verbs.<br>Use them in 5 different ways.</div>
+                    </div>
+                </div>
             </div>
-            <div class="vibe-card">
-                <span class="vibe-icon">❤️</span>
-                <span class="vibe-name">Romantic Style</span>
+            <!-- Romantic Style -->
+            <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                <div class="vibe-card-inner">
+                    <div class="vibe-front">
+                        <span class="vibe-icon">❤️</span>
+                        <span class="vibe-name">Romantic Style</span>
+                    </div>
+                    <div class="vibe-back">
+                        <div class="vibe-example">Poetic phrases for a date.<br>"You have beautiful eyes."</div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="app-footer">
-        <div class="footer-item active">
-            <span class="footer-icon">👩‍🏫</span>
-            <span>AI Tutor</span>
+        <div class="footer-item" onclick="location.href='tutor.html'">
+            <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
+                style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 2px;">
+            <span style="font-weight: 700;">AI Tutor</span>
         </div>
-        <div class="footer-item" onclick="location.href='chat.html'">
+        <div class="footer-item active" onclick="location.href='chat.html'">
             <span class="footer-icon">💬</span>
-            <span>Learn</span>
+            <span style="font-weight: 700;">Messages</span>
         </div>
         <div class="footer-item" onclick="location.href='progress.html'">
             <span class="footer-icon">📈</span>
-            <span>Progress</span>
+            <span style="font-weight: 700;">Progress</span>
         </div>
         <div class="footer-item" onclick="location.href='profile.html'">
             <span class="footer-icon">⚙️</span>
-            <span>Profile</span>
+            <span style="font-weight: 700;">Profile</span>
         </div>
     </footer>
 
     <script>
         const tutors = [
             {
+                name: "Ivan",
+                img: "./index_files/tutor-male.png",
+                traits: ["Direct & Honest", "Native Slang", "Business Pro", "Cultural Expert", "Advanced Vocab", "Real-world Situations"]
+            },
+            {
                 name: "Olena",
                 img: "./index_files/tutor-female.png",
                 traits: ["Beginner Friendly", "Patient", "Funny", "Conversation Focus", "Pronunciation Helper", "Grammar Coach"]
-            },
-            {
-                name: "Andriy",
-                img: "./index_files/tutor-male.png",
-                traits: ["Direct & Honest", "Native Slang", "Business Pro", "Cultural Expert", "Advanced Vocab", "Real-world Situations"]
             }
         ];
 
