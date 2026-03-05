@@ -879,20 +879,33 @@
 
     <footer class="app-footer">
         <div class="footer-item" onclick="location.href='tutor.html'">
-            <span class="footer-icon">👩‍🏫</span>
-            <span>AI Tutor</span>
+            <div
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
+                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                <span style="font-weight: 700; color: inherit;">AI Tutor</span>
+            </div>
         </div>
         <div class="footer-item" onclick="location.href='chat.html'">
-            <span class="footer-icon">💬</span>
-            <span>Learn</span>
+            <div
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <span class="footer-icon">💬</span>
+                <span style="font-weight: 700; color: inherit;">Messages</span>
+            </div>
         </div>
         <div class="footer-item" onclick="location.href='progress.html'">
-            <span class="footer-icon">📈</span>
-            <span>Progress</span>
+            <div
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <span class="footer-icon">📈</span>
+                <span style="font-weight: 700; color: inherit;">Progress</span>
+            </div>
         </div>
-        <div class="footer-item active">
-            <span class="footer-icon">⚙️</span>
-            <span>Profile</span>
+        <div class="footer-item active" style="color: var(--app-accent);">
+            <div
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <span class="footer-icon">⚙️</span>
+                <span style="font-weight: 700; color: inherit;">Profile</span>
+            </div>
         </div>
     </footer>
 
