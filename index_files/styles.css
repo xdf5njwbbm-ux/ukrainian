@@ -1333,8 +1333,8 @@ section {
 .about-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #ffd700 0%, #f5c800 100%);
+    border-color: rgba(255, 215, 0, 0.5);
 }
 
 .about-card:hover .about-icon {
