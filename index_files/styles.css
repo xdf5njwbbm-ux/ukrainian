@@ -1391,18 +1391,20 @@ section {
     right: 12px;
     bottom: 12px;
     font-size: 12px;
-    background: var(--color-primary);
+    background: #0057b8 !important;
+    /* Force solid blue */
     padding: 8px 12px;
     border-radius: 10px;
-    color: white;
+    color: white !important;
     font-weight: 700;
     box-shadow: 0 4px 10px rgba(0, 87, 184, 0.3);
     transition: all var(--transition-base);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
 }
 
 .about-card:hover .card-bubble {
-    background: rgba(0, 0, 0, 0.2);
-    color: var(--color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 87, 184, 0.4);
 }
 
 /* ===== Route Panel (Slide-in) ===== */
@@ -3359,9 +3361,10 @@ section {
 }
 
 .about-card.clicked .card-bubble {
-    background: #004a99;
-    /* Darker blue for contrast on yellow */
-    color: white;
+    background: #003a80 !important;
+    /* Even darker blue for contrast on yellow */
+    color: white !important;
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .phone-emoji {
