@@ -1333,9 +1333,8 @@ section {
 .about-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    /* Turns yellow on hover */
-    background: linear-gradient(135deg, #ffd700 0%, #f5c800 100%);
-    border-color: rgba(255, 215, 0, 0.5);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .about-card:hover .about-icon {
@@ -1392,10 +1391,12 @@ section {
     right: 12px;
     bottom: 12px;
     font-size: 12px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-primary);
     padding: 8px 12px;
     border-radius: 10px;
-    color: rgba(255, 255, 255, 0.8);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 87, 184, 0.3);
     transition: all var(--transition-base);
 }
 
@@ -3358,8 +3359,9 @@ section {
 }
 
 .about-card.clicked .card-bubble {
-    background: var(--color-white);
-    color: var(--color-primary);
+    background: #004a99;
+    /* Darker blue for contrast on yellow */
+    color: white;
 }
 
 .phone-emoji {
