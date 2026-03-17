@@ -18,6 +18,9 @@
             padding: 40px 20px;
             box-sizing: border-box;
             background: radial-gradient(circle at center, #0a1f4d 0%, #040a1e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .page-wrapper {
@@ -25,8 +28,45 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 1050px;
-            margin: 0 auto;
+            max-width: 1200px;
+            margin: auto; /* This centers it vertically within the flex body */
+        }
+
+        /* Two-column layout on desktop */
+        .signup-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 32px;
+            width: 100%;
+        }
+
+        @media (min-width: 800px) {
+            body {
+                padding: 60px 32px;
+            }
+            .page-wrapper {
+                max-width: 1300px;
+            }
+            .signup-layout {
+                flex-direction: row;
+                align-items: stretch;
+                gap: 48px;
+            }
+            .signup-left {
+                flex: 0 0 420px;
+                max-width: 440px;
+            }
+            .signup-right {
+                flex: 1;
+                min-width: 0;
+            }
+            .auth-card {
+                max-width: 100% !important;
+                height: 100%; /* Make card fill height */
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         .auth-header {
@@ -413,7 +453,11 @@
             </div>
         </div>
 
+        <div class="signup-layout">
+            <!-- LEFT: Form -->
+            <div class="signup-left">
         <main class="auth-card">
+
             <form>
                 <div class="form-group">
                     <input type="text" placeholder="Name" required>
@@ -451,6 +495,11 @@
                 </a>
             </div>
         </main>
+            </div><!-- /.signup-left -->
+
+            <!-- RIGHT: Plans -->
+            <div class="signup-right">
+
 
         <div class="plans-section">
             <div class="plans-header">
@@ -513,9 +562,10 @@
             <div class="auth-footer">
                 Already have an account? <a href="login.html">Log in</a>
             </div>
-        </div>
+            </div><!-- /.plans-section -->
+            </div><!-- /.signup-right -->
+        </div><!-- /.signup-layout -->
 
-    </div><!-- /.page-wrapper -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

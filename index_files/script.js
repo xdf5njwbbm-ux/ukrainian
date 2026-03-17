@@ -664,3 +664,114 @@ document.querySelectorAll('.faq-item').forEach((details) => {
         }, { passive: true });
     }
 })();
+
+// ===== How It Works: Mobile Scroll-Sequential Yellow Animation =====
+(function initHowItWorksScroll() {
+    function setup() {
+        const section = document.getElementById('about');
+        const cards = Array.from(document.querySelectorAll('#aboutCards .about-card'));
+        if (!section || cards.length === 0) return;
+
+        let activeCount = 0; // how many cards are currently lit yellow
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        function lightCard(index) {
+            cards[index].classList.add('hiw-scroll-lit');
+        }
+
+        function unlightCard(index) {
+            cards[index].classList.remove('hiw-scroll-lit');
+        }
+
+        function resetAll() {
+            cards.forEach(c => c.classList.remove('hiw-scroll-lit'));
+            activeCount = 0;
+        }
+
+        function onScroll() {
+            if (!isMobile()) {
+                // On desktop, leave cards alone
+                return;
+            }
+
+            const sectionRect = section.getBoundingClientRect();
+            const sectionTop = sectionRect.top;
+            const sectionBottom = sectionRect.bottom;
+            const winH = window.innerHeight;
+
+            // If the section is completely off-screen (scrolled past or not yet reached), reset
+            if (sectionBottom < 0 || sectionTop > winH) {
+                resetAll();
+                return;
+            }
+
+            // How far have we scrolled INTO the section?
+            // 0 = section top just visible at bottom of screen
+            // 1 = section top at top of screen (fully scrolled in)
+            const scrollIntoSection = Math.max(0, winH - sectionTop);
+            const sectionHeight = sectionRect.height;
+
+            // Spread card activations evenly across the section's scroll range
+            // Each card activates when scrollIntoSection passes its fraction of the section
+            const segmentSize = sectionHeight / cards.length;
+
+            let desired = 0;
+            for (let i = 0; i < cards.length; i++) {
+                const threshold = segmentSize * (i + 0.5);
+                if (scrollIntoSection >= threshold) {
+                    desired = i + 1;
+                }
+            }
+            desired = Math.min(desired, cards.length);
+
+            // Animate one card at a time in whatever direction we need to go
+            if (desired > activeCount) {
+                lightCard(activeCount);
+                activeCount++;
+            } else if (desired < activeCount) {
+                activeCount--;
+                unlightCard(activeCount);
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+    }
+
+    // Inject the CSS for the scroll-lit yellow state (mobile only)
+    const hiwStyle = document.createElement('style');
+    hiwStyle.textContent = `
+        @media (max-width: 768px) {
+            .about-card.hiw-scroll-lit {
+                background: var(--color-secondary) !important;
+                border-color: var(--color-secondary-dark) !important;
+                transform: translateY(-4px) scale(1.02) !important;
+                box-shadow: var(--shadow-xl), var(--shadow-glow-gold) !important;
+                transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease !important;
+            }
+            .about-card.hiw-scroll-lit h3,
+            .about-card.hiw-scroll-lit p {
+                color: var(--color-gray-900) !important;
+            }
+            .about-card.hiw-scroll-lit .about-icon {
+                background: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                box-shadow: 0 4px 15px rgba(0, 87, 184, 0.4) !important;
+            }
+            .about-card.hiw-scroll-lit .card-bubble {
+                background: #003a80 !important;
+                color: white !important;
+            }
+        }
+    `;
+    document.head.appendChild(hiwStyle);
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setup);
+    } else {
+        setup();
+    }
+})();

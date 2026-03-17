@@ -1,527 +1,130 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Profile | Learn Ukrainian</title>
+    <title>Мій Профіль | UkrainianTutor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./index_files/styles.css?v=26.0">
+    <link rel="stylesheet" href="./index_files/styles.css?v=23.0">
     <style>
         :root {
-            --app-bg: #071a2b;
-            --app-nav-bg: #071a2b;
-            --app-accent: #ffd700;
-            --app-primary: #0057b8;
-            --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.98);
-            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
-        }
-
-
-        /* High-Contrast Typography Overrides */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            color: #ffffff !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
-            font-weight: 800 !important;
-        }
-
-        p {
-            color: #ffffff !important;
-            opacity: 1 !important;
-            font-weight: 600 !important;
-        }
-
-        .section-title,
-        .group-title,
-        .page-title,
-        .modal-title,
-        .cta-title {
-            color: var(--app-accent) !important;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
-            font-weight: 800 !important;
-        }
-
-        .modal-subtitle,
-        .milestone-text {
-            color: #ffffff !important;
-            opacity: 1 !important;
-            font-weight: 600 !important;
+            --profile-bg: #071a2b;
+            --profile-accent: #ffd700;
+            --profile-primary: #0057b8;
+            --profile-card-bg: rgba(255, 255, 255, 0.05);
+            --profile-border: rgba(255, 255, 255, 0.08);
+            --profile-text: #ffffff;
+            --profile-text-muted: rgba(255, 255, 255, 0.6);
+            --profile-glass: blur(20px);
         }
 
         body {
-            background: var(--app-bg);
-            color: var(--app-text);
+            background-color: var(--profile-bg);
+            color: var(--profile-text);
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            padding-bottom: 90px; /* Space for bottom nav */
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .top-glow-line {
-            height: 3px;
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
+            box-sizing: border-box;
         }
 
-        .profile-header {
-            background: var(--header-gradient);
-            padding: 60px 20px 32px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        /* Section Headers */
+        .section-header {
+            color: var(--profile-accent);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 32px 0 12px 10px;
+            opacity: 0.9;
+            width: 100%;
         }
 
-        .profile-avatar-container {
-            position: relative;
+        /* Unified Card Style */
+        .glass-card {
+            background: var(--profile-card-bg);
+            backdrop-filter: var(--profile-glass);
+            -webkit-backdrop-filter: var(--profile-glass);
+            border: 1px solid var(--profile-border);
+            border-radius: 24px;
+            overflow: hidden;
             margin-bottom: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--app-primary);
+        /* Generic List Row */
+        .settings-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            border: 3px solid #fff;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            padding: 16px 20px;
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .edit-badge {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: var(--app-accent);
-            color: #071a2b;
+        .settings-row:not(:last-child) {
+            border-bottom: 1px solid var(--profile-border);
+        }
+
+        .settings-row:active {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .row-icon {
+            font-size: 20px;
             width: 32px;
             height: 32px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            border: 2px solid var(--app-bg);
-        }
-
-        .user-name {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 0 0 8px;
-        }
-
-        .plan-badge {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-
-        .streak-pill {
-            background: rgba(255, 215, 0, 0.15);
-            color: var(--app-accent);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        main {
-            padding: 20px 20px 120px;
-        }
-
-        /* Stats Card */
-        .stats-summary-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 32px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            border-radius: 10px;
+            color: var(--profile-accent);
         }
 
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--app-text-dim);
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .stat-value {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--app-accent);
-        }
-
-        /* Settings Groups */
-        .settings-group {
-            margin-bottom: 32px;
-        }
-
-        .group-title {
-            font-size: 14px;
-            color: var(--app-text-dim);
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
-
-        .settings-list {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .setting-item {
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .setting-item:last-child {
-            border-bottom: none;
-        }
-
-        .setting-item:active {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .setting-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .setting-icon {
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .setting-label {
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .setting-arrow {
-            color: var(--app-text-dim);
-            font-size: 18px;
-        }
-
-        /* Premium Goal Section */
-        .goal-section {
-            background: linear-gradient(135deg, rgba(0, 87, 184, 0.3), rgba(0, 87, 184, 0.1));
-            border: 1px solid rgba(0, 87, 184, 0.4);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-
-        .goal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .goal-title {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .goal-percent {
-            color: var(--app-accent);
-            font-weight: 700;
-        }
-
-        .progress-bar-bg {
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--app-accent);
-            width: 65%;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .milestone-text {
-            font-size: 13px;
-            color: var(--app-text-dim);
-            line-height: 1.4;
-        }
-
-        /* Logout */
-        .logout-btn {
-            color: #ff6b6b;
-            font-weight: 700;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        /* Bottom Tab Bar */
-        .app-footer {
-            background: rgba(7, 26, 43, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 8px 0 24px;
-            display: flex;
-            justify-content: space-around;
-            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .footer-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            font-size: 10px;
-            color: var(--app-text-dim);
-            cursor: pointer;
-            width: 25%;
-        }
-
-        .footer-item.active {
-            color: var(--app-accent);
-        }
-
-        .footer-icon {
-            font-size: 24px;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #0d2a42;
-            border-radius: 32px 32px 0 0;
-            width: 100%;
-            max-width: 500px;
-            padding: 32px 24px 48px;
-            transform: translateY(100%);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            font-size: 14px;
-            color: var(--app-text-dim);
-        }
-
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--app-text-dim);
-            margin-bottom: 8px;
-        }
-
-        .form-control {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px;
-            color: #fff;
-            font-size: 16px;
-            font-family: inherit;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .btn-modal {
+        .row-label {
             flex: 1;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 1rem;
         }
 
-        .btn-primary {
-            background: var(--app-accent);
-            color: #071a2b;
+        .row-value {
+            color: var(--profile-text-muted);
+            font-size: 0.9rem;
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+        .row-chevron {
+            color: var(--profile-text-muted);
+            font-size: 1.2rem;
+            opacity: 0.5;
         }
 
-        /* Selection List */
-        .selection-list-modal {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .selection-card {
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .selection-card.active {
-            border-color: var(--app-accent);
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        .selection-indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-        }
-
-        .selection-card.active .selection-indicator {
-            background: var(--app-accent);
-            border-color: var(--app-accent);
-        }
-
-        .selection-card.active .selection-indicator::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #0d2a42;
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        /* Dropdown Support */
-        .dropdown-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 0 0 20px 20px;
-        }
-
-        .dropdown-panel.active {
-            max-height: 200px;
-        }
-
-        .dropdown-row {
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 15px;
-        }
-
-        /* Toggles */
-        .switch {
+        /* Toggle Switch */
+        .toggle {
             position: relative;
             display: inline-block;
             width: 44px;
             height: 24px;
         }
 
-        .switch input {
+        .toggle input {
             opacity: 0;
             width: 0;
             height: 0;
@@ -535,8 +138,8 @@
             right: 0;
             bottom: 0;
             background-color: rgba(255, 255, 255, 0.1);
-            transition: .4s;
-            border-radius: 24px;
+            transition: .3s;
+            border-radius: 34px;
         }
 
         .slider:before {
@@ -547,506 +150,632 @@
             left: 3px;
             bottom: 3px;
             background-color: white;
-            transition: .4s;
+            transition: .3s;
             border-radius: 50%;
         }
 
-        input:checked+.slider {
-            background-color: var(--app-accent);
+        input:checked + .slider {
+            background-color: var(--profile-accent);
         }
 
-        input:checked+.slider:before {
+        input:checked + .slider:before {
             transform: translateX(20px);
-            background-color: #071a2b;
+            background-color: #000;
+        }
+
+        /* Premium Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 26, 43, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 25px; /* Extra padding for iPhone home bar */
+            border-top: 1px solid var(--profile-border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--profile-text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 700;
+            transition: color 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: var(--profile-accent);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid transparent;
+        }
+
+        .nav-item.active .nav-img {
+            border-color: var(--profile-accent);
+        }
+
+        /* 1. Top Profile Summary Card */
+        .profile-hero {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 88px;
+            height: 88px;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--profile-accent);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .streak-badge-mini {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: var(--profile-accent);
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 2px solid var(--profile-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .profile-subtitle {
+            font-size: 0.9rem;
+            color: var(--profile-text-muted);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .mini-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--profile-accent);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        /* 2. Stats Overview */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--profile-card-bg);
+            border: 1px solid var(--profile-border);
+            border-radius: 20px;
+            padding: 16px;
+            text-align: left;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stat-icon {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: block;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--profile-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .milestone-container {
+            grid-column: span 2;
+            padding: 20px;
+        }
+
+        .progress-mini-wrap {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 12px 0 8px;
+            overflow: hidden;
+        }
+
+        .progress-mini-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--profile-primary), var(--profile-accent));
+            border-radius: 10px;
+        }
+
+        .milestone-text {
+            font-size: 0.85rem;
+            color: var(--profile-text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 7. Achievements Section */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .achievement-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .achievement-badge:hover {
+            transform: translateY(-4px);
+        }
+
+        .badge-icon-wrap {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 1.5px solid var(--profile-border);
+            position: relative;
+        }
+
+        .badge-icon-wrap.unlocked {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--profile-accent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .badge-lock {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #2d2d44;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border: 1px solid var(--profile-border);
+        }
+
+        .badge-name {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--profile-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .achievement-badge.unlocked .badge-name {
+            color: #fff;
+        }
+
+        /* 8. Learning History */
+        .history-card {
+            padding: 4px 0;
+        }
+
+        .history-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+
+        .history-row:not(:last-child) {
+            border-bottom: 1px solid var(--profile-border);
+        }
+
+        .history-main {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .history-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .history-meta {
+            font-size: 0.8rem;
+            color: var(--profile-text-muted);
+        }
+
+        .history-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--profile-accent);
+        }
+
+        @media (min-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .milestone-container {
+                grid-column: span 3;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="top-glow-line"></div>
 
-    <header class="profile-header">
-        <div class="profile-avatar-container" onclick="openModal('edit-profile')">
-            <div class="profile-avatar" id="main-avatar">👨‍💻</div>
-            <div class="edit-badge">✎</div>
+    <div class="container">
+        <!-- 1. Top Profile Summary Card -->
+        <div class="profile-hero">
+            <div class="avatar-container">
+                <img src="./index_files/tutor-andriy.png" class="profile-avatar" alt="User Avatar">
+                <div class="streak-badge-mini">🔥 12</div>
+            </div>
+            <div class="profile-info">
+                <h1>Олексій</h1>
+                <p class="profile-subtitle">Keep going — you’re making great progress in Ukrainian!</p>
+                <div class="badge-row">
+                    <span class="mini-badge">Premium</span>
+                    <span class="mini-badge">A2 Learner</span>
+                </div>
+            </div>
         </div>
-        <h1 class="user-name" id="main-name">Alex Miller</h1>
-        <div class="plan-badge">Fluency Plan Member</div>
-        <div class="streak-pill">🔥 12 Day Streak</div>
-    </header>
 
-    <main>
-        <!-- Stats Summary -->
-        <div class="stats-summary-card">
-            <div class="stat-item">
+        <!-- 2. Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🔥</span>
+                </div>
+                <span class="stat-value">12</span>
+                <span class="stat-label">Streak Days</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📚</span>
+                </div>
+                <span class="stat-value">482</span>
                 <span class="stat-label">Words Learned</span>
-                <span class="stat-value">1,248</span>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Speaking Mins</span>
-                <span class="stat-value">342m</span>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🗣️</span>
+                </div>
+                <span class="stat-value">124</span>
+                <span class="stat-label">Speaking Min</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎓</span>
+                </div>
+                <span class="stat-value">32</span>
                 <span class="stat-label">Lessons Done</span>
-                <span class="stat-value">84</span>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Accuracy</span>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎯</span>
+                </div>
                 <span class="stat-value">94%</span>
+                <span class="stat-label">Accuracy</span>
             </div>
-        </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🏆</span>
+                </div>
+                <span class="stat-value">8</span>
+                <span class="stat-label">Badges</span>
+            </div>
 
-        <!-- Goal & Achievements Section -->
-        <div class="goal-section">
-            <div class="goal-header">
-                <span class="goal-title">Next Milestone: Intermediate</span>
-                <span class="goal-percent">65%</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill"></div>
-            </div>
-            <p class="milestone-text">You're just <strong>12 sessions</strong> away from your next level milestone! Keep
-                it up!</p>
-
-            <div style="margin-top: 24px; display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;">
-                <div
-                    style="background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); border-radius: 12px; padding: 12px; min-width: 80px; text-align: center;">
-                    <div style="font-size: 24px; margin-bottom: 4px;">🏆</div>
-                    <div style="font-size: 10px; font-weight: 700; color: var(--app-accent);">Early Bird</div>
+            <div class="stat-card milestone-container">
+                <div class="stat-header">
+                    <span class="stat-label">Next Milestone: Word Master</span>
+                    <span class="stat-icon">✨</span>
                 </div>
-                <div
-                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; min-width: 80px; text-align: center; opacity: 0.5;">
-                    <div style="font-size: 24px; margin-bottom: 4px;">🔥</div>
-                    <div style="font-size: 10px; font-weight: 700;">10 Day Streak</div>
+                <div class="progress-mini-wrap">
+                    <div class="progress-mini-bar" style="width: 72%;"></div>
                 </div>
-                <div
-                    style="background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); border-radius: 12px; padding: 12px; min-width: 80px; text-align: center;">
-                    <div style="font-size: 24px; margin-bottom: 4px;">🗣️</div>
-                    <div style="font-size: 10px; font-weight: 700; color: var(--app-accent);">First Call</div>
-                </div>
-                <div
-                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; min-width: 80px; text-align: center; opacity: 0.5;">
-                    <div style="font-size: 24px; margin-bottom: 4px;">💪</div>
-                    <div style="font-size: 10px; font-weight: 700;">Word Master</div>
+                <div class="milestone-text">
+                    <span>18 words to go</span>
+                    <span>72%</span>
                 </div>
             </div>
         </div>
 
-        <!-- Account -->
-        <div class="settings-group">
-            <h3 class="group-title">Account</h3>
-            <div class="settings-list">
-                <div class="setting-item" onclick="openModal('edit-profile')">
-                    <div class="setting-info">
-                        <span class="setting-icon">👤</span>
-                        <span class="setting-label">Edit Profile</span>
-                    </div>
-                    <span class="setting-arrow">›</span>
+        <!-- 3. Account Section -->
+        <div class="section-header">Account</div>
+        <div class="glass-card">
+            <a href="#" class="settings-row">
+                <div class="row-icon">👤</div>
+                <span class="row-label">Edit Profile</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">💳</div>
+                <span class="row-label">Subscription & Billing</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">⭐</div>
+                <span class="row-label">Manage Plan</span>
+                <span class="row-value">Premium</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">🔄</div>
+                <span class="row-label">Restore Purchases</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">🌐</div>
+                <span class="row-label">Interface Language</span>
+                <span class="row-value">English</span>
+                <span class="row-chevron">›</span>
+            </a>
+        </div>
+
+        <!-- 4. Learning Preferences -->
+        <div class="section-header">Learning Preferences</div>
+        <div class="glass-card">
+            <div class="settings-row">
+                <div class="row-icon">📈</div>
+                <span class="row-label">Ukrainian Level</span>
+                <span class="row-value">Intermediate</span>
+                <span class="row-chevron">›</span>
+            </div>
+            <div class="settings-row">
+                <div class="row-icon">⚡</div>
+                <span class="row-label">Speaking Speed</span>
+                <span class="row-value">Normal</span>
+                <span class="row-chevron">›</span>
+            </div>
+            <div class="settings-row">
+                <div class="row-icon">🔤</div>
+                <span class="row-label">English Translations</span>
+                <label class="toggle">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="settings-row">
+                <div class="row-icon">📅</div>
+                <span class="row-label">Daily Goal</span>
+                <span class="row-value">15 min/day</span>
+                <span class="row-chevron">›</span>
+            </div>
+            <div class="settings-row">
+                <div class="row-icon">🗣️</div>
+                <span class="row-label">Practice Mode</span>
+                <span class="row-value">Conversation</span>
+                <span class="row-chevron">›</span>
+            </div>
+        </div>
+
+        <!-- 5. App Settings -->
+        <div class="section-header">App Settings</div>
+        <div class="glass-card">
+            <div class="settings-row">
+                <div class="row-icon">🔔</div>
+                <span class="row-label">Notifications</span>
+                <label class="toggle">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <a href="#" class="settings-row">
+                <div class="row-icon">🤖</div>
+                <span class="row-label">Tutor Settings</span>
+                <span class="row-value">Advanced</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <div class="settings-row">
+                <div class="row-icon">🌙</div>
+                <span class="row-label">Dark Mode</span>
+                <label class="toggle">
+                    <input type="checkbox" checked disabled>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- 6. Study Tools -->
+        <div class="section-header">Study Tools</div>
+        <div class="glass-card">
+            <a href="#" class="settings-row">
+                <div class="row-icon">🔖</div>
+                <div class="history-main" style="flex:1;">
+                    <span class="row-label">Saved Words</span>
+                    <span class="profile-subtitle" style="margin-top:0; font-size: 0.8rem;">Review your starred vocabulary</span>
                 </div>
-                <div class="setting-item" onclick="location.href='billing.html'">
-                    <div class="setting-info">
-                        <span class="setting-icon">💳</span>
-                        <span class="setting-label">Subscription & Billing</span>
-                    </div>
-                    <span class="setting-arrow">›</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">❌</div>
+                <div class="history-main" style="flex:1;">
+                    <span class="row-label">Review Mistakes</span>
+                    <span class="profile-subtitle" style="margin-top:0; font-size: 0.8rem;">Practice what you missed</span>
+                </div>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">📒</div>
+                <span class="row-label">Vocabulary Notebook</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">🎙️</div>
+                <span class="row-label">Pronunciation Practice</span>
+                <span class="row-chevron">›</span>
+            </a>
+        </div>
+
+        <!-- 7. Achievements -->
+        <div class="section-header">Achievements</div>
+        <div class="glass-card">
+            <div class="achievement-grid">
+                <div class="achievement-badge unlocked">
+                    <div class="badge-icon-wrap unlocked">🌅</div>
+                    <span class="badge-name">Early Bird</span>
+                </div>
+                <div class="achievement-badge unlocked">
+                    <div class="badge-icon-wrap unlocked">📞</div>
+                    <span class="badge-name">First Call</span>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon-wrap">💎</div>
+                    <span class="badge-name">Word Master</span>
+                    <div class="badge-lock">🔒</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon-wrap">🔥</div>
+                    <span class="badge-name">7-Day Streak</span>
+                    <div class="badge-lock">🔒</div>
                 </div>
             </div>
         </div>
 
-        <!-- Learning Preferences -->
-        <div class="settings-group">
-            <h3 class="group-title">Learning Preferences</h3>
-            <div class="settings-list">
-                <div class="setting-item" onclick="openModal('levels')">
-                    <div class="setting-info">
-                        <span class="setting-icon">🌍</span>
-                        <span class="setting-label">Ukrainian Level</span>
-                    </div>
-                    <span class="setting-arrow"><span id="lbl-level">Beginner</span> ›</span>
+        <!-- 8. Learning History -->
+        <div class="section-header">Learning History</div>
+        <div class="glass-card history-card">
+            <div class="history-row">
+                <div class="history-main">
+                    <span class="history-title">Ordering Coffee in Ukrainian</span>
+                    <span class="history-meta">Completed Today • 12 min</span>
                 </div>
-                <div class="setting-item" onclick="openModal('speed')">
-                    <div class="setting-info">
-                        <span class="setting-icon">🗣️</span>
-                        <span class="setting-label">Speaking Speed</span>
-                    </div>
-                    <span class="setting-arrow"><span id="lbl-speed">Normal</span> ›</span>
+                <span class="history-tag">Lesson</span>
+            </div>
+            <div class="history-row">
+                <div class="history-main">
+                    <span class="history-title">Speaking Session with Ivan</span>
+                    <span class="history-meta">Yesterday • 15 min</span>
                 </div>
-                <div class="setting-item" onclick="toggleSwitch('trans-sw')">
-                    <div class="setting-info">
-                        <span class="setting-icon">🇺🇸</span>
-                        <span class="setting-label">English Translations</span>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" checked id="trans-sw">
-                        <span class="slider"></span>
-                    </label>
+                <span class="history-tag">Voice</span>
+            </div>
+            <div class="history-row">
+                <div class="history-main">
+                    <span class="history-title">Daily Conversation Practice</span>
+                    <span class="history-meta">Oct 24 • 8 min</span>
                 </div>
+                <span class="history-tag">Text</span>
             </div>
         </div>
 
-        <!-- App Settings -->
-        <div class="settings-group">
-            <h3 class="group-title">App Settings</h3>
-            <div class="settings-list">
-                <div class="setting-item" onclick="openModal('notifications')">
-                    <div class="setting-info">
-                        <span class="setting-icon">🔔</span>
-                        <span class="setting-label">Notifications</span>
-                    </div>
-                    <span class="setting-arrow">›</span>
-                </div>
-                <div class="setting-item" onclick="openModal('audio')">
-                    <div class="setting-info">
-                        <span class="setting-icon">🎙️</span>
-                        <span class="setting-label">Audio Preferences</span>
-                    </div>
-                    <span class="setting-arrow">›</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Support -->
-        <div class="settings-group">
-            <h3 class="group-title">Support</h3>
-            <div class="settings-list">
-                <div class="setting-item" onclick="toggleDropdown('support-panel', this)">
-                    <div class="setting-info">
-                        <span class="setting-icon">❓</span>
-                        <span class="setting-label">Help Center & FAQ</span>
-                    </div>
-                    <span class="setting-arrow dropdown-indicator">▾</span>
-                </div>
-                <div class="dropdown-panel" id="support-panel">
-                    <div class="dropdown-row" onclick="location.href='contact.html'">
-                        <span>Help Center</span>
-                        <span>›</span>
-                    </div>
-                    <div class="dropdown-row" onclick="location.href='faq.html'">
-                        <span>FAQ</span>
-                        <span>›</span>
-                    </div>
-                </div>
-                <div class="setting-item" onclick="location.href='contact.html'">
-                    <div class="setting-info">
-                        <span class="setting-icon">✉️</span>
-                        <span class="setting-label">Contact Support</span>
-                    </div>
-                    <span class="setting-arrow">›</span>
-                </div>
-                <div class="logout-btn" onclick="openModal('logout')">Log Out</div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modals Overlay -->
-    <div class="modal-overlay" id="modal-overlay" onclick="closeAllModals(event)">
-        <!-- Edit Profile -->
-        <div class="modal-content" id="m-edit-profile">
-            <div class="modal-header">
-                <h2 class="modal-title">Edit Profile</h2>
-                <p class="modal-subtitle">Update your personal information</p>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Display Name</label>
-                <input type="text" class="form-control" id="form-name" value="Alex Miller">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" id="form-email" value="alex@example.com">
-            </div>
-            <div class="modal-actions">
-                <div class="btn-modal btn-secondary" onclick="closeAllModals()">Cancel</div>
-                <div class="btn-modal btn-primary" onclick="saveProfile()">Save</div>
-            </div>
-        </div>
-
-        <!-- Level Selector -->
-        <div class="modal-content" id="m-levels">
-            <div class="modal-header">
-                <h2 class="modal-title">Ukrainian Level</h2>
-                <p class="modal-subtitle">Choose the level that best matches your current ability</p>
-            </div>
-            <div class="selection-list-modal">
-                <div class="selection-card" onclick="setPreference('level', 'Absolute Beginner')">
-                    <span>Absolute Beginner</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card active" onclick="setPreference('level', 'Beginner')">
-                    <span>Beginner</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'Intermediate')">
-                    <span>Intermediate</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'High Intermediate')">
-                    <span>High Intermediate</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'Advanced')">
-                    <span>Advanced</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('level', 'Fluent')">
-                    <span>Fluent</span>
-                    <div class="selection-indicator"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Speed Selector (Updated Slider) -->
-        <div class="modal-content" id="m-speed">
-            <div class="modal-header">
-                <h2 class="modal-title">Speaking Speed</h2>
-                <p class="modal-subtitle">Adjust how fast your AI tutor speaks</p>
-            </div>
-
-            <div style="padding: 20px 0 10px;">
-                <div style="text-align: center; font-size: 28px; font-weight: 800; color: #ffffff; margin-bottom: 30px;"
-                    id="speed-display">1.00x</div>
-
-                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%;">
-                    <button
-                        style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;"
-                        onclick="adjustSpeed(-0.05)">
-                        <svg width="20" height="2" viewBox="0 0 20 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="20" height="2" rx="1" fill="white" />
-                        </svg>
-                    </button>
-
-                    <div style="flex: 1; position: relative;">
-                        <!-- Custom styled range input -->
-                        <style>
-                            .speed-slider {
-                                -webkit-appearance: none;
-                                width: 100%;
-                                height: 4px;
-                                background: rgba(255, 255, 255, 0.2);
-                                border-radius: 2px;
-                                outline: none;
-                            }
-
-                            .speed-slider::-webkit-slider-thumb {
-                                -webkit-appearance: none;
-                                appearance: none;
-                                width: 20px;
-                                height: 20px;
-                                border-radius: 50%;
-                                background: #ffffff;
-                                cursor: pointer;
-                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                            }
-
-                            .speed-slider::-moz-range-thumb {
-                                width: 20px;
-                                height: 20px;
-                                border-radius: 50%;
-                                background: #ffffff;
-                                cursor: pointer;
-                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                                border: none;
-                            }
-                        </style>
-                        <input type="range" min="0.5" max="1.25" step="0.05" value="1.0" class="speed-slider"
-                            id="speed-slider" oninput="updateSpeedDisplay(this.value)">
-                    </div>
-
-                    <button
-                        style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;"
-                        onclick="adjustSpeed(0.05)">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11 9H19C19.5523 9 20 9.44772 20 10C20 10.5523 19.5523 11 19 11H11V19C11 19.5523 10.5523 20 10 20C9.44772 20 9 19.5523 9 19V11H1C0.447715 11 0 10.5523 0 10C0 9.44772 0.447715 9 1 9H9V1C9 0.447715 9.44772 0 10 0C10.5523 0 11 0.447715 11 1V9Z"
-                                fill="white" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="modal-actions" style="margin-top: 30px;">
-                <div class="btn-modal btn-primary" onclick="saveSpeedPreference()">Done</div>
-            </div>
-        </div>
-
-        <!-- Notifications -->
-        <div class="modal-content" id="m-notifications">
-            <div class="modal-header">
-                <h2 class="modal-title">Notifications</h2>
-                <p class="modal-subtitle">Manage your alerts</p>
-            </div>
-            <div class="settings-list" style="background:none; border:none;">
-                <div class="setting-item">
-                    <span class="setting-label">Daily Reminders</span>
-                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                </div>
-                <div class="setting-item">
-                    <span class="setting-label">Streak Alerts</span>
-                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                </div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-modal btn-primary" onclick="closeAllModals()">Done</div>
-            </div>
-        </div>
-
-        <!-- Audio -->
-        <div class="modal-content" id="m-audio">
-            <div class="modal-header">
-                <h2 class="modal-title">Tutor Voice</h2>
-                <p class="modal-subtitle">Choose your preferred tutor voice</p>
-            </div>
-            <div class="selection-list-modal">
-                <div class="selection-card active" onclick="closeAllModals()">
-                    <span>Warm and Friendly</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="closeAllModals()">
-                    <span>Native Ukrainian (Female)</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="closeAllModals()">
-                    <span>Native Ukrainian (Male)</span>
-                    <div class="selection-indicator"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Logout -->
-        <div class="modal-content" id="m-logout">
-            <div class="modal-header">
-                <h2 class="modal-title">Log Out?</h2>
-                <p class="modal-subtitle">Are you sure you want to log out of your session?</p>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-modal btn-secondary" onclick="closeAllModals()">Cancel</div>
-                <div class="btn-modal" style="background: #ff4757; color: white;" onclick="location.href='index.html'">
-                    Log Out</div>
-            </div>
+        <!-- 9. Support Section -->
+        <div class="section-header">Support</div>
+        <div class="glass-card">
+            <a href="#" class="settings-row">
+                <div class="row-icon">❓</div>
+                <span class="row-label">Help Center</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">💬</div>
+                <span class="row-label">Contact Support</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">📝</div>
+                <span class="row-label">Terms of Service</span>
+                <span class="row-chevron">›</span>
+            </a>
+            <a href="#" class="settings-row">
+                <div class="row-icon">🛡️</div>
+                <span class="row-label">Privacy Policy</span>
+                <span class="row-chevron">›</span>
+            </a>
         </div>
     </div>
 
-    <footer class="app-footer">
-        <div class="footer-item" onclick="location.href='tutor.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
-                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-top: 10px; margin-bottom: 0px;">
-                <span style="font-weight: 700; color: inherit; margin-top: 10px;">AI Tutor</span>
-            </div>
-        </div>
-        <div class="footer-item" onclick="location.href='chat.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">💬</span>
-                <span style="font-weight: 700; color: inherit;">Messages</span>
-            </div>
-        </div>
-        <div class="footer-item" onclick="location.href='progress.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">📈</span>
-                <span style="font-weight: 700; color: inherit;">Progress</span>
-            </div>
-        </div>
-        <div class="footer-item active" style="color: var(--app-accent);">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">⚙️</span>
-                <span style="font-weight: 700; color: inherit;">Profile</span>
-            </div>
-        </div>
-    </footer>
+    <nav class="bottom-nav">
+        <a href="tutor.html" class="nav-item">
+            <span class="nav-icon">🤖</span>
+            <span>AI Tutor</span>
+        </a>
+        <a href="chat.html" class="nav-item">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+        </a>
+        <a href="progress.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Progress</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <img src="./index_files/tutor-andriy.png" alt="Profile" class="nav-img">
+            <span>Profile</span>
+        </a>
+    </nav>
 
-    <script>
-        const overlay = document.getElementById('modal-overlay');
-        const modals = document.querySelectorAll('.modal-content');
-
-        function openModal(id) {
-            overlay.classList.add('active');
-            modals.forEach(m => m.style.display = 'none');
-            document.getElementById('m-' + id).style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAllModals(e) {
-            if (!e || e.target === overlay || e.target.classList.contains('btn-modal')) {
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function toggleDropdown(id, trigger) {
-            const panel = document.getElementById(id);
-            const ind = trigger.querySelector('.dropdown-indicator');
-            const isActive = panel.classList.toggle('active');
-            ind.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
-        }
-
-        function toggleSwitch(id) {
-            const sw = document.getElementById(id);
-            sw.checked = !sw.checked;
-        }
-
-        function saveProfile() {
-            const name = document.getElementById('form-name').value;
-            document.getElementById('main-name').innerText = name;
-            closeAllModals();
-        }
-
-        function setPreference(type, val) {
-            const lbl = document.getElementById('lbl-' + type);
-            lbl.innerText = val.split(' (')[0];
-
-            // Update active card
-            const cards = document.getElementById('m-' + type).querySelectorAll('.selection-card');
-            cards.forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            setTimeout(closeAllModals, 200);
-        }
-
-        // New Speed Slider Logic
-        function updateSpeedDisplay(val) {
-            document.getElementById('speed-display').innerText = parseFloat(val).toFixed(2) + 'x';
-
-            // Calculate percentage for gradient background fill on slider
-            const min = 0.5;
-            const max = 1.25;
-            const percentage = ((val - min) / (max - min)) * 100;
-            const slider = document.getElementById('speed-slider');
-            slider.style.background = `linear-gradient(to right, #ffd700 ${percentage}%, rgba(255, 255, 255, 0.2) ${percentage}%)`;
-        }
-
-        // Initialize slider background on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const slider = document.getElementById('speed-slider');
-            if (slider) updateSpeedDisplay(slider.value);
-        });
-
-        function adjustSpeed(amount) {
-            const slider = document.getElementById('speed-slider');
-            let newVal = parseFloat(slider.value) + amount;
-
-            // clamp
-            if (newVal < parseFloat(slider.min)) newVal = parseFloat(slider.min);
-            if (newVal > parseFloat(slider.max)) newVal = parseFloat(slider.max);
-
-            slider.value = newVal;
-            updateSpeedDisplay(newVal);
-        }
-
-        function saveSpeedPreference() {
-            const val = document.getElementById('speed-slider').value;
-            let displayLabel = 'Normal';
-            if (val == 0.5) displayLabel = 'Very Slow';
-            else if (val == 1.0) displayLabel = 'Normal';
-            else if (val == 1.5) displayLabel = 'Fast';
-            else if (val == 2.0) displayLabel = 'Very Fast';
-            else displayLabel = parseFloat(val).toFixed(2) + 'x'; // Fallback if custom step
-
-            document.getElementById('lbl-speed').innerText = displayLabel;
-            closeAllModals();
-        }
-    </script>
 </body>
-
 </html>

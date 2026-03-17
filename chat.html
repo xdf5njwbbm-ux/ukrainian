@@ -168,13 +168,24 @@
             position: relative;
             margin-right: 14px;
             flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            /* Yellow ring */
+            background: linear-gradient(135deg, #ffd700, #ffb300);
+            padding: 3px;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .chat-avatar {
-            width: 50px;
-            height: 50px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
+            object-position: center top;
             border: none;
             display: flex;
             align-items: center;
@@ -183,17 +194,20 @@
             font-weight: 700;
             color: #ffffff;
             background: linear-gradient(135deg, #2b3954, #1a2a40);
+            /* Blend the edges into the yellow ring */
+            box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.2);
         }
 
         .status-dot {
             position: absolute;
             bottom: 2px;
             right: 0px;
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             background-color: #2ed573;
             border: 2px solid var(--app-bg);
             border-radius: 50%;
+            z-index: 2;
         }
 
         .chat-info {
@@ -539,11 +553,11 @@
             </div>
         </a>
 
-        <!-- Chat 3: Vocab Help (Text Avatar) -->
+        <!-- Chat 3: Andriy -->
         <a class="chat-card"
-            onclick="openChat('Andriy', './index_files/ai_tutor_circular.png', 'You learned 15 new words yesterday! Want to review?')">
+            onclick="openChat('Andriy', './index_files/tutor-andriy.png', 'You learned 15 new words yesterday! Want to review?')">
             <div class="chat-avatar-wrap">
-                <div class="chat-avatar" style="background: linear-gradient(135deg, #7e57c2, #512da8);">V</div>
+                <img src="./index_files/tutor-andriy.png" class="chat-avatar" alt="Andriy">
             </div>
             <div class="chat-info">
                 <div class="chat-header">

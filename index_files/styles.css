@@ -1658,6 +1658,12 @@ section {
     transition: opacity 0.2s;
 }
 
+@media (max-width: 768px) {
+    .login-btn {
+        display: none;
+    }
+}
+
 .login-btn:hover {
     opacity: 0.8;
 }
