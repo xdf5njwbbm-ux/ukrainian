@@ -124,15 +124,15 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 32px;
-            padding: 32px;
+            padding: 24px 32px;
             width: 100%;
             max-width: 440px;
             box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .form-group input {
@@ -158,7 +158,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.6);
             text-align: left;
@@ -181,7 +181,7 @@
             color: #fff;
             border: none;
             border-radius: 16px;
-            padding: 18px;
+            padding: 16px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
@@ -190,7 +190,7 @@
             justify-content: center;
             gap: 12px;
             transition: all 0.3s ease;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .auth-btn:hover {
@@ -206,8 +206,8 @@
         }
 
         .social-btn {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: #fff;
             display: flex;
@@ -257,71 +257,159 @@
         .plan-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
+            border-radius: 24px;
+            padding: 28px;
             text-align: left;
             position: relative;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .plan-card.featured {
+        .plan-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        /* Tiered Selection Logic */
+        .plan-card.selected {
+            z-index: 5;
+            background: rgba(0, 87, 184, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .plan-card.selected::before {
+            content: '✓ Selected';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            color: #000;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+            animation: fadeInDown 0.3s ease-out;
+            z-index: 10;
+        }
+
+        /* 1. Texting Plan (Selected) */
+        .plan-card[data-plan="texting"].selected {
+            border: 2px solid #ffd700;
             background: rgba(0, 87, 184, 0.1);
-            border-color: rgba(0, 87, 184, 0.3);
-            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+        }
+
+        /* 2. Confidence Plan (Selected) */
+        .plan-card[data-plan="confidence"].selected {
+            border: 2.5px solid #ffd700;
+            background: linear-gradient(135deg, rgba(0, 87, 184, 0.25) 0%, rgba(255, 215, 0, 0.1) 100%);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.25);
+            transform: translateY(-8px);
+        }
+
+        /* 3. Fluency Plan (Selected) */
+        .plan-card[data-plan="fluency"].selected {
+            border: 3px solid #ffd700;
+            background: linear-gradient(135deg, rgba(0, 87, 184, 0.3) 0%, rgba(255, 215, 0, 0.2) 100%);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translate(-50%, -20px); }
+            to { opacity: 1; transform: translate(-50%, -12px); }
         }
 
         .plan-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 14px;
+            right: 14px;
             background: #ffd700;
             color: #000;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
+            padding: 5px 14px;
+            border-radius: 10px;
+            font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .plan-card[data-plan="confidence"] .plan-badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .plan-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0;
+            color: #fff;
+            letter-spacing: -0.01em;
         }
 
         .plan-price {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 4px 0 16px;
+            color: #fff;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
         }
 
         .plan-price span {
-            font-size: 0.9rem;
-            opacity: 0.6;
+            font-size: 1rem;
+            opacity: 0.5;
+            font-weight: 500;
         }
 
         .plan-features {
             list-style: none;
             padding: 0;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .plan-features li {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .plan-features li .ico {
-            opacity: 0.5;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            color: #ffd700;
+        }
+
+        .plan-features li strong {
+            color: #fff;
+            font-weight: 700;
         }
 
         .auth-footer {
             margin-top: 20px;
             color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
         }
 
         .auth-footer a {
@@ -336,124 +424,25 @@
                 gap: 20px;
             }
 
-            .plan-card.featured {
-                transform: scale(1);
+            .plan-card.selected {
+                transform: scale(1.02) !important;
+                margin: 10px 0;
             }
         }
 
         .plan-card.trial {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            box-shadow: none !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 24px 0 !important;
-            padding: 12px 20px !important;
-            text-align: left;
+            padding: 12px 24px !important;
+            margin-bottom: 32px !important;
             border-radius: 16px;
-            display: flex;
-            flex-direction: row !important;
-            align-items: center;
-            justify-content: space-between !important;
-            gap: 12px;
-            flex-wrap: nowrap !important;
-        }
-
-        .plan-card.trial .trial-info {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .plan-card.trial .plan-name {
-            color: #fff000;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .plan-card.trial .plan-price {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin: 0;
-            color: #fff;
-        }
-
-        .plan-card.trial .plan-features {
-            display: flex;
-            flex-direction: row;
-            gap: 16px;
-            margin: 0;
-            list-style: none;
-            padding: 0;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            align-items: center;
-        }
-
-        .trial-btn {
-            background: #ffd700;
-            color: #000;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .trial-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        @media (max-width: 600px) {
-            .plan-card.trial .plan-features {
-                flex-direction: column;
-                gap: 8px;
-                align-items: center;
-            }
-        }
-
-        .plan-card {
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .plan-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.4);
             background: rgba(255, 255, 255, 0.05);
-        }
-
-        .plan-card.selected {
-            border: 2px solid #ffd700 !important;
-            background: rgba(0, 87, 184, 0.15) !important;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2) !important;
-        }
-
-        .plan-card.selected::before {
-            content: '✓ Selected';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ffd700;
-            color: #000;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: auto !important;
+            align-self: center;
         }
 
         .plan-card.trial.selected {
             gap: 24px;
+            border-color: rgba(255, 215, 0, 0.4);
         }
     </style>
 </head>
@@ -556,19 +545,19 @@
                     <div class="plan-name">Texting Plan</div>
                     <div class="plan-price">$9.99<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><span class="ico">💬</span> <strong>5</strong> daily chats</li>
-                        <li><span class="ico">📱</span> daily chats</li>
+                        <li><span class="ico">✨</span> <span><strong>5</strong> AI Conversations daily</span></li>
+                        <li><span class="ico">📱</span> <span>Premium Chat Interface</span></li>
                     </ul>
                 </div>
 
                 <!-- Confidence Plan -->
-                <div class="plan-card featured selected" data-plan="confidence">
-                    <div class="plan-badge">Most Popular</div>
+                <div class="plan-card selected" data-plan="confidence">
                     <div class="plan-name">Confidence Plan</div>
                     <div class="plan-price">$24.99<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><span class="ico">💬</span> <strong>20</strong> daily chats</li>
-                        <li><span class="ico">📱</span> daily chats</li>
+                        <li><span class="ico">🚀</span> <span><strong>20</strong> AI Conversations daily</span></li>
+                        <li><span class="ico">📞</span> <span><strong>10 min</strong> Voice Calls / mo</span></li>
+                        <li><span class="ico">🎯</span> <span>Personalized Focus Areas</span></li>
                     </ul>
                 </div>
 
@@ -577,8 +566,9 @@
                     <div class="plan-name">Fluency Plan</div>
                     <div class="plan-price">$39.99<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><span class="ico">💬</span> <strong>Unlimited</strong> chats</li>
-                        <li><span class="ico">✅</span> Unlimited chats</li>
+                        <li><span class="ico">💎</span> <span><strong>Unlimited</strong> AI Conversations</span></li>
+                        <li><span class="ico">⚡</span> <span>Priority Voice Server Access</span></li>
+                        <li><span class="ico">🎓</span> <span>Full Learning Path Access</span></li>
                     </ul>
                 </div>
             </div>
