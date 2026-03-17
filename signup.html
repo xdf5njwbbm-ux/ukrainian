@@ -69,6 +69,33 @@
             }
         }
 
+        /* Back Button Styling */
+        .back-btn {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 1rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+            opacity: 0.8;
+        }
+
+        @media (min-width: 800px) {
+            .back-btn {
+                position: absolute;
+                top: 40px;
+                left: 40px;
+                font-size: 1.1rem;
+            }
+        }
+
         .auth-header {
             text-align: center;
             margin-bottom: 32px;
@@ -436,12 +463,9 @@
     <div class="page-wrapper">
 
         <div class="auth-header">
-            <div style="width: 100%; max-width: 440px; position: relative; margin: 0 auto 20px;">
-                <a href="index.html" class="back-btn"
-                    style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: #ffd700; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px;">
-                    <span style="font-size: 1.2rem;">←</span> Back
-                </a>
-            </div>
+            <a href="index.html" class="back-btn">
+                <span style="font-size: 1.2rem;">←</span> Back
+            </a>
             <div class="auth-logo">
                 <h1 style="color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);">Create Your Ukrainian <span
                         class="text-yellow" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">Learning
