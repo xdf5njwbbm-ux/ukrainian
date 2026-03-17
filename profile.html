@@ -794,29 +794,76 @@
             </div>
         </div>
 
-        <!-- Speed Selector -->
+        <!-- Speed Selector (Updated Slider) -->
         <div class="modal-content" id="m-speed">
             <div class="modal-header">
                 <h2 class="modal-title">Speaking Speed</h2>
                 <p class="modal-subtitle">Adjust how fast your AI tutor speaks</p>
             </div>
-            <div class="selection-list-modal">
-                <div class="selection-card" onclick="setPreference('speed', 'Very Slow (0.5x)')">
-                    <span>Very Slow (0.5x)</span>
-                    <div class="selection-indicator"></div>
+
+            <div style="padding: 20px 0 10px;">
+                <div style="text-align: center; font-size: 28px; font-weight: 800; color: #ffffff; margin-bottom: 30px;"
+                    id="speed-display">1.00x</div>
+
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%;">
+                    <button
+                        style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+                        onclick="adjustSpeed(-0.05)">
+                        <svg width="20" height="2" viewBox="0 0 20 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="20" height="2" rx="1" fill="white" />
+                        </svg>
+                    </button>
+
+                    <div style="flex: 1; position: relative;">
+                        <!-- Custom styled range input -->
+                        <style>
+                            .speed-slider {
+                                -webkit-appearance: none;
+                                width: 100%;
+                                height: 4px;
+                                background: rgba(255, 255, 255, 0.2);
+                                border-radius: 2px;
+                                outline: none;
+                            }
+
+                            .speed-slider::-webkit-slider-thumb {
+                                -webkit-appearance: none;
+                                appearance: none;
+                                width: 20px;
+                                height: 20px;
+                                border-radius: 50%;
+                                background: #ffffff;
+                                cursor: pointer;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                            }
+
+                            .speed-slider::-moz-range-thumb {
+                                width: 20px;
+                                height: 20px;
+                                border-radius: 50%;
+                                background: #ffffff;
+                                cursor: pointer;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                                border: none;
+                            }
+                        </style>
+                        <input type="range" min="0.5" max="1.25" step="0.05" value="1.0" class="speed-slider"
+                            id="speed-slider" oninput="updateSpeedDisplay(this.value)">
+                    </div>
+
+                    <button
+                        style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+                        onclick="adjustSpeed(0.05)">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11 9H19C19.5523 9 20 9.44772 20 10C20 10.5523 19.5523 11 19 11H11V19C11 19.5523 10.5523 20 10 20C9.44772 20 9 19.5523 9 19V11H1C0.447715 11 0 10.5523 0 10C0 9.44772 0.447715 9 1 9H9V1C9 0.447715 9.44772 0 10 0C10.5523 0 11 0.447715 11 1V9Z"
+                                fill="white" />
+                        </svg>
+                    </button>
                 </div>
-                <div class="selection-card" onclick="setPreference('speed', 'Slow (0.75x)')">
-                    <span>Slow (0.75x)</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card active" onclick="setPreference('speed', 'Normal')">
-                    <span>Normal (1.0x)</span>
-                    <div class="selection-indicator"></div>
-                </div>
-                <div class="selection-card" onclick="setPreference('speed', 'Fast (1.25x)')">
-                    <span>Fast (1.25x)</span>
-                    <div class="selection-indicator"></div>
-                </div>
+            </div>
+            <div class="modal-actions" style="margin-top: 30px;">
+                <div class="btn-modal btn-primary" onclick="saveSpeedPreference()">Done</div>
             </div>
         </div>
 
@@ -882,8 +929,8 @@
             <div
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
                 <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
-                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-                <span style="font-weight: 700; color: inherit;">AI Tutor</span>
+                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-top: 10px; margin-bottom: 0px;">
+                <span style="font-weight: 700; color: inherit; margin-top: 10px;">AI Tutor</span>
             </div>
         </div>
         <div class="footer-item" onclick="location.href='chat.html'">
@@ -955,6 +1002,49 @@
             event.currentTarget.classList.add('active');
 
             setTimeout(closeAllModals, 200);
+        }
+
+        // New Speed Slider Logic
+        function updateSpeedDisplay(val) {
+            document.getElementById('speed-display').innerText = parseFloat(val).toFixed(2) + 'x';
+
+            // Calculate percentage for gradient background fill on slider
+            const min = 0.5;
+            const max = 1.25;
+            const percentage = ((val - min) / (max - min)) * 100;
+            const slider = document.getElementById('speed-slider');
+            slider.style.background = `linear-gradient(to right, #ffd700 ${percentage}%, rgba(255, 255, 255, 0.2) ${percentage}%)`;
+        }
+
+        // Initialize slider background on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('speed-slider');
+            if (slider) updateSpeedDisplay(slider.value);
+        });
+
+        function adjustSpeed(amount) {
+            const slider = document.getElementById('speed-slider');
+            let newVal = parseFloat(slider.value) + amount;
+
+            // clamp
+            if (newVal < parseFloat(slider.min)) newVal = parseFloat(slider.min);
+            if (newVal > parseFloat(slider.max)) newVal = parseFloat(slider.max);
+
+            slider.value = newVal;
+            updateSpeedDisplay(newVal);
+        }
+
+        function saveSpeedPreference() {
+            const val = document.getElementById('speed-slider').value;
+            let displayLabel = 'Normal';
+            if (val == 0.5) displayLabel = 'Very Slow';
+            else if (val == 1.0) displayLabel = 'Normal';
+            else if (val == 1.5) displayLabel = 'Fast';
+            else if (val == 2.0) displayLabel = 'Very Fast';
+            else displayLabel = parseFloat(val).toFixed(2) + 'x'; // Fallback if custom step
+
+            document.getElementById('lbl-speed').innerText = displayLabel;
+            closeAllModals();
         }
     </script>
 </body>

@@ -140,8 +140,11 @@
             align-items: center;
             justify-content: center;
             border: 3px solid var(--app-accent);
+            border-bottom-width: 6px;
+            /* Thicker bottom border to hide image artifacts */
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .tutor-avatar-container img {
@@ -410,14 +413,13 @@
             </div>
 
             <div class="swipe-indicators">
-                <div class="dot active" id="dot0"></div>
-                <div class="dot" id="dot1"></div>
+                <!-- Dots are dynamically generated in script -->
             </div>
         </div>
 
         <!-- Recommended Mode -->
         <h2 class="section-title">✨ Recommended for you</h2>
-        <div class="mode-card">
+        <div class="mode-card" id="recommendedModeContainer" style="transition: opacity 0.3s;">
             <div class="mode-icon">🎓</div>
             <div class="mode-info">
                 <h3>Strict Grammar Coach</h3>
@@ -427,7 +429,7 @@
 
         <!-- Lesson Vibes -->
         <h2 class="section-title">🎭 Today's Lesson Vibe</h2>
-        <div class="vibes-grid" id="vibesGrid">
+        <div class="vibes-grid" id="vibesGrid" style="transition: opacity 0.3s;">
             <!-- Casual Chat -->
             <div class="vibe-card" onclick="this.classList.toggle('flipped')">
                 <div class="vibe-card-inner">
@@ -508,8 +510,8 @@
             <div
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
                 <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
-                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-                <span style="font-weight: 700; color: inherit;">AI Tutor</span>
+                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-top: 10px; margin-bottom: 0px;">
+                <span style="font-weight: 700; color: inherit; margin-top: 10px;">AI Tutor</span>
             </div>
         </div>
         <div class="footer-item" onclick="location.href='chat.html'">
@@ -540,12 +542,56 @@
             {
                 name: "Ivan",
                 img: "./index_files/tutor-male.png",
-                traits: ["Direct & Honest", "Native Slang", "Business Pro", "Cultural Expert", "Advanced Vocab", "Real-world Situations"]
+                traits: ["Direct & Honest", "Native Slang", "Business Pro", "Cultural Expert", "Advanced Vocab", "Real-world Situations"],
+                recommended: {
+                    icon: "🎧",
+                    title: "Native Slang Mastery",
+                    desc: "Based on your recent progress, let's learn how locals actually speak in Kyiv."
+                },
+                vibes: [
+                    { icon: "☕", name: "Casual Chat", example: '"How was your weekend?"<br>Chat about daily life in Kyiv.' },
+                    { icon: "🎙️", name: "Pronunciation", example: "Master the soft 'ь' and rolled 'р'.<br>Get real-time feedback." },
+                    { icon: "🏗️", name: "Grammar Drill", example: "Conquering the Genitive Case.<br>Learn logic, not just rules." },
+                    { icon: "🎭", name: "Roleplay", example: 'Ordering at a Lviv cafe.<br>"One borsch, please!"' },
+                    { icon: "🚀", name: "Vocab Boost", example: "10 new essential verbs.<br>Use them in 5 different ways." },
+                    { icon: "🏙️", name: "Street Smart", example: "Understanding casual phrases.<br>Sound like a local." }
+                ]
             },
             {
                 name: "Olena",
                 img: "./index_files/tutor-female.png",
-                traits: ["Beginner Friendly", "Patient", "Funny", "Conversation Focus", "Pronunciation Helper", "Grammar Coach"]
+                traits: ["Beginner Friendly", "Patient", "Funny", "Conversation Focus", "Pronunciation Helper", "Grammar Coach"],
+                recommended: {
+                    icon: "🎓",
+                    title: "Strict Grammar Coach",
+                    desc: "Based on your recent mistakes, we suggest focusing on case endings today."
+                },
+                vibes: [
+                    { icon: "👋", name: "Basic Greetings", example: "Saying hello and goodbye.<br>First impressions matter." },
+                    { icon: "🛒", name: "Shopping", example: 'Buying groceries in a market.<br>"How much is this?"' },
+                    { icon: "📖", name: "Easy Reading", example: "Read a short story together.<br>Focus on comprehension." },
+                    { icon: "🎭", name: "Roleplay", example: "Meeting a new friend.<br>Introduce yourself." },
+                    { icon: "🚀", name: "Vocab Boost", example: "Everyday household items.<br>Expand your base." },
+                    { icon: "❤️", name: "Romantic Style", example: 'Poetic phrases for a date.<br>"You have beautiful eyes."' }
+                ]
+            },
+            {
+                name: "Andriy",
+                img: "./index_files/tutor-andriy.png",
+                traits: ["Warm and Friendly", "Encouraging", "Cultural Insights", "Practical Vocab", "Everyday Ukrainian", "Fun Lessons"],
+                recommended: {
+                    icon: "🗣️",
+                    title: "Conversational Confidence",
+                    desc: "You've been doing great! Let's build your confidence with some casual conversation."
+                },
+                vibes: [
+                    { icon: "☕", name: "Casual Chat", example: "Talk about your hobbies.<br>Share your interests." },
+                    { icon: "🗺️", name: "Travel & Directions", example: "Asking for directions.<br>Finding your way." },
+                    { icon: "🍔", name: "Ordering Food", example: "Ordering at a restaurant.<br>Learn the menu." },
+                    { icon: "✨", name: "Compliments", example: "Giving nice compliments.<br>Make someone smile." },
+                    { icon: "👨‍👩‍👧‍👦", name: "Family & Friends", example: "Talking about family.<br>Describe your loved ones." },
+                    { icon: "🚀", name: "Vocab Boost", example: "Practical daily verbs.<br>Actions you do often." }
+                ]
             }
         ];
 
@@ -555,7 +601,17 @@
         const nameEl = document.getElementById('tutorName');
         const traitsGrid = document.getElementById('traitsGrid');
         const switchBtn = document.getElementById('switchBtn');
-        const dots = [document.getElementById('dot0'), document.getElementById('dot1')];
+        const dotsContainer = document.querySelector('.swipe-indicators');
+        let dots = [];
+
+        // Dynamically create dots based on tutors array length
+        for (let i = 0; i < tutors.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.id = 'dot' + i;
+            dotsContainer.appendChild(dot);
+            dots.push(dot);
+        }
 
         function updateTutor(index) {
             currentIndex = index;
@@ -577,6 +633,48 @@
                     span.textContent = trait;
                     traitsGrid.appendChild(span);
                 });
+
+                // Update Recommended
+                const recommendedContainer = document.getElementById('recommendedModeContainer');
+                if (recommendedContainer && tutor.recommended) {
+                    recommendedContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        recommendedContainer.innerHTML = `
+                            <div class="mode-icon">${tutor.recommended.icon}</div>
+                            <div class="mode-info">
+                                <h3>${tutor.recommended.title}</h3>
+                                <p>${tutor.recommended.desc}</p>
+                            </div>
+                        `;
+                        recommendedContainer.style.opacity = '1';
+                    }, 150);
+                }
+
+                // Update Vibes
+                const vibesGrid = document.getElementById('vibesGrid');
+                if (vibesGrid && tutor.vibes) {
+                    vibesGrid.style.opacity = '0';
+                    setTimeout(() => {
+                        vibesGrid.innerHTML = '';
+                        tutor.vibes.forEach(vibe => {
+                            const vibeHtml = `
+                                <div class="vibe-card" onclick="this.classList.toggle('flipped')">
+                                    <div class="vibe-card-inner">
+                                        <div class="vibe-front">
+                                            <span class="vibe-icon">${vibe.icon}</span>
+                                            <span class="vibe-name">${vibe.name}</span>
+                                        </div>
+                                        <div class="vibe-back">
+                                            <div class="vibe-example">${vibe.example}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            vibesGrid.innerHTML += vibeHtml;
+                        });
+                        vibesGrid.style.opacity = '1';
+                    }, 150);
+                }
 
                 // Update dots
                 dots.forEach((dot, i) => {

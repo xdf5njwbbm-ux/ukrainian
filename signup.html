@@ -15,14 +15,18 @@
             color: #fff;
             font-family: 'Inter', sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
             padding: 40px 20px;
             box-sizing: border-box;
             background: radial-gradient(circle at center, #0a1f4d 0%, #040a1e 100%);
+        }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
         }
 
         .auth-header {
@@ -389,22 +393,25 @@
 
 <body>
 
-    <div class="auth-header">
-        <div style="width: 100%; max-width: 440px; position: relative; margin: 0 auto 20px;">
-            <a href="index.html" class="back-btn"
-                style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: #ffd700; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px;">
-                <span style="font-size: 1.2rem;">←</span> Back
-            </a>
+    <div class="page-wrapper">
+
+        <div class="auth-header">
+            <div style="width: 100%; max-width: 440px; position: relative; margin: 0 auto 20px;">
+                <a href="index.html" class="back-btn"
+                    style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: #ffd700; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="font-size: 1.2rem;">←</span> Back
+                </a>
+            </div>
+            <div class="auth-logo">
+                <h1 style="color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);">Create Your Ukrainian <span
+                        class="text-yellow" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">Learning
+                        Account</span>
+                </h1>
+            </div>
+            <div class="auth-tagline">
+                Sign up to start chatting in <span class="text-yellow">Ukrainian</span> now!
+            </div>
         </div>
-        <div class="auth-logo">
-            <h1 style="color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);">Create Your Ukrainian <span
-                    class="text-yellow" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">Learning Account</span>
-            </h1>
-        </div>
-        <div class="auth-tagline">
-            Sign up to start chatting in <span class="text-yellow">Ukrainian</span> now!
-        </div>
-        </header>
 
         <main class="auth-card">
             <form>
@@ -508,28 +515,30 @@
             </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const planCards = document.querySelectorAll('.plan-card');
-                const selectedPlanInput = document.getElementById('selectedPlanInput');
+    </div><!-- /.page-wrapper -->
 
-                planCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        // Remove selected class from all cards
-                        planCards.forEach(c => c.classList.remove('selected'));
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const planCards = document.querySelectorAll('.plan-card');
+            const selectedPlanInput = document.getElementById('selectedPlanInput');
 
-                        // Add selected class to clicked card
-                        card.classList.add('selected');
+            planCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove selected class from all cards
+                    planCards.forEach(c => c.classList.remove('selected'));
 
-                        // Update hidden input value
-                        const planId = card.getAttribute('data-plan');
-                        selectedPlanInput.value = planId;
+                    // Add selected class to clicked card
+                    card.classList.add('selected');
 
-                        console.log('Plan selected:', planId);
-                    });
+                    // Update hidden input value
+                    const planId = card.getAttribute('data-plan');
+                    selectedPlanInput.value = planId;
+
+                    console.log('Plan selected:', planId);
                 });
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>
