@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Review Mistakes | UkrainianTutor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071a2b; --accent: #ffd700; --primary: #0057b8;
+            --card-bg: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.08);
+            --text: #ffffff; --muted: rgba(255,215,0,0.75);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 40px; }
+        .page-header { position: sticky; top: 0; z-index: 100; background: rgba(7,26,43,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; padding: 16px 20px; }
+        .back-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.07); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 20px; transition: background 0.2s; flex-shrink: 0; }
+        .back-btn:active { background: rgba(255,255,255,0.15); }
+        .page-title { font-size: 1.1rem; font-weight: 800; }
+        .page-title span { color: var(--accent); }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        /* Progress Summary */
+        .summary-card { background: linear-gradient(135deg, rgba(0,87,184,0.3), rgba(255,215,0,0.08)); border: 1px solid rgba(255,215,0,0.15); border-radius: 24px; padding: 20px; margin-bottom: 20px; }
+        .summary-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 14px; }
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .summary-stat { text-align: center; }
+        .summary-stat .val { font-size: 1.8rem; font-weight: 800; }
+        .summary-stat .val.red { color: #ff7070; }
+        .summary-stat .val.yellow { color: var(--accent); }
+        .summary-stat .val.green { color: #64dc96; }
+        .summary-stat .lbl { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+        /* Category filters */
+        .filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin-bottom: 20px; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-pill { flex-shrink: 0; background: var(--card-bg); border: 1px solid var(--border); border-radius: 100px; padding: 8px 16px; font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; }
+        .filter-pill.active, .filter-pill:hover { background: rgba(255,215,0,0.12); border-color: var(--accent); color: var(--accent); }
+
+        /* Mistake Card */
+        .mistake-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 18px 20px; margin-bottom: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+        .mistake-card:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
+        .mistake-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .category-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 100px; }
+        .tag-vocabulary { background: rgba(100,150,255,0.15); color: #6496ff; border: 1px solid rgba(100,150,255,0.3); }
+        .tag-grammar { background: rgba(255,150,100,0.15); color: #ff9664; border: 1px solid rgba(255,150,100,0.3); }
+        .tag-pronunciation { background: rgba(150,100,255,0.15); color: #9664ff; border: 1px solid rgba(150,100,255,0.3); }
+        .tag-spelling { background: rgba(100,220,150,0.15); color: #64dc96; border: 1px solid rgba(100,220,150,0.3); }
+        .tag-verb { background: rgba(255,215,0,0.12); color: var(--accent); border: 1px solid rgba(255,215,0,0.25); }
+
+        .progress-badge { font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+        .pb-struggling { background: rgba(255,80,80,0.15); color: #ff7070; border: 1px solid rgba(255,80,80,0.3); }
+        .pb-improving { background: rgba(255,215,0,0.12); color: var(--accent); border: 1px solid rgba(255,215,0,0.25); }
+        .pb-mastered { background: rgba(100,220,150,0.15); color: #64dc96; border: 1px solid rgba(100,220,150,0.3); }
+
+        .diff-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        .diff-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.35); margin-bottom: 2px; }
+        .diff-wrong { background: rgba(255,80,80,0.1); border-left: 3px solid rgba(255,80,80,0.5); padding: 8px 12px; border-radius: 0 10px 10px 0; font-size: 0.9rem; color: #ff9090; text-decoration: line-through; }
+        .diff-right { background: rgba(100,220,150,0.1); border-left: 3px solid rgba(100,220,150,0.5); padding: 8px 12px; border-radius: 0 10px 10px 0; font-size: 0.9rem; color: #64dc96; font-weight: 600; }
+        .explanation { font-size: 0.83rem; color: rgba(255,255,255,0.55); line-height: 1.5; margin-bottom: 14px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 10px; }
+        .mistake-actions { display: flex; gap: 8px; }
+        .practice-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; background: rgba(255,215,0,0.12); color: var(--accent); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+        .practice-btn:hover { background: rgba(255,215,0,0.2); }
+        .dismiss-btn { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border); background: transparent; color: rgba(255,255,255,0.4); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+        .dismiss-btn:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a class="back-btn" href="profile.html">‹</a>
+        <div>
+            <div class="page-title">❌ <span>Review Mistakes</span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Progress Summary -->
+        <div class="summary-card">
+            <div class="summary-title">Your Progress</div>
+            <div class="summary-grid">
+                <div class="summary-stat">
+                    <div class="val red">7</div>
+                    <div class="lbl">Struggling</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="val yellow">12</div>
+                    <div class="lbl">Improving</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="val green">21</div>
+                    <div class="lbl">Mastered</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="filter-scroll">
+            <div class="filter-pill active" onclick="setFilter(this,'all')">All</div>
+            <div class="filter-pill" onclick="setFilter(this,'vocabulary')">Vocabulary</div>
+            <div class="filter-pill" onclick="setFilter(this,'grammar')">Grammar</div>
+            <div class="filter-pill" onclick="setFilter(this,'verb')">Verb Forms</div>
+            <div class="filter-pill" onclick="setFilter(this,'pronunciation')">Pronunciation</div>
+            <div class="filter-pill" onclick="setFilter(this,'spelling')">Spelling</div>
+        </div>
+
+        <!-- Mistake Cards -->
+        <div id="mistakeList"></div>
+    </div>
+
+    <script>
+        const mistakes = [
+            { id: 1, category: 'grammar', wrong: 'Я є студент', correct: 'Я студент', explanation: 'In Ukrainian, the verb "to be" (бути) is typically omitted in present tense sentences. Simply state the subject and predicate.', progress: 'struggling' },
+            { id: 2, category: 'vocabulary', wrong: 'велосипед → bicycle (missed)', correct: 'велосипед = bicycle', explanation: 'This word has a Latin root (velocipede). Try linking it to "velocity" to remember it faster.', progress: 'improving' },
+            { id: 3, category: 'verb', wrong: 'Вона читати книгу', correct: 'Вона читає книгу', explanation: 'The verb must be conjugated: читати (infinitive) → читає (3rd person singular present tense).', progress: 'struggling' },
+            { id: 4, category: 'spelling', wrong: 'Украіна', correct: 'Україна', explanation: 'Remember: "ї" (yi) not "і" (i). The letter ї is unique to Ukrainian and always sounds like "yi".', progress: 'mastered' },
+            { id: 5, category: 'pronunciation', wrong: 'г pronounced as Russian Г', correct: 'Ukrainian г = soft "h" sound', explanation: 'Ukrainian "г" is a voiced glottal fricative — like a soft "h". It differs significantly from the Russian hard "g" sound.', progress: 'improving' },
+            { id: 6, category: 'grammar', wrong: 'Мій ім\'я є Олексій', correct: 'Мене звати Олексій', explanation: '"Мене звати" literally means "I am called" — this is the standard way to introduce yourself in Ukrainian.', progress: 'struggling' },
+            { id: 7, category: 'vocabulary', wrong: 'кохати → to like', correct: 'кохати = to love (romantically)', explanation: 'кохати is reserved for romantic love. Use "любити" for general love (family, hobbies) and "подобатися" for "to like".', progress: 'improving' },
+        ];
+
+        let currentFilter = 'all';
+        function setFilter(el, filter) {
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            currentFilter = filter;
+            render();
+        }
+
+        function render() {
+            const list = currentFilter === 'all' ? mistakes : mistakes.filter(m => m.category === currentFilter);
+            const tagClass = { vocabulary: 'tag-vocabulary', grammar: 'tag-grammar', pronunciation: 'tag-pronunciation', spelling: 'tag-spelling', verb: 'tag-verb' };
+            const tagLabel = { vocabulary: 'Vocabulary', grammar: 'Grammar', pronunciation: 'Pronunciation', spelling: 'Spelling', verb: 'Verb Forms' };
+            const pbClass = { struggling: 'pb-struggling', improving: 'pb-improving', mastered: 'pb-mastered' };
+            const pbLabel = { struggling: '😓 Still Struggling', improving: '📈 Improving', mastered: '✓ Mastered' };
+
+            const container = document.getElementById('mistakeList');
+            if (list.length === 0) {
+                container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3)"><div style="font-size:48px;margin-bottom:16px">🎉</div><p>No mistakes in this category!</p></div>`;
+                return;
+            }
+            container.innerHTML = list.map(m => `
+                <div class="mistake-card" id="mc-${m.id}">
+                    <div class="mistake-header">
+                        <span class="category-tag ${tagClass[m.category]}">${tagLabel[m.category]}</span>
+                        <span class="progress-badge ${pbClass[m.progress]}">${pbLabel[m.progress]}</span>
+                    </div>
+                    <div class="diff-row">
+                        <div class="diff-label">You said</div>
+                        <div class="diff-wrong">${m.wrong}</div>
+                        <div class="diff-label">Correct</div>
+                        <div class="diff-right">✓ ${m.correct}</div>
+                    </div>
+                    <div class="explanation">💡 ${m.explanation}</div>
+                    <div class="mistake-actions">
+                        <button class="practice-btn" onclick="practiceAgain(${m.id})">⚡ Practice Again</button>
+                        <button class="dismiss-btn" onclick="dismiss(${m.id})">Dismiss</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function practiceAgain(id) {
+            const m = mistakes.find(x => x.id === id);
+            if (m) { m.progress = m.progress === 'struggling' ? 'improving' : 'mastered'; render(); }
+        }
+        function dismiss(id) {
+            const el = document.getElementById('mc-' + id);
+            if (el) { el.style.opacity = '0'; el.style.transform = 'scale(0.95)'; el.style.transition = 'all 0.3s'; setTimeout(() => { el.remove(); }, 300); }
+        }
+        render();
+    </script>
+</body>
+</html>

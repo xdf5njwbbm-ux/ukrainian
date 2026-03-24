@@ -214,6 +214,44 @@
             color: var(--app-text-dim);
         }
 
+        /* Avatar Ring (matches Messages page) */
+        .avatar-ring {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ffb300);
+            padding: 2.5px;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .avatar-ring.missed-ring {
+            background: linear-gradient(135deg, #ff6b6b, #cc3333);
+            box-shadow: 0 0 14px rgba(255, 107, 107, 0.35);
+        }
+
+        .call-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .status-dot-call {
+            position: absolute;
+            bottom: 1px;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #2ed573;
+            border: 2px solid var(--app-bg);
+            border-radius: 50%;
+        }
+
         /* Missed Call Styling */
         .missed .call-name {
             color: #ff6b6b;
@@ -325,17 +363,17 @@
     </header>
 
     <main class="call-list">
-        <!-- Call Entry 1 -->
+        <!-- Call Entry 1: Olena — Beginner Voice Lesson -->
         <div class="call-item">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring">
+                    <img src="./index_files/tutor-female.png" class="call-avatar" alt="Olena">
                 </div>
+                <div class="status-dot-call"></div>
             </div>
             <div class="call-details">
-                <span class="call-name">AI Tutor (Voice Lesson)</span>
-                <span class="call-type">AI Voice Session</span>
+                <span class="call-name">Olena</span>
+                <span class="call-type">📞 Beginner Voice Lesson</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">14:12</span>
@@ -343,17 +381,16 @@
             </div>
         </div>
 
-        <!-- Call Entry 2 -->
+        <!-- Call Entry 2: Ivan — Grammar Review (Missed) -->
         <div class="call-item missed">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring missed-ring">
+                    <img src="./index_files/tutor-male.png" class="call-avatar" alt="Ivan">
                 </div>
             </div>
             <div class="call-details">
-                <span class="call-name">Beginner Practice</span>
-                <span class="call-type">Missed Voice Lesson</span>
+                <span class="call-name">Ivan</span>
+                <span class="call-type">📵 Missed · Grammar Review</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">Yesterday</span>
@@ -361,17 +398,16 @@
             </div>
         </div>
 
-        <!-- Call Entry 3 -->
+        <!-- Call Entry 3: Andriy — Roleplay Session -->
         <div class="call-item">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring">
+                    <img src="./index_files/tutor-andriy.png" class="call-avatar" alt="Andriy">
                 </div>
             </div>
             <div class="call-details">
-                <span class="call-name">Grammar Review</span>
-                <span class="call-type">AI Voice Session</span>
+                <span class="call-name">Andriy</span>
+                <span class="call-type">📞 Roleplay Session</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">Yesterday</span>
@@ -379,17 +415,16 @@
             </div>
         </div>
 
-        <!-- Call Entry 4 -->
+        <!-- Call Entry 4: Olena — Pronunciation Drill -->
         <div class="call-item">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring">
+                    <img src="./index_files/tutor-female.png" class="call-avatar" alt="Olena">
                 </div>
             </div>
             <div class="call-details">
-                <span class="call-name">Roleplay Session</span>
-                <span class="call-type">Ukrainian Practice Call</span>
+                <span class="call-name">Olena</span>
+                <span class="call-type">📞 Pronunciation Drill</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">Saturday</span>
@@ -397,17 +432,16 @@
             </div>
         </div>
 
-        <!-- Call Entry 5 -->
+        <!-- Call Entry 5: Ivan — Vocabulary Practice -->
         <div class="call-item">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring">
+                    <img src="./index_files/tutor-male.png" class="call-avatar" alt="Ivan">
                 </div>
             </div>
             <div class="call-details">
-                <span class="call-name">Pronunciation Drill</span>
-                <span class="call-type">AI Voice Session</span>
+                <span class="call-name">Ivan</span>
+                <span class="call-type">📞 Vocabulary Practice</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">Friday</span>
@@ -415,17 +449,16 @@
             </div>
         </div>
 
-        <!-- Repeated for scroll testing -->
-        <div class="call-item">
+        <!-- Call Entry 6: Andriy — Advanced Conversation (Missed) -->
+        <div class="call-item missed">
             <div class="profile-container">
-                <div class="profile-icon">
-                    <img src="./index_files/phone-icon.png" alt="Call"
-                        style="width: 28px; height: 28px; object-fit: contain;">
+                <div class="avatar-ring missed-ring">
+                    <img src="./index_files/tutor-andriy.png" class="call-avatar" alt="Andriy">
                 </div>
             </div>
             <div class="call-details">
-                <span class="call-name">AI Tutor (Voice Lesson)</span>
-                <span class="call-type">AI Voice Session</span>
+                <span class="call-name">Andriy</span>
+                <span class="call-type">📵 Missed · Advanced Conversation</span>
             </div>
             <div class="call-meta">
                 <span class="call-time">Thursday</span>

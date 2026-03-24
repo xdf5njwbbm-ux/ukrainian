@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vocabulary Notebook | UkrainianTutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#071a2b; --accent:#ffd700; --card-bg:rgba(255,255,255,0.05); --border:rgba(255,255,255,0.08); --text:#fff; }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:40px;}
+        .page-header{position:sticky;top:0;z-index:100;background:rgba(7,26,43,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:16px 20px;}
+        .back-btn{width:40px;height:40px;background:rgba(255,255,255,0.07);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:20px;flex-shrink:0;transition:background .2s;}
+        .back-btn:active{background:rgba(255,255,255,.15);}
+        .page-title{font-size:1.1rem;font-weight:800;} .page-title span{color:var(--accent);}
+        .container{max-width:600px;margin:0 auto;padding:20px;}
+        .sec-label{color:var(--accent);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin:24px 0 12px 4px;}
+        .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+        .topic-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;}
+        .topic-card.active,.topic-card:hover{background:rgba(255,215,0,.1);border-color:var(--accent);}
+        .topic-card:active{transform:scale(.97);}
+        .t-icon{font-size:22px;margin-bottom:6px;} .t-name{font-size:.78rem;font-weight:700;} .t-count{font-size:.7rem;color:rgba(255,255,255,.35);margin-top:2px;}
+        .add-row{display:flex;gap:8px;margin-bottom:20px;}
+        .add-btn{flex:1;padding:12px;border-radius:14px;border:1px dashed rgba(255,215,0,.3);background:rgba(255,215,0,.05);color:var(--accent);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;}
+        .add-btn:hover{background:rgba(255,215,0,.12);border-color:var(--accent);}
+        .entry{background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:16px 18px;margin-bottom:10px;transition:all .2s;}
+        .entry:hover{border-color:rgba(255,215,0,.2);}
+        .e-header{display:flex;justify-content:space-between;align-items:flex-start;}
+        .e-ua{font-size:1.1rem;font-weight:800;} .e-en{font-size:.85rem;color:var(--accent);font-weight:600;margin-top:2px;}
+        .e-example{font-size:.82rem;color:rgba(255,255,255,.5);margin-top:8px;line-height:1.5;border-left:2px solid rgba(255,215,0,.2);padding-left:10px;}
+        .e-note{font-size:.78rem;color:rgba(255,165,50,.8);font-style:italic;margin-top:8px;padding:6px 10px;background:rgba(255,150,50,.07);border-radius:8px;}
+        .pin-btn{font-size:18px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;opacity:.35;transition:transform .2s;}
+        .pin-btn.pinned{opacity:1;}
+        .e-actions{display:flex;gap:6px;margin-top:12px;}
+        .e-action{padding:6px 12px;font-size:.75rem;font-weight:600;border-radius:100px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;}
+        .e-action:hover{border-color:var(--accent);color:var(--accent);}
+        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+        .overlay.active{display:flex;}
+        .sheet{background:var(--bg);width:100%;max-width:600px;border-top-left-radius:28px;border-top-right-radius:28px;border:1px solid var(--border);border-bottom:none;padding:28px 24px;animation:su .3s cubic-bezier(.19,1,.22,1);}
+        @keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        .sheet-title{font-size:1.1rem;font-weight:800;color:var(--accent);margin-bottom:18px;}
+        .f-group{margin-bottom:14px;} .f-label{font-size:.8rem;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:6px;display:block;}
+        .f-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
+        .f-input:focus{border-color:rgba(255,215,0,.4);} .f-input::placeholder{color:rgba(255,255,255,.25);}
+        .f-row{display:flex;gap:10px;} .f-row .f-group{flex:1;}
+        .submit-btn{width:100%;padding:14px;border-radius:14px;border:none;background:var(--accent);color:#000;font-weight:800;font-size:1rem;cursor:pointer;margin-top:6px;}
+        .cancel-btn{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.5);font-weight:600;font-size:.95rem;cursor:pointer;margin-top:8px;}
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a class="back-btn" href="profile.html">‹</a>
+        <div class="page-title">📒 <span>Vocabulary Notebook</span></div>
+    </div>
+    <div class="container">
+        <div class="sec-label">Browse by Topic</div>
+        <div class="topic-grid">
+            <div class="topic-card active" onclick="selectTopic(this,'all')"><div class="t-icon">🌐</div><div class="t-name">All</div><div class="t-count">7 entries</div></div>
+            <div class="topic-card" onclick="selectTopic(this,'food')"><div class="t-icon">🍲</div><div class="t-name">Food</div><div class="t-count">1 entry</div></div>
+            <div class="topic-card" onclick="selectTopic(this,'travel')"><div class="t-icon">✈️</div><div class="t-name">Travel</div><div class="t-count">2 entries</div></div>
+            <div class="topic-card" onclick="selectTopic(this,'family')"><div class="t-icon">👨‍👩‍👧</div><div class="t-name">Family</div><div class="t-count">1 entry</div></div>
+            <div class="topic-card" onclick="selectTopic(this,'emotions')"><div class="t-icon">💛</div><div class="t-name">Emotions</div><div class="t-count">1 entry</div></div>
+            <div class="topic-card" onclick="selectTopic(this,'daily')"><div class="t-icon">☀️</div><div class="t-name">Daily Life</div><div class="t-count">2 entries</div></div>
+        </div>
+        <div class="add-row">
+            <button class="add-btn" onclick="openSheet('word')">+ Word</button>
+            <button class="add-btn" onclick="openSheet('phrase')">+ Phrase</button>
+            <button class="add-btn" onclick="openSheet('note')">+ Note</button>
+        </div>
+        <div class="sec-label">Entries</div>
+        <div id="entryList"></div>
+    </div>
+    <div class="overlay" id="addSheet">
+        <div class="sheet">
+            <div class="sheet-title" id="sheetTitle">+ Add Word</div>
+            <div class="f-row">
+                <div class="f-group"><label class="f-label">Ukrainian</label><input class="f-input" id="iUa" placeholder="e.g. книга"></div>
+                <div class="f-group"><label class="f-label">English</label><input class="f-input" id="iEn" placeholder="e.g. book"></div>
+            </div>
+            <div class="f-group"><label class="f-label">Example Sentence</label><input class="f-input" id="iEx" placeholder="e.g. Я читаю книгу..."></div>
+            <div class="f-group"><label class="f-label">Personal Note</label><input class="f-input" id="iNote" placeholder="Memory trick or tip..."></div>
+            <button class="submit-btn" onclick="submitEntry()">Save Entry</button>
+            <button class="cancel-btn" onclick="closeSheet()">Cancel</button>
+        </div>
+    </div>
+    <script>
+        const entries=[
+            {id:1,ua:'Книга',en:'Book',example:'Я читаю цікаву книгу.',note:'knyha sound',pinned:true,topic:'daily'},
+            {id:2,ua:'Борщ',en:'Borscht (beet soup)',example:'Борщ — це класична українська страва.',note:'National dish 🇺🇦',pinned:true,topic:'food'},
+            {id:3,ua:'Подорож',en:'Journey / Travel',example:'Ця подорож була незабутньою.',note:null,pinned:false,topic:'travel'},
+            {id:4,ua:'Мама',en:'Mom',example:'Моя мама готує найкраще.',note:null,pinned:false,topic:'family'},
+            {id:5,ua:'Радість',en:'Joy / Happiness',example:'Вона відчувала щиру радість.',note:'Root: рад (glad)',pinned:false,topic:'emotions'},
+            {id:6,ua:'Ранок',en:'Morning',example:'Добрий ранок! Як справи?',note:null,pinned:false,topic:'daily'},
+            {id:7,ua:'Вулиця',en:'Street',example:'На вулиці сьогодні холодно.',note:null,pinned:false,topic:'travel'},
+        ];
+        let nid=8, cur='all';
+        function selectTopic(el,t){document.querySelectorAll('.topic-card').forEach(x=>x.classList.remove('active'));el.classList.add('active');cur=t;render();}
+        function render(){
+            const list=cur==='all'?[...entries]:entries.filter(e=>e.topic===cur);
+            list.sort((a,b)=>b.pinned-a.pinned);
+            const c=document.getElementById('entryList');
+            if(!list.length){c.innerHTML=`<div style="text-align:center;padding:50px 20px;color:rgba(255,255,255,.3)"><div style="font-size:40px;margin-bottom:12px">📒</div><p>No entries here yet.</p></div>`;return;}
+            c.innerHTML=list.map(e=>`<div class="entry"><div class="e-header"><div><div class="e-ua">${e.ua}</div><div class="e-en">${e.en}</div></div><button class="pin-btn${e.pinned?' pinned':''}" onclick="pin(${e.id})">📌</button></div>${e.example?`<div class="e-example">"${e.example}"</div>`:''}${e.note?`<div class="e-note">📝 ${e.note}</div>`:''}<div class="e-actions"><button class="e-action" onclick="flash(${e.id})">⚡ Flashcard</button><button class="e-action" onclick="del(${e.id})">🗑 Remove</button></div></div>`).join('');
+        }
+        function pin(id){const e=entries.find(x=>x.id===id);if(e){e.pinned=!e.pinned;render();}}
+        function del(id){const i=entries.findIndex(x=>x.id===id);if(i!==-1){entries.splice(i,1);render();}}
+        function flash(id){const e=entries.find(x=>x.id===id);if(e)alert(`⚡ Flashcard\n\n${e.ua}\n\n→ ${e.en}`);}
+        function openSheet(t){document.getElementById('sheetTitle').textContent=t==='word'?'+ Add Word':t==='phrase'?'+ Add Phrase':'+ Add Note';document.getElementById('addSheet').classList.add('active');['iUa','iEn','iEx','iNote'].forEach(id=>document.getElementById(id).value='');}
+        function closeSheet(){document.getElementById('addSheet').classList.remove('active');}
+        function submitEntry(){const ua=document.getElementById('iUa').value.trim();if(!ua)return;entries.unshift({id:nid++,ua,en:document.getElementById('iEn').value.trim()||'—',example:document.getElementById('iEx').value.trim()||null,note:document.getElementById('iNote').value.trim()||null,pinned:false,topic:cur==='all'?'daily':cur});closeSheet();render();}
+        render();
+    </script>
+</body>
+</html>

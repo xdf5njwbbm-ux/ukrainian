@@ -1,343 +1,364 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Your Progress | Learn Ukrainian</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./index_files/styles.css?v=24.0">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --app-bg: #071a2b;
-            --app-nav-bg: #071a2b;
-            --app-accent: #ffd700;
-            --app-primary: #0057b8;
-            --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.9);
-            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Your Progress | Learn Ukrainian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./index_files/styles.css?v=24.0">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#071a2b;--accent:#ffd700;--primary:#0057b8;--card-bg:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);--text:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,h5,h6{color:#fff!important;}
+p{color:#fff!important;opacity:.95!important;}
+.section-title,.page-title{color:var(--accent)!important;}
 
+.top-glow-line{height:3px;width:100%;background:linear-gradient(90deg,transparent,#ffd700,transparent);box-shadow:0 0 15px rgba(255,215,0,.8);position:fixed;top:0;z-index:1000;}
+.app-header{background:linear-gradient(to bottom,#071a2b,#0057b8);padding:40px 20px 20px;text-align:center;}
+.app-header h1{font-size:28px;font-weight:800;margin:0 0 20px;letter-spacing:-.5px;}
 
-        /* High-Contrast Typography Overrides */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            color: #ffffff !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
-        }
+.filter-container{display:flex;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:12px;padding:4px;margin:0 auto;max-width:500px;overflow-x:auto;scrollbar-width:none;}
+.filter-container::-webkit-scrollbar{display:none;}
+.filter-item{flex:0 0 auto;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap;color:rgba(255,255,255,.9);}
+.filter-item.active{background:var(--accent);color:#071a2b;}
 
-        p {
-            color: #ffffff !important;
-            opacity: 0.95 !important;
-        }
+.chart-section{padding:24px 20px;background:linear-gradient(180deg,rgba(0,87,184,.04) 0%,transparent 100%);}
+.chart-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;margin-bottom:32px;box-shadow:0 15px 35px rgba(0,0,0,.2);}
+#progressChart{width:100%!important;height:250px!important;}
 
-        .section-title,
-        .group-title,
-        .page-title,
-        .modal-title,
-        .cta-title {
-            color: var(--app-accent) !important;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
-        }
+/* Stat Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:0 20px 100px;}
+.stat-card{background:rgba(255,255,255,.05);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative;}
+.stat-card::after{content:'›';position:absolute;bottom:14px;right:16px;font-size:18px;color:rgba(255,255,255,.2);transition:color .2s,transform .2s;}
+.stat-card:hover::after{color:var(--accent);transform:translateX(3px);}
+.stat-card:hover{border-color:rgba(255,215,0,.2);box-shadow:0 0 20px rgba(255,215,0,.06);transform:translateY(-2px);}
+.stat-card:active{transform:scale(.97)!important;}
+.stat-icon{font-size:24px;margin-bottom:4px;}
+.stat-value{font-size:22px;font-weight:800;color:var(--accent);}
+.stat-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.85);line-height:1.3;}
+.encouragement{grid-column:span 2;text-align:center;padding:24px 0;font-style:italic;color:var(--accent);opacity:.9;font-size:15px;}
 
-        .modal-subtitle,
-        .milestone-text {
-            color: #ffffff !important;
-            opacity: 0.9 !important;
-        }
+/* Bottom Sheet */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);z-index:900;opacity:0;pointer-events:none;transition:opacity .3s;}
+.overlay.active{opacity:1;pointer-events:all;}
+.sheet{position:fixed;bottom:0;left:0;right:0;max-width:600px;margin:0 auto;background:#0b2236;border-top-left-radius:28px;border-top-right-radius:28px;border:1px solid rgba(255,255,255,.1);border-bottom:none;z-index:901;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.19,1,.22,1);}
+.sheet.active{transform:translateY(0);}
+.sheet-drag{width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:14px auto 0;}
+.sheet-header{padding:20px 24px 0;display:flex;align-items:flex-start;gap:16px;}
+.sheet-icon{font-size:36px;line-height:1;}
+.sheet-title-wrap{flex:1;}
+.sheet-title{font-size:1.3rem;font-weight:900;color:var(--accent);}
+.sheet-value{font-size:2rem;font-weight:900;color:#fff;line-height:1.1;}
+.close-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;}
+.close-btn:hover{background:rgba(255,255,255,.12);color:#fff;}
+.sheet-body{padding:20px 24px 36px;}
+.info-block{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px;margin-bottom:12px;}
+.info-block-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,215,0,.65);margin-bottom:8px;}
+.info-block-text{font-size:.87rem;color:rgba(255,255,255,.75);line-height:1.6;}
+.insight-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.insight-row:last-child{border-bottom:none;}
+.insight-key{font-size:.84rem;color:rgba(255,255,255,.5);}
+.insight-val{font-size:.9rem;font-weight:700;color:#fff;}
+.insight-val.yellow{color:var(--accent);}
+.insight-val.green{color:#64dc96;}
+.milestone-bar-wrap{margin-top:8px;}
+.milestone-bar-label{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:6px;display:flex;justify-content:space-between;}
+.milestone-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+.milestone-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),#ffad00);}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.tip-item{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:rgba(255,255,255,.75);}
+.tip-dot{width:24px;height:24px;border-radius:50%;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.25);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.action-btn{width:100%;padding:14px;border-radius:14px;border:none;background:var(--accent);color:#000;font-weight:800;font-size:.95rem;cursor:pointer;font-family:'Inter',sans-serif;margin-top:16px;transition:all .2s;}
+.action-btn:hover{filter:brightness(1.06);transform:translateY(-1px);}
 
-        body {
-            background: var(--app-bg);
-            color: var(--app-text);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .top-glow-line {
-            height: 3px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .app-header {
-            background: var(--header-gradient);
-            padding: 40px 20px 20px;
-            text-align: center;
-        }
-
-        .app-header h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0 0 20px;
-            letter-spacing: -0.5px;
-        }
-
-        /* Filter Tabs */
-        .filter-container {
-            display: flex;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 4px;
-            margin: 0 auto;
-            max-width: 500px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .filter-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .filter-item {
-            flex: 0 0 auto;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            color: var(--app-text-dim);
-        }
-
-        .filter-item.active {
-            background: var(--app-accent);
-            color: #071a2b;
-        }
-
-        /* Chart Section */
-        .chart-section {
-            padding: 24px 20px;
-            background: linear-gradient(180deg, #0057b80a 0%, transparent 100%);
-        }
-
-        .chart-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 32px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        #progressChart {
-            width: 100% !important;
-            height: 250px !important;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            padding: 0 20px 100px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:active {
-            transform: scale(0.98);
-        }
-
-        .stat-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-
-        .stat-value {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--app-accent);
-        }
-
-        .stat-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--app-text-dim);
-            line-height: 1.3;
-        }
-
-        .encouragement {
-            grid-column: span 2;
-            text-align: center;
-            padding: 24px 0;
-            font-style: italic;
-            color: var(--app-accent);
-            opacity: 0.9;
-            font-size: 15px;
-        }
-
-        /* Bottom Tab Bar */
-        .app-footer {
-            background: rgba(7, 26, 43, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 8px 0 24px;
-            display: flex;
-            justify-content: space-around;
-            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .footer-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            font-size: 10px;
-            color: var(--app-text-dim);
-            cursor: pointer;
-            width: 25%;
-        }
-
-        .footer-item.active {
-            color: var(--app-accent);
-        }
-
-        .footer-icon {
-            font-size: 24px;
-        }
-
-        @media (max-width: 360px) {
-            .stat-value {
-                font-size: 18px;
-            }
-
-            .stat-label {
-                font-size: 11px;
-            }
-        }
-    </style>
+/* Footer */
+.app-footer{background:rgba(7,26,43,.95);backdrop-filter:blur(10px);padding:8px 0 24px;display:flex;justify-content:space-around;border-top:.5px solid rgba(255,255,255,.1);position:fixed;bottom:0;width:100%;z-index:100;}
+.footer-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:rgba(255,255,255,.9);cursor:pointer;width:25%;text-decoration:none;}
+.footer-item.active{color:var(--accent);}
+.footer-icon{font-size:24px;}
+@media(max-width:360px){.stat-value{font-size:18px;}.stat-label{font-size:11px;}}
+</style>
 </head>
-
 <body>
-    <div class="top-glow-line"></div>
+<div class="top-glow-line"></div>
+<header class="app-header">
+    <h1>Your Ukrainian Progress</h1>
+    <div class="filter-container">
+        <div class="filter-item active" data-range="day">Day</div>
+        <div class="filter-item" data-range="week">Week</div>
+        <div class="filter-item" data-range="week2">Week 2</div>
+        <div class="filter-item" data-range="week3">Week 3</div>
+        <div class="filter-item" data-range="month">1 Month</div>
+        <div class="filter-item" data-range="month2">2 Months</div>
+    </div>
+</header>
+<main>
+    <div class="chart-section">
+        <div class="chart-card"><canvas id="progressChart"></canvas></div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card" onclick="openSheet('words')">
+            <span class="stat-icon">📚</span>
+            <span class="stat-value" id="stat-words">124</span>
+            <span class="stat-label">New words learned</span>
+        </div>
+        <div class="stat-card" onclick="openSheet('speaking')">
+            <span class="stat-icon">🗣️</span>
+            <span class="stat-value" id="stat-time">4.5h</span>
+            <span class="stat-label">Total speaking time</span>
+        </div>
+        <div class="stat-card" onclick="openSheet('accuracy')">
+            <span class="stat-icon">🎯</span>
+            <span class="stat-value" id="stat-errors">92%</span>
+            <span class="stat-label">Accuracy rate</span>
+        </div>
+        <div class="stat-card" onclick="openSheet('lessons')">
+            <span class="stat-icon">✅</span>
+            <span class="stat-value" id="stat-lessons">18</span>
+            <span class="stat-label">Lessons completed</span>
+        </div>
+        <div class="stat-card" onclick="openSheet('pronunciation')">
+            <span class="stat-icon">🎙️</span>
+            <span class="stat-value" id="stat-pronunciation">12</span>
+            <span class="stat-label">Pronunciation sessions</span>
+        </div>
+        <div class="stat-card" onclick="openSheet('phrases')">
+            <span class="stat-icon">🔖</span>
+            <span class="stat-value" id="stat-phrases">34</span>
+            <span class="stat-label">Saved phrases reviewed</span>
+        </div>
+        <div class="stat-card" style="grid-column:span 2;" onclick="openSheet('streak')">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-value" id="stat-streak">7 Day Streak!</span>
+            <span class="stat-label">Keep up the momentum!</span>
+        </div>
+        <div class="encouragement">You're improving every session! 🚀</div>
+    </div>
+</main>
 
-    <header class="app-header">
-        <h1>Your Ukrainian Progress</h1>
-        <div class="filter-container">
-            <div class="filter-item active" data-range="day">Day</div>
-            <div class="filter-item" data-range="week">Week</div>
-            <div class="filter-item" data-range="week2">Week 2</div>
-            <div class="filter-item" data-range="week3">Week 3</div>
-            <div class="filter-item" data-range="month">1 Month</div>
-            <div class="filter-item" data-range="month2">2 Months</div>
-        </div>
-    </header>
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSheet()"></div>
 
-    <main>
-        <div class="chart-section">
-            <div class="chart-card">
-                <canvas id="progressChart"></canvas>
-            </div>
+<!-- Bottom Sheet -->
+<div class="sheet" id="sheet">
+    <div class="sheet-drag"></div>
+    <div class="sheet-header">
+        <span class="sheet-icon" id="sIcon"></span>
+        <div class="sheet-title-wrap">
+            <div class="sheet-title" id="sTitle"></div>
+            <div class="sheet-value" id="sValue"></div>
         </div>
+        <button class="close-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body" id="sBody"></div>
+</div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-icon">📚</span>
-                <span class="stat-value" id="stat-words">124</span>
-                <span class="stat-label">New words learned</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🗣️</span>
-                <span class="stat-value" id="stat-time">4.5h</span>
-                <span class="stat-label">Total speaking time</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🎯</span>
-                <span class="stat-value" id="stat-errors">92%</span>
-                <span class="stat-label">Accuracy rate</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">✅</span>
-                <span class="stat-value" id="stat-lessons">18</span>
-                <span class="stat-label">Lessons completed</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🎙️</span>
-                <span class="stat-value" id="stat-pronunciation">12</span>
-                <span class="stat-label">Pronunciation sessions</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🔖</span>
-                <span class="stat-value" id="stat-phrases">34</span>
-                <span class="stat-label">Saved phrases reviewed</span>
-            </div>
-            <div class="stat-card" style="grid-column: span 2;">
-                <span class="stat-icon">🔥</span>
-                <span class="stat-value" id="stat-streak">7 Day Streak!</span>
-                <span class="stat-label">Keep up the momentum!</span>
-            </div>
-            <div class="encouragement">
-                You’re improving every session! 🚀
-            </div>
+<footer class="app-footer">
+    <a class="footer-item" href="tutor.html">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <img src="./index_files/ai_tutor_circular.png" alt="Tutor" style="width:24px;height:24px;border-radius:50%;object-fit:cover;margin-top:10px;">
+            <span style="font-weight:700;font-size:10px;margin-top:4px;">AI Tutor</span>
         </div>
-    </main>
+    </a>
+    <a class="footer-item" href="chat.html">
+        <span class="footer-icon">💬</span>
+        <span style="font-weight:700;">Messages</span>
+    </a>
+    <div class="footer-item active">
+        <span class="footer-icon">📈</span>
+        <span style="font-weight:700;">Progress</span>
+    </div>
+    <a class="footer-item" href="profile.html">
+        <span class="footer-icon">⚙️</span>
+        <span style="font-weight:700;">Profile</span>
+    </a>
+</footer>
 
-    <footer class="app-footer">
-        <div class="footer-item" onclick="location.href='tutor.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <img src="./index_files/ai_tutor_circular.png" alt="Tutor"
-                    style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-top: 10px; margin-bottom: 0px;">
-                <span style="font-weight: 700; color: inherit; margin-top: 10px;">AI Tutor</span>
-            </div>
+<script src="./index_files/progress.js"></script>
+<script>
+const sheetData = {
+    words: {
+        icon:'📚', title:'New Words Learned', value:'124 words',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've learned 124 new Ukrainian words through lessons, AI chats, saved phrases, and vocabulary review. Each word brings you closer to natural, confident communication.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Research shows 2,000 words cover 95% of everyday conversation. A growing vocabulary helps you understand more, respond faster, and speak with greater confidence.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Words this week</span><span class="insight-val yellow">+14</span></div>
+            <div class="insight-row"><span class="insight-key">Most recent</span><span class="insight-val">кохання ❤️</span></div>
+            <div class="insight-row"><span class="insight-key">Best topic</span><span class="insight-val">Daily life (42)</span></div>
+            <div class="insight-row"><span class="insight-key">Next milestone</span><span class="insight-val green">150 words (26 to go)</span></div>
+            <div class="milestone-bar-wrap"><div class="milestone-bar-label"><span>Progress to 150</span><span>83%</span></div><div class="milestone-bar"><div class="milestone-fill" style="width:83%"></div></div></div>
         </div>
-        <div class="footer-item" onclick="location.href='chat.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">💬</span>
-                <span style="font-weight: 700; color: inherit;">Messages</span>
-            </div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">📖</div>Complete 1 lesson today to add 5–10 new words</li>
+                <li class="tip-item"><div class="tip-dot">🔖</div>Review your saved phrases — they count too</li>
+                <li class="tip-item"><div class="tip-dot">💬</div>Chat with the AI about a new topic (food, travel, family)</li>
+                <li class="tip-item"><div class="tip-dot">⚡</div>Try a vocabulary challenge in the Notebook</li>
+            </ul>
         </div>
-        <div class="footer-item active" style="color: var(--app-accent);">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">📈</span>
-                <span style="font-weight: 700; color: inherit;">Progress</span>
-            </div>
+        <button class="action-btn" onclick="window.location.href='saved.html'">Open Vocabulary Notebook →</button>`
+    },
+    speaking: {
+        icon:'🗣️', title:'Total Speaking Time', value:'4.5 hours',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've spent 4.5 hours actively speaking Ukrainian with your AI tutor. This is real practice time — not just reading or listening.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Speaking turns passive knowledge into real-life fluency. Every minute of speaking practice builds faster recall, better pronunciation, and genuine conversational confidence.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Speaking time this week</span><span class="insight-val yellow">45 min</span></div>
+            <div class="insight-row"><span class="insight-key">Longest session</span><span class="insight-val">32 min</span></div>
+            <div class="insight-row"><span class="insight-key">Avg session length</span><span class="insight-val">22 min</span></div>
+            <div class="insight-row"><span class="insight-key">Best practice time</span><span class="insight-val">Evenings 🌙</span></div>
+            <div class="insight-row"><span class="insight-key">Next milestone</span><span class="insight-val green">5 hours (30 min to go)</span></div>
+            <div class="milestone-bar-wrap"><div class="milestone-bar-label"><span>Progress to 5h</span><span>90%</span></div><div class="milestone-bar"><div class="milestone-fill" style="width:90%"></div></div></div>
         </div>
-        <div class="footer-item" onclick="location.href='profile.html'">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <span class="footer-icon">⚙️</span>
-                <span style="font-weight: 700; color: inherit;">Profile</span>
-            </div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">⏱️</div>Do a focused 5-minute speaking session right now</li>
+                <li class="tip-item"><div class="tip-dot">🗣️</div>Answer the tutor out loud instead of reading silently</li>
+                <li class="tip-item"><div class="tip-dot">🔁</div>Repeat phrases after the tutor to build muscle memory</li>
+                <li class="tip-item"><div class="tip-dot">🎭</div>Practice one real-life scenario today (café, shopping, greetings)</li>
+            </ul>
         </div>
-    </footer>
+        <button class="action-btn" onclick="window.location.href='tutor.html'">Start Speaking Session →</button>`
+    },
+    accuracy: {
+        icon:'🎯', title:'Accuracy Rate', value:'92%',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You answered correctly or used Ukrainian accurately 92% of the time across all lessons, practice activities, and AI chats this period.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">A high accuracy rate shows you're genuinely understanding — not just guessing. It signals your grasp of vocabulary, sentence structure, and grammar patterns is getting stronger.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Strongest area</span><span class="insight-val green">Vocabulary (97%)</span></div>
+            <div class="insight-row"><span class="insight-key">Area to improve</span><span class="insight-val yellow">Verb forms (81%)</span></div>
+            <div class="insight-row"><span class="insight-key">Accuracy trend (7 days)</span><span class="insight-val green">↑ +4%</span></div>
+            <div class="insight-row"><span class="insight-key">Common mistake</span><span class="insight-val">Present tense endings</span></div>
+        </div>
+        <div class="info-block"><div class="info-block-label">✨ Motivational Note</div><div class="info-block-text">Mistakes are how languages are learned. Your 8% error rate isn't a failure — it's your brain forming new connections. Keep going!</div></div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">🔁</div>Retry missed questions in Review Mistakes</li>
+                <li class="tip-item"><div class="tip-dot">👂</div>Listen carefully to the AI and slow things down</li>
+                <li class="tip-item"><div class="tip-dot">📝</div>Review grammar hints in your notebook</li>
+                <li class="tip-item"><div class="tip-dot">🎯</div>Do one verb-focus lesson this week</li>
+            </ul>
+        </div>
+        <button class="action-btn" onclick="window.location.href='mistakes.html'">Review My Mistakes →</button>`
+    },
+    lessons: {
+        icon:'✅', title:'Lessons Completed', value:'18 lessons',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've fully completed 18 structured Ukrainian lessons. Each lesson builds core vocabulary, grammar, and communication skills systematically.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Completed lessons represent real, consistent forward movement through the curriculum. Structure plus consistency is one of the fastest paths to fluency.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Current level</span><span class="insight-val yellow">Beginner+ (A2)</span></div>
+            <div class="insight-row"><span class="insight-key">Last completed</span><span class="insight-val">Lesson 18: Verbs</span></div>
+            <div class="insight-row"><span class="insight-key">Suggested next</span><span class="insight-val green">Lesson 19: Shopping</span></div>
+            <div class="insight-row"><span class="insight-key">To next badge</span><span class="insight-val yellow">2 more lessons 🏅</span></div>
+            <div class="milestone-bar-wrap"><div class="milestone-bar-label"><span>Progress to Level B1</span><span>60%</span></div><div class="milestone-bar"><div class="milestone-fill" style="width:60%"></div></div></div>
+        </div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">▶️</div>Finish one lesson today — only 10–15 minutes</li>
+                <li class="tip-item"><div class="tip-dot">🔄</div>Redo Lesson 16 for extra reinforcement</li>
+                <li class="tip-item"><div class="tip-dot">🎯</div>Set a weekly lesson goal (try 3 per week)</li>
+                <li class="tip-item"><div class="tip-dot">🏅</div>Complete 2 more to unlock your next achievement badge</li>
+            </ul>
+        </div>
+        <button class="action-btn" onclick="window.location.href='tutor.html'">Continue Lesson 19 →</button>`
+    },
+    pronunciation: {
+        icon:'🎙️', title:'Pronunciation Sessions', value:'12 sessions',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've completed 12 dedicated pronunciation sessions — focused time practicing how Ukrainian words and phrases actually sound out loud.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Pronunciation practice helps you sound more natural and be understood more easily. In Ukrainian, stress and certain sounds (like г and ї) are uniquely different from English.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Recently practiced</span><span class="insight-val">г, ї, ч sounds</span></div>
+            <div class="insight-row"><span class="insight-key">Most improved</span><span class="insight-val green">Stress patterns ↑</span></div>
+            <div class="insight-row"><span class="insight-key">Focus area</span><span class="insight-val yellow">Soft consonants</span></div>
+            <div class="insight-row"><span class="insight-key">Next milestone</span><span class="insight-val green">15 sessions (3 to go)</span></div>
+            <div class="milestone-bar-wrap"><div class="milestone-bar-label"><span>Progress to 15 sessions</span><span>80%</span></div><div class="milestone-bar"><div class="milestone-fill" style="width:80%"></div></div></div>
+        </div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">🔁</div>Repeat after your AI tutor closely</li>
+                <li class="tip-item"><div class="tip-dot">👂</div>Practice one difficult sound family today (try г)</li>
+                <li class="tip-item"><div class="tip-dot">🎭</div>Do a short 5-minute shadowing session</li>
+                <li class="tip-item"><div class="tip-dot">🎙️</div>Record and listen back to your own pronunciation</li>
+            </ul>
+        </div>
+        <button class="action-btn" onclick="window.location.href='practice.html'">Open Pronunciation Practice →</button>`
+    },
+    phrases: {
+        icon:'🔖', title:'Saved Phrases Reviewed', value:'34 reviews',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've gone back and reviewed 34 saved phrases — actively reinforcing what you've collected in your personal phrase bank.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Spaced repetition — reviewing phrases at the right intervals — is one of the most effective ways to move language into long-term memory and real-life use.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Most reviewed</span><span class="insight-val">Дякую дуже</span></div>
+            <div class="insight-row"><span class="insight-key">Recently saved</span><span class="insight-val yellow">Як справи? ✨</span></div>
+            <div class="insight-row"><span class="insight-key">Top topic</span><span class="insight-val">Greetings (12)</span></div>
+            <div class="insight-row"><span class="insight-key">Need review</span><span class="insight-val yellow">8 phrases overdue</span></div>
+        </div>
+        <div class="info-block"><div class="info-block-label">💡 How to Improve</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">⚡</div>Review 5 saved phrases right now — takes 2 minutes</li>
+                <li class="tip-item"><div class="tip-dot">💬</div>Use a saved phrase in your next AI chat</li>
+                <li class="tip-item"><div class="tip-dot">⭐</div>Favorite your top 10 most useful phrases</li>
+                <li class="tip-item"><div class="tip-dot">📚</div>Revisit phrases from 2 weeks ago — you might be surprised</li>
+            </ul>
+        </div>
+        <button class="action-btn" onclick="window.location.href='saved.html'">Review Saved Phrases →</button>`
+    },
+    streak: {
+        icon:'🔥', title:'7 Day Streak', value:'7 days in a row',
+        html:`
+        <div class="info-block"><div class="info-block-label">What This Means</div><div class="info-block-text">You've practiced Ukrainian every single day for 7 days straight. That's genuine daily consistency — one of the most powerful habits a language learner can build.</div></div>
+        <div class="info-block"><div class="info-block-label">Why It Matters</div><div class="info-block-text">Daily repetition builds momentum and leads to stronger long-term retention. Even 5 minutes per day beats 2 hours once a week. You're wiring Ukrainian into your brain.</div></div>
+        <div class="info-block"><div class="info-block-label">Progress Insights</div>
+            <div class="insight-row"><span class="insight-key">Current streak</span><span class="insight-val green">🔥 7 days</span></div>
+            <div class="insight-row"><span class="insight-key">Longest streak ever</span><span class="insight-val yellow">12 days 🏆</span></div>
+            <div class="insight-row"><span class="insight-key">Today's status</span><span class="insight-val green">✓ Completed</span></div>
+            <div class="insight-row"><span class="insight-key">Streak shield expires</span><span class="insight-val">In 14 hours</span></div>
+            <div class="milestone-bar-wrap"><div class="milestone-bar-label"><span>Progress to 14-day streak</span><span>50%</span></div><div class="milestone-bar"><div class="milestone-fill" style="width:50%"></div></div></div>
+        </div>
+        <div class="info-block"><div class="info-block-label">🏆 Motivational Message</div><div class="info-block-text">You're building real momentum. 7 days is just the beginning — keep going and you'll hit your personal record of 12 days in just 5 more days!</div></div>
+        <div class="info-block"><div class="info-block-label">💡 How to Keep It Going</div>
+            <ul class="tip-list">
+                <li class="tip-item"><div class="tip-dot">⚡</div>Do a quick 3-minute activity before the day ends</li>
+                <li class="tip-item"><div class="tip-dot">📖</div>Complete one micro-lesson (just 5 questions)</li>
+                <li class="tip-item"><div class="tip-dot">🔖</div>Review 3 saved phrases before bed</li>
+                <li class="tip-item"><div class="tip-dot">🎙️</div>Do a short speaking check-in with your tutor</li>
+            </ul>
+        </div>
+        <button class="action-btn" onclick="window.location.href='tutor.html'">Keep My Streak Alive →</button>`
+    }
+};
 
-    <script src="./index_files/progress.js"></script>
+function openSheet(key) {
+    const d = sheetData[key];
+    document.getElementById('sIcon').textContent = d.icon;
+    document.getElementById('sTitle').textContent = d.title;
+    document.getElementById('sValue').textContent = d.value;
+    document.getElementById('sBody').innerHTML = d.html;
+    document.getElementById('overlay').classList.add('active');
+    document.getElementById('sheet').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSheet() {
+    document.getElementById('overlay').classList.remove('active');
+    document.getElementById('sheet').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// swipe down to close
+let touchStartY = 0;
+document.getElementById('sheet').addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, {passive:true});
+document.getElementById('sheet').addEventListener('touchend', e => { if (e.changedTouches[0].clientY - touchStartY > 80) closeSheet(); }, {passive:true});
+</script>
 </body>
-
 </html>

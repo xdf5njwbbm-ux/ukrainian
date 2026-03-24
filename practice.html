@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pronunciation Practice | UkrainianTutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#071a2b;--accent:#ffd700;--primary:#0057b8;--card-bg:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);--text:#fff;}
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:40px;}
+        .page-header{position:sticky;top:0;z-index:100;background:rgba(7,26,43,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:16px 20px;}
+        .back-btn{width:40px;height:40px;background:rgba(255,255,255,.07);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:20px;flex-shrink:0;transition:background .2s;}
+        .back-btn:active{background:rgba(255,255,255,.15);}
+        .page-title{font-size:1.1rem;font-weight:800;} .page-title span{color:var(--accent);}
+        .container{max-width:600px;margin:0 auto;padding:20px;}
+        .sec-label{color:var(--accent);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin:24px 0 12px 4px;}
+
+        /* Streak badges */
+        .streak-row{display:flex;gap:10px;margin-bottom:20px;}
+        .streak-card{flex:1;background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:14px 10px;text-align:center;}
+        .streak-card .num{font-size:1.5rem;font-weight:800;color:var(--accent);}
+        .streak-card .lbl{font-size:.7rem;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+
+        /* Category tabs */
+        .cat-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:20px;}
+        .cat-scroll::-webkit-scrollbar{display:none;}
+        .cat-pill{flex-shrink:0;background:var(--card-bg);border:1px solid var(--border);border-radius:100px;padding:9px 18px;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;}
+        .cat-pill.active,.cat-pill:hover{background:rgba(255,215,0,.12);border-color:var(--accent);color:var(--accent);}
+
+        /* Practice phrase card */
+        .phrase-card{background:var(--card-bg);border:1px solid var(--border);border-radius:22px;padding:22px 20px;margin-bottom:14px;transition:all .2s;}
+        .phrase-card:hover{border-color:rgba(255,215,0,.2);box-shadow:0 4px 20px rgba(0,0,0,.2);}
+        .phrase-ua{font-size:1.25rem;font-weight:800;margin-bottom:4px;}
+        .phrase-phonetic{font-size:.85rem;color:rgba(255,215,0,.6);font-style:italic;margin-bottom:8px;}
+        .phrase-en{font-size:.9rem;color:rgba(255,255,255,.55);margin-bottom:16px;}
+        .diff-sounds{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+        .sound-chip{background:rgba(0,87,184,.2);border:1px solid rgba(0,87,184,.4);color:#6ab4ff;font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:100px;}
+        .sound-chip.hard{background:rgba(255,100,100,.1);border-color:rgba(255,100,100,.3);color:#ff9090;}
+        .phrase-controls{display:flex;gap:10px;align-items:center;}
+        .listen-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#0077ff);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 4px 15px rgba(0,87,184,.4);flex-shrink:0;}
+        .listen-btn:hover{transform:scale(1.06);box-shadow:0 6px 20px rgba(0,87,184,.6);}
+        .listen-btn:active{transform:scale(.94);}
+        .mic-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#a020f0,#d050ff);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 4px 15px rgba(160,32,240,.3);flex-shrink:0;}
+        .mic-btn:hover{transform:scale(1.06);}
+        .mic-btn:active{transform:scale(.94);}
+        .mic-btn.recording{background:linear-gradient(135deg,#ff4040,#ff7070);animation:pulse 1s infinite;}
+        @keyframes pulse{0%,100%{box-shadow:0 4px 15px rgba(255,64,64,.3)}50%{box-shadow:0 4px 30px rgba(255,64,64,.7)}}
+        .feedback-area{flex:1;}
+        .feedback-tag{display:inline-block;padding:6px 14px;border-radius:100px;font-size:.8rem;font-weight:700;margin-bottom:4px;}
+        .fb-excellent{background:rgba(100,220,150,.15);border:1px solid rgba(100,220,150,.3);color:#64dc96;}
+        .fb-close{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--accent);}
+        .fb-try{background:rgba(255,100,100,.12);border:1px solid rgba(255,100,100,.3);color:#ff9090;}
+        .feedback-hint{font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px;}
+
+        /* Waveform visual */
+        .waveform{display:flex;align-items:center;gap:3px;height:32px;margin:0 6px;}
+        .wave-bar{width:3px;border-radius:2px;background:rgba(255,215,0,.35);animation:wave 1.2s ease-in-out infinite;}
+        .wave-bar:nth-child(2){animation-delay:.1s;height:40%;}
+        .wave-bar:nth-child(3){animation-delay:.2s;height:80%;}
+        .wave-bar:nth-child(4){animation-delay:.3s;height:60%;}
+        .wave-bar:nth-child(5){animation-delay:.4s;height:90%;}
+        .wave-bar:nth-child(6){animation-delay:.5s;height:50%;}
+        .wave-bar:nth-child(7){animation-delay:.4s;height:70%;}
+        .wave-bar:nth-child(8){animation-delay:.3s;height:40%;}
+        .wave-bar:nth-child(9){animation-delay:.2s;height:60%;}
+        @keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.8)}}
+        .waveform.idle .wave-bar{animation:none;height:20%;opacity:.3;}
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a class="back-btn" href="profile.html">‹</a>
+        <div class="page-title">🎙️ <span>Pronunciation Practice</span></div>
+    </div>
+    <div class="container">
+        <!-- Stats -->
+        <div class="streak-row">
+            <div class="streak-card"><div class="num">7</div><div class="lbl">Day Streak</div></div>
+            <div class="streak-card"><div class="num">94%</div><div class="lbl">Accuracy</div></div>
+            <div class="streak-card"><div class="num">3</div><div class="lbl">To Revisit</div></div>
+        </div>
+
+        <!-- Categories -->
+        <div class="cat-scroll">
+            <div class="cat-pill active" onclick="setCategory(this,'all')">All</div>
+            <div class="cat-pill" onclick="setCategory(this,'sounds')">Basic Sounds</div>
+            <div class="cat-pill" onclick="setCategory(this,'words')">Everyday Words</div>
+            <div class="cat-pill" onclick="setCategory(this,'phrases')">Phrases</div>
+            <div class="cat-pill" onclick="setCategory(this,'conversation')">Conversation</div>
+        </div>
+
+        <div class="sec-label">Phrases to Practice</div>
+        <div id="phraseList"></div>
+    </div>
+    <script>
+        const phrases=[
+            {id:1,ua:'Привіт!',phonetic:'pruh-VIYT',en:'Hello!',category:'words',hardSounds:['и','в'],feedback:'excellent'},
+            {id:2,ua:'Дякую дуже.',phonetic:'DYA-ku-yu DU-zhe',en:'Thank you very much.',category:'phrases',hardSounds:['я','ж'],feedback:null},
+            {id:3,ua:'Де знаходиться…?',phonetic:"de zna-KHO-dyt-sya",en:'Where is…?',category:'phrases',hardSounds:['х','dz'],feedback:null},
+            {id:4,ua:'Я не розумію.',phonetic:'ya ne ro-ZU-mee-yu',en:'I do not understand.',category:'conversation',hardSounds:['р','умі'],feedback:'close'},
+            {id:5,ua:'Як вас звати?',phonetic:'yak vas ZVA-ty',en:'What is your name?',category:'conversation',hardSounds:['зв'],feedback:null},
+            {id:6,ua:'г (voiced h)',phonetic:'voiced glottal h — like "h" in "ahead"',en:'The Ukrainian г is softer than Russian Г',category:'sounds',hardSounds:['г'],feedback:'try'},
+            {id:7,ua:'ї (yi)',phonetic:'Sounds like "yi" — unique to Ukrainian',en:'Example: Україна, їжа',category:'sounds',hardSounds:['ї'],feedback:null},
+            {id:8,ua:'Смачного!',phonetic:"smach-NO-ho",en:'Enjoy your meal! (Bon appétit!)',category:'words',hardSounds:['ч','г'],feedback:'excellent'},
+        ];
+
+        let activeMic=null;
+        let curCategory='all';
+
+        function setCategory(el,cat){
+            document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+            el.classList.add('active'); curCategory=cat; render();
+        }
+
+        function speak(text){
+            const u=new SpeechSynthesisUtterance(text);
+            u.lang='uk-UA'; u.rate=0.85;
+            speechSynthesis.speak(u);
+        }
+
+        function toggleMic(id){
+            const btn=document.getElementById('mic-'+id);
+            if(activeMic===id){
+                // Stop
+                activeMic=null;
+                btn.classList.remove('recording');
+                btn.textContent='🎙️';
+                // Simulate AI feedback
+                const feedbacks=['excellent','close','try'];
+                const fb=feedbacks[Math.floor(Math.random()*feedbacks.length)];
+                const p=phrases.find(x=>x.id===id);
+                if(p){p.feedback=fb;render();return;}
+            }
+            if(activeMic){
+                const prev=document.getElementById('mic-'+activeMic);
+                if(prev){prev.classList.remove('recording');prev.textContent='🎙️';}
+            }
+            activeMic=id;
+            btn.classList.add('recording');
+            btn.textContent='⏹';
+            setTimeout(()=>{
+                if(activeMic===id){toggleMic(id);}
+            },4000);
+        }
+
+        function fbClass(fb){return fb==='excellent'?'fb-excellent':fb==='close'?'fb-close':'fb-try';}
+        function fbLabel(fb){return fb==='excellent'?'✓ Excellent!':fb==='close'?'Almost — keep going!':'Try again 🔁';}
+        function fbHint(fb){return fb==='excellent'?'Your pronunciation is on point!':fb==='close'?'Stress the highlighted syllable more.':'Focus on the underlined sounds.';}
+
+        function render(){
+            const list=curCategory==='all'?phrases:phrases.filter(p=>p.category===curCategory);
+            const c=document.getElementById('phraseList');
+            c.innerHTML=list.map(p=>`
+                <div class="phrase-card">
+                    <div class="phrase-ua">${p.ua}</div>
+                    <div class="phrase-phonetic">[${p.phonetic}]</div>
+                    <div class="phrase-en">${p.en}</div>
+                    ${p.hardSounds.length?`<div class="diff-sounds">${p.hardSounds.map(s=>`<span class="sound-chip hard">Focus: ${s}</span>`).join('')}</div>`:''}
+                    <div class="phrase-controls">
+                        <button class="listen-btn" onclick="speak('${p.ua.replace(/'/g,"\\'")} ')" title="Listen">🔊</button>
+                        <div class="waveform ${p.feedback?'':'idle'}" id="wave-${p.id}">
+                            <div class="wave-bar" style="height:30%"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar" style="height:30%"></div>
+                        </div>
+                        <div class="feedback-area">
+                            ${p.feedback?`<div class="feedback-tag ${fbClass(p.feedback)}">${fbLabel(p.feedback)}</div><div class="feedback-hint">${fbHint(p.feedback)}</div>`:'<div class="feedback-hint">Tap 🎙️ to practice speaking</div>'}
+                        </div>
+                        <button class="mic-btn" id="mic-${p.id}" onclick="toggleMic(${p.id})" title="Speak">🎙️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        render();
+    </script>
+</body>
+</html>

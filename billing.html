@@ -1,357 +1,137 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Subscription & Billing | Learn Ukrainian</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./index_files/styles.css?v=27.0">
+    <title>Compare Plans | UkrainianTutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --app-bg: #071a2b;
-            --app-nav-bg: #071a2b;
-            --app-accent: #ffd700;
-            --app-primary: #0057b8;
-            --app-text: #ffffff;
-            --app-text-dim: rgba(255, 255, 255, 0.9);
-            --header-gradient: linear-gradient(to bottom, #071a2b, #0057b8);
-        }
+        :root{--bg:#071a2b;--accent:#ffd700;--primary:#0057b8;--card-bg:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);--text:#fff;}
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:50px;}
+        .page-header{position:sticky;top:0;z-index:100;background:rgba(7,26,43,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:16px 20px;}
+        .back-btn{width:40px;height:40px;background:rgba(255,255,255,.07);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:20px;flex-shrink:0;transition:background .2s;}
+        .back-btn:active{background:rgba(255,255,255,.15);}
+        .page-title{font-size:1.1rem;font-weight:800;} .page-title span{color:var(--accent);}
+        .hero{padding:32px 20px 20px;text-align:center;}
+        .hero-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,215,0,.7);margin-bottom:10px;}
+        .hero-title{font-size:1.9rem;font-weight:900;line-height:1.2;margin-bottom:10px;}
+        .hero-title span{color:var(--accent);}
+        .hero-sub{font-size:.9rem;color:rgba(255,255,255,.5);max-width:340px;margin:0 auto;}
+        .container{max-width:560px;margin:0 auto;padding:20px;}
+        .plan-card{background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:26px 22px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+        .plan-card.current{border:2px solid var(--accent);box-shadow:0 0 30px rgba(255,215,0,.12);}
+        .plan-card.upgrade{border-color:rgba(0,87,184,.5);}
+        .current-badge{position:absolute;top:16px;right:16px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.35);color:var(--accent);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:100px;}
+        .plan-name{font-size:1.25rem;font-weight:900;margin-bottom:4px;}
+        .plan-price{font-size:2.2rem;font-weight:900;color:var(--accent);line-height:1;}
+        .plan-price span{font-size:1rem;font-weight:600;color:rgba(255,255,255,.5);}
+        .plan-desc{font-size:.85rem;color:rgba(255,255,255,.45);margin:6px 0 18px;}
+        .plan-features{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+        .feat-row{display:flex;align-items:center;gap:10px;font-size:.87rem;color:rgba(255,255,255,.8);}
+        .feat-check{width:20px;height:20px;border-radius:50%;background:rgba(100,220,150,.15);border:1px solid rgba(100,220,150,.3);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#64dc96;}
+        .feat-check.dim{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.2);}
+        .plan-btn{width:100%;padding:15px;border-radius:16px;border:none;font-weight:800;font-size:.95rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+        .btn-current{background:rgba(255,215,0,.1);color:var(--accent);border:1px solid rgba(255,215,0,.3);cursor:default;}
+        .btn-upgrade{background:var(--accent);color:#000;}
+        .btn-upgrade:hover{filter:brightness(1.08);transform:translateY(-1px);}
+        .btn-downgrade{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid var(--border);}
+        .btn-downgrade:hover{background:rgba(255,255,255,.12);}
+        .btn-note{font-size:.73rem;color:rgba(255,255,255,.3);text-align:center;margin-top:7px;}
+        .divider{height:1px;background:var(--border);margin:4px 0 20px;}
+        .billing-note{text-align:center;font-size:.78rem;color:rgba(255,255,255,.25);padding:0 20px 20px;}
 
-
-        /* High-Contrast Typography Overrides */
-        h1, h2, h3, h4, h5, h6 {
-            color: #ffffff !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
-        }
-        p {
-            color: #ffffff !important;
-            opacity: 0.95 !important;
-        }
-        .section-title, .group-title, .page-title, .modal-title, .cta-title {
-            color: var(--app-accent) !important; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
-        }
-        .modal-subtitle, .milestone-text {
-            color: #ffffff !important;
-            opacity: 0.9 !important;
-        }
-
-        body {
-            background: var(--app-bg);
-            color: var(--app-text);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        .top-glow-line {
-            height: 3px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .page-header {
-            background: var(--header-gradient);
-            padding: 60px 20px 32px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .back-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .page-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 0;
-        }
-
-        main {
-            padding: 24px 20px 40px;
-        }
-
-        /* Current Plan Card */
-        .plan-status-card {
-            background: linear-gradient(135deg, rgba(0, 87, 184, 0.3), rgba(0, 87, 184, 0.1));
-            border: 1px solid rgba(0, 87, 184, 0.4);
-            border-radius: 28px;
-            padding: 28px;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-status-card::after {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background: var(--app-accent);
-            opacity: 0.1;
-            filter: blur(60px);
-            border-radius: 50%;
-        }
-
-        .current-plan-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--app-accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .plan-name {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .plan-price {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--app-text-dim);
-            margin-bottom: 24px;
-        }
-
-        .plan-details {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .detail-label {
-            font-size: 12px;
-            color: var(--app-text-dim);
-            font-weight: 600;
-        }
-
-        .detail-value {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        /* Section Titles */
-        .section-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin: 32px 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Payment Method */
-        .payment-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 32px;
-        }
-
-        .card-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .card-brand {
-            width: 50px;
-            height: 32px;
-            background: #fff;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #1a1a1a;
-            font-size: 12px;
-        }
-
-        .card-numbers {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .btn-text {
-            color: var(--app-accent);
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* History Table */
-        .history-list {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .history-item {
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .history-item:last-child {
-            border-bottom: none;
-        }
-
-        .invoice-date {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 2px;
-        }
-
-        .invoice-status {
-            font-size: 12px;
-            color: #2ed573;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .invoice-amount {
-            font-weight: 800;
-            font-size: 16px;
-        }
-
-        /* Action Buttons */
-        .billing-actions {
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .btn-billing {
-            padding: 18px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn-billing:active {
-            transform: scale(0.98);
-        }
-
-        .btn-upgrade {
-            background: var(--app-accent);
-            color: #071a2b;
-        }
-
-        .btn-cancel {
-            color: var(--app-text-dim);
-            font-size: 14px;
-            text-decoration: underline;
+        /* ── Mobile-only compact scaling ── */
+        @media (max-width: 600px) {
+            .hero{padding:20px 16px 14px;}
+            .hero-title{font-size:1.5rem;}
+            .hero-sub{font-size:.82rem;}
+            .container{padding:12px 14px;}
+            .plan-card{padding:18px 16px;border-radius:18px;margin-bottom:12px;}
+            .plan-name{font-size:1.05rem;margin-bottom:2px;}
+            .plan-price{font-size:1.75rem;}
+            .plan-price span{font-size:.85rem;}
+            .plan-desc{font-size:.78rem;margin:4px 0 12px;}
+            .divider{margin:2px 0 14px;}
+            .plan-features{gap:7px;margin-bottom:16px;}
+            .feat-row{font-size:.8rem;gap:8px;}
+            .feat-check{width:17px;height:17px;font-size:10px;flex-shrink:0;}
+            .plan-btn{padding:12px;font-size:.87rem;border-radius:13px;}
+            .btn-note{font-size:.68rem;margin-top:5px;}
+            .current-badge{font-size:.65rem;padding:4px 10px;top:13px;right:13px;}
         }
     </style>
 </head>
-
 <body>
-    <div class="top-glow-line"></div>
+    <div class="page-header">
+        <a class="back-btn" href="profile.html">‹</a>
+        <div class="page-title">💳 <span>Compare Plans</span></div>
+    </div>
+    <div class="hero">
+        <div class="hero-label">Membership</div>
+        <h1 class="hero-title">Choose Your <span>Learning Path</span></h1>
+        <p class="hero-sub">Switch or upgrade anytime. Changes take effect at the start of your next billing cycle.</p>
+    </div>
+    <div class="container">
 
-    <header class="page-header">
-        <div class="back-btn" onclick="location.href='profile.html'">←</div>
-        <h1 class="page-title">Subscription</h1>
-    </header>
-
-    <main>
-        <div class="plan-status-card">
-            <span class="current-plan-label">Active Plan</span>
-            <h2 class="plan-name">Fluency Plan</h2>
-            <p class="plan-price">$39.99 / month</p>
-
-            <div class="plan-details">
-                <div class="detail-item">
-                    <span class="detail-label">Renewal Date</span>
-                    <span class="detail-value">March 14, 2026</span>
-                </div>
-                <div class="detail-item" style="text-align: right;">
-                    <span class="detail-label">Status</span>
-                    <span class="detail-value" style="color: #2ed573;">Active</span>
-                </div>
+        <!-- Texting Plan -->
+        <div class="plan-card">
+            <div class="plan-name">Texting Plan</div>
+            <div class="plan-price">$9<span>.99 / mo</span></div>
+            <div class="plan-desc">Perfect for reading & writing practice</div>
+            <div class="divider"></div>
+            <div class="plan-features">
+                <div class="feat-row"><div class="feat-check">✓</div>AI Text Conversations</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Vocabulary Notebook</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Basic Progress Tracking</div>
+                <div class="feat-row"><div class="feat-check dim">✗</div><span style="color:rgba(255,255,255,.3)">Voice Calls</span></div>
+                <div class="feat-row"><div class="feat-check dim">✗</div><span style="color:rgba(255,255,255,.3)">Personalized Path</span></div>
             </div>
+            <button class="plan-btn btn-downgrade" onclick="switchPlan('Texting Plan')">Downgrade to Texting</button>
+            <div class="btn-note">Takes effect at next billing cycle · May 23</div>
         </div>
 
-        <h3 class="section-title">Payment Method</h3>
-        <div class="payment-card">
-            <div class="card-info">
-                <div class="card-brand">VISA</div>
-                <div class="card-numbers">•••• 4242</div>
+        <!-- Confidence Plan — CURRENT -->
+        <div class="plan-card current">
+            <div class="current-badge">✓ Current Plan</div>
+            <div class="plan-name">Confidence Plan</div>
+            <div class="plan-price">$19<span>.99 / mo</span></div>
+            <div class="plan-desc">For serious learners building real fluency</div>
+            <div class="divider"></div>
+            <div class="plan-features">
+                <div class="feat-row"><div class="feat-check">✓</div>Unlimited AI Conversations</div>
+                <div class="feat-row"><div class="feat-check">✓</div>10 Voice Calls per Month</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Personalized Learning Path</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Pronunciation Practice</div>
+                <div class="feat-row"><div class="feat-check">✓</div>No Advertisements</div>
             </div>
-            <span class="btn-text">Edit</span>
+            <button class="plan-btn btn-current" disabled>✓ Current Plan</button>
         </div>
 
-        <h3 class="section-title">Billing History</h3>
-        <div class="history-list">
-            <div class="history-item">
-                <div>
-                    <div class="invoice-date">Feb 14, 2026</div>
-                    <div class="invoice-status">Paid</div>
-                </div>
-                <div class="invoice-amount">$39.99</div>
+        <!-- Fluency Plan -->
+        <div class="plan-card upgrade">
+            <div class="plan-name">Fluency Plan</div>
+            <div class="plan-price">$34<span>.99 / mo</span></div>
+            <div class="plan-desc">Total immersion — fastest path to fluency</div>
+            <div class="divider"></div>
+            <div class="plan-features">
+                <div class="feat-row"><div class="feat-check">✓</div>Everything in Confidence</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Unlimited Voice Calls</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Live Tutor Sessions (2/mo)</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Advanced Grammar Modules</div>
+                <div class="feat-row"><div class="feat-check">✓</div>Priority AI Response Speed</div>
             </div>
-            <div class="history-item">
-                <div>
-                    <div class="invoice-date">Jan 14, 2026</div>
-                    <div class="invoice-status">Paid</div>
-                </div>
-                <div class="invoice-amount">$39.99</div>
-            </div>
-            <div class="history-item">
-                <div>
-                    <div class="invoice-date">Dec 14, 2025</div>
-                    <div class="invoice-status">Paid</div>
-                </div>
-                <div class="invoice-amount">$39.99</div>
-            </div>
+            <button class="plan-btn btn-upgrade" onclick="switchPlan('Fluency Plan')">⚡ Upgrade to Fluency</button>
+            <div class="btn-note">Upgrade takes effect immediately · Prorated billing</div>
         </div>
 
-        <div class="billing-actions">
-            <div class="btn-billing btn-upgrade">Upgrade to Annual (Save 20%)</div>
-            <div class="btn-billing btn-cancel"
-                onclick="alert('In a real app, this would start the cancellation process.')">Cancel Subscription</div>
-        </div>
-    </main>
+    </div>
+    <div class="billing-note">All plans billed monthly. Cancel anytime. No hidden fees.</div>
+    <script>
+        function switchPlan(name) {
+            const confirmed = confirm(`Switch to ${name}?\n\nThis change will take effect at your next billing cycle.`);
+            if (confirmed) { alert(`✓ Plan change to "${name}" has been scheduled.\n\nYour current Confidence Plan continues until the end of the billing period.`); }
+        }
+    </script>
 </body>
-
 </html>

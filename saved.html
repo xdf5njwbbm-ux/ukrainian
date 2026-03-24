@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Saved Words | UkrainianTutor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071a2b;
+            --accent: #ffd700;
+            --primary: #0057b8;
+            --card-bg: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.08);
+            --text: #ffffff;
+            --muted: rgba(255,215,0,0.75);
+            --glass: blur(20px);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 40px;
+        }
+        /* Header */
+        .page-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7,26,43,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+        }
+        .back-btn {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; text-decoration: none; font-size: 20px;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+        .back-btn:active { background: rgba(255,255,255,0.15); }
+        .page-title { font-size: 1.1rem; font-weight: 800; }
+        .page-title span { color: var(--accent); }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        /* Stats bar */
+        .stats-row {
+            display: flex; gap: 12px; margin-bottom: 20px;
+        }
+        .stat-pill {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 12px;
+            text-align: center;
+        }
+        .stat-pill .num { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+        .stat-pill .lbl { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+        /* Search */
+        .search-wrap { position: relative; margin-bottom: 16px; }
+        .search-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 16px 14px 46px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: rgba(255,215,0,0.4); }
+        .search-input::placeholder { color: rgba(255,255,255,0.3); }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.5; }
+
+        /* Filter pills */
+        .filter-scroll {
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+            scrollbar-width: none; margin-bottom: 20px;
+        }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-pill {
+            flex-shrink: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-size: 0.8rem; font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .filter-pill.active, .filter-pill:hover {
+            background: rgba(255,215,0,0.12);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Word Card */
+        .word-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .word-card:hover { border-color: rgba(255,215,0,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.25); transform: translateY(-1px); }
+        .word-card:active { transform: scale(0.99); }
+        .word-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+        .word-ua { font-size: 1.2rem; font-weight: 800; }
+        .word-en { font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+        .word-example { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5; border-left: 2px solid rgba(255,215,0,0.3); padding-left: 10px; margin-bottom: 4px; }
+        .word-example-en { font-size: 0.8rem; color: rgba(255,255,255,0.35); padding-left: 12px; font-style: italic; }
+        .star-btn { font-size: 20px; background: none; border: none; cursor: pointer; padding: 0; line-height: 1; transition: transform 0.2s; }
+        .star-btn:active { transform: scale(0.8); }
+        .word-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+        .word-action-btn {
+            padding: 7px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem; font-weight: 700;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .word-action-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,215,0,0.08); }
+        .word-action-btn.mastered { background: rgba(255,215,0,0.12); border-color: var(--accent); color: var(--accent); }
+        .badge-mastered { background: rgba(100,220,150,0.15); border: 1px solid rgba(100,220,150,0.3); color: #64dc96; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-left: 8px; }
+
+        /* Empty state */
+        .empty-state { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.3); }
+        .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a class="back-btn" href="profile.html">‹</a>
+        <div>
+            <div class="page-title">🔖 <span>Saved Words</span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-pill">
+                <div class="num">48</div>
+                <div class="lbl">Saved</div>
+            </div>
+            <div class="stat-pill">
+                <div class="num">12</div>
+                <div class="lbl">Mastered</div>
+            </div>
+            <div class="stat-pill">
+                <div class="num">5</div>
+                <div class="lbl">This Week</div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input class="search-input" type="text" placeholder="Search saved words..." id="searchInput" oninput="filterWords()">
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-scroll">
+            <div class="filter-pill active" onclick="setFilter(this,'all')">All</div>
+            <div class="filter-pill" onclick="setFilter(this,'newest')">Newest First</div>
+            <div class="filter-pill" onclick="setFilter(this,'alpha')">A–Z</div>
+            <div class="filter-pill" onclick="setFilter(this,'focus')">Focus On</div>
+            <div class="filter-pill" onclick="setFilter(this,'reviewed')">Recently Reviewed</div>
+        </div>
+
+        <!-- Word List -->
+        <div id="wordList"></div>
+    </div>
+
+    <script>
+        const words = [
+            { id: 1, ua: 'Привіт', en: 'Hello', example: 'Привіт! Як ти?', exampleEn: 'Hello! How are you?', mastered: true },
+            { id: 2, ua: 'Дякую', en: 'Thank you', example: 'Дякую за допомогу!', exampleEn: 'Thank you for your help!', mastered: false },
+            { id: 3, ua: 'Будь ласка', en: 'Please / You\'re welcome', example: 'Будь ласка, допоможіть мені.', exampleEn: 'Please, help me.', mastered: false },
+            { id: 4, ua: 'Вибачте', en: 'Excuse me / Sorry', example: 'Вибачте, де туалет?', exampleEn: 'Excuse me, where is the restroom?', mastered: true },
+            { id: 5, ua: 'Так', en: 'Yes', example: 'Так, я розумію.', exampleEn: 'Yes, I understand.', mastered: true },
+            { id: 6, ua: 'Ні', en: 'No', example: 'Ні, дякую.', exampleEn: 'No, thank you.', mastered: true },
+            { id: 7, ua: 'Добрий день', en: 'Good afternoon', example: 'Добрий день! Чим можу допомогти?', exampleEn: 'Good afternoon! How can I help you?', mastered: false },
+            { id: 8, ua: 'До побачення', en: 'Goodbye', example: 'До побачення! До завтра.', exampleEn: 'Goodbye! See you tomorrow.', mastered: false },
+            { id: 9, ua: 'Вода', en: 'Water', example: 'Можна склянку води, будь ласка?', exampleEn: 'Can I have a glass of water, please?', mastered: false },
+            { id: 10, ua: 'Хліб', en: 'Bread', example: 'Я хочу купити хліб.', exampleEn: 'I want to buy bread.', mastered: false },
+            { id: 11, ua: 'Любов', en: 'Love', example: 'Любов — це найважливіше.', exampleEn: 'Love is the most important thing.', mastered: false },
+            { id: 12, ua: 'Красивий', en: 'Beautiful', example: 'Який красивий захід сонця!', exampleEn: 'What a beautiful sunset!', mastered: false },
+        ];
+
+        let savedSet = new Set(words.map(w => w.id));
+        let currentFilter = 'all';
+
+        function setFilter(el, filter) {
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            currentFilter = filter;
+            renderWords();
+        }
+
+        function filterWords() {
+            renderWords();
+        }
+
+        function renderWords() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            let list = words.filter(w => savedSet.has(w.id));
+
+            if (query) {
+                list = list.filter(w => w.ua.toLowerCase().includes(query) || w.en.toLowerCase().includes(query));
+            }
+            if (currentFilter === 'alpha') list.sort((a,b) => a.ua.localeCompare(b.ua));
+            if (currentFilter === 'newest') list = [...list].reverse();
+            if (currentFilter === 'focus') list = list.filter(w => !w.mastered);
+
+            const container = document.getElementById('wordList');
+            if (list.length === 0) {
+                container.innerHTML = `<div class="empty-state"><div class="icon">🔖</div><p>No saved words match your filter.</p></div>`;
+                return;
+            }
+            container.innerHTML = list.map(w => `
+                <div class="word-card" id="card-${w.id}">
+                    <div class="word-header">
+                        <div>
+                            <div class="word-ua">${w.ua} ${w.mastered ? '<span class="badge-mastered">Mastered ✓</span>' : ''}</div>
+                        </div>
+                        <button class="star-btn" title="Remove from saved" onclick="removeWord(${w.id})">⭐</button>
+                    </div>
+                    <div class="word-en">${w.en}</div>
+                    <div class="word-example">"${w.example}"</div>
+                    <div class="word-example-en">${w.exampleEn}</div>
+                    <div class="word-actions">
+                        <button class="word-action-btn" onclick="startFlashcard(${w.id})">⚡ Flashcard</button>
+                        <button class="word-action-btn" onclick="practiceWrite(${w.id})">✍️ Practice Writing</button>
+                        <button class="word-action-btn ${w.mastered ? 'mastered' : ''}" onclick="toggleMastered(${w.id})">${w.mastered ? '✓ Mastered' : '🎯 Mark Mastered'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeWord(id) {
+            savedSet.delete(id);
+            renderWords();
+        }
+
+        function toggleMastered(id) {
+            const w = words.find(x => x.id === id);
+            if (w) w.mastered = !w.mastered;
+            renderWords();
+        }
+
+        function startFlashcard(id) {
+            const w = words.find(x => x.id === id);
+            if (w) alert(`⚡ Flashcard Mode\n\n${w.ua}\n\nTap to reveal: ${w.en}`);
+        }
+        function practiceWrite(id) {
+            const w = words.find(x => x.id === id);
+            if (w) alert(`✍️ Practice Writing\n\nWrite a sentence using:\n${w.ua} (${w.en})`);
+        }
+
+        renderWords();
+    </script>
+</body>
+</html>

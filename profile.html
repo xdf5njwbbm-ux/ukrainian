@@ -225,8 +225,8 @@
         /* Home Button */
         .home-btn {
             position: absolute;
-            top: 25px;
-            right: 20px;
+            top: -10px;
+            right: -10px;
             width: 40px;
             height: 40px;
             display: flex;
@@ -317,7 +317,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 30px 20px;
+            padding: 45px 20px 30px;
             position: relative;
         }
 
@@ -457,72 +457,221 @@
             justify-content: space-between;
         }
 
-        /* 7. Achievements Section */
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            padding: 20px;
+        /* 7. Achievements Section - Carousel */
+        .carousel-wrapper {
+            position: relative;
         }
 
-        .achievement-badge {
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(7, 26, 43, 0.85);
+            border: 1px solid var(--profile-border);
+            border-radius: 50%;
+            display: none; /* Hidden on mobile */
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-size: 18px;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--profile-accent);
+            color: #000;
+            border-color: var(--profile-accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow-left { left: -15px; }
+        .carousel-arrow-right { right: -15px; }
+
+        @media (min-width: 600px) {
+            .carousel-arrow { display: flex; }
+        }
+
+        .achievement-carousel-container {
+            position: relative;
+            padding: 10px 0 25px;
+            margin: 0 -20px; /* Bleed to edges */
+            overflow: hidden;
+        }
+
+        .achievement-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 10px 30px 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+            cursor: grab;
+            scroll-behavior: smooth;
+        }
+
+        .achievement-carousel::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .achievement-carousel:active {
+            cursor: grabbing;
+            scroll-snap-type: none; /* Disable snap while dragging */
+            scroll-behavior: auto; /* Instant tracking */
+        }
+
+        .achievement-card {
+            flex: 0 0 calc(25% - 12px); /* 4 fully visible on mobile */
+            min-width: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            scroll-snap-align: center;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
-        .achievement-badge:hover {
-            transform: translateY(-4px);
+        .achievement-card:hover {
+            transform: translateY(-5px);
         }
 
-        .badge-icon-wrap {
-            width: 56px;
-            height: 56px;
+        .achievement-badge-circle {
+            width: 64px;
+            height: 64px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            border: 1.5px solid var(--profile-border);
+            font-size: 28px;
+            border: 2px solid var(--profile-border);
             position: relative;
+            transition: all 0.4s ease;
+            user-select: none;
         }
 
-        .badge-icon-wrap.unlocked {
-            background: rgba(255, 215, 0, 0.1);
-            border-color: var(--profile-accent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        /* Unlocked State */
+        .achievement-card.unlocked .achievement-badge-circle {
+            background: rgba(255, 215, 0, 0.15); /* More visible yellow background */
+            border-color: var(--profile-accent); /* Bright yellow ring */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); /* Stronger glow */
         }
 
-        .badge-lock {
+        .achievement-card.unlocked .badge-name {
+            color: #fff;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Premium bright text */
+        }
+
+        /* Locked State */
+        .achievement-card.locked {
+            opacity: 0.6; /* Dimmed */
+            filter: grayscale(0.8); /* Dimmed colors */
+        }
+
+        .achievement-card.locked .achievement-badge-circle {
+            background: rgba(7, 26, 43, 0.5); /* Dimmed grayish blue */
+            border-color: rgba(255, 255, 255, 0.1);
+            border-style: solid; 
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5); /* Recessed look */
+        }
+
+        .badge-lock-overlay {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #2d2d44;
-            width: 18px;
-            height: 18px;
+            bottom: -2px;
+            right: -2px;
+            background: #1a1a2e;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            border: 1px solid var(--profile-border);
+            font-size: 11px;
+            border: 1.5px solid var(--profile-border);
+            color: var(--profile-text-muted);
+        }
+
+        .achievement-card.unlocked .badge-lock-overlay {
+            background: var(--profile-accent);
+            color: #000;
+            border-color: #fff;
         }
 
         .badge-name {
             font-size: 10px;
-            font-weight: 800; /* Increased weight */
+            font-weight: 600;
             color: var(--profile-text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
+            line-height: 1.2;
+            max-width: 80px;
         }
 
-        .achievement-badge.unlocked .badge-name {
-            color: #fff;
+        /* Carousel Navigation */
+        .carousel-indicator-bar {
+            width: 100px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-indicator-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--profile-accent);
+            width: 20%;
+            border-radius: 10px;
+            transition: left 0.3s ease;
+        }
+
+        /* Modal Progress */
+        .achievement-progress-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--profile-border);
+        }
+
+        .achievement-progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .achievement-progress-bar-wrap {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .achievement-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--profile-primary), var(--profile-accent));
+        }
+
+        @media (min-width: 600px) {
+            .achievement-card {
+                flex: 0 0 100px;
+            }
         }
 
         /* 8. Learning History */
@@ -766,6 +915,58 @@
             cursor: pointer;
             margin-top: 12px;
         }
+
+        /* Study Tools Cards */
+        .study-tool-row {
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .study-tool-row:hover {
+            background: rgba(255, 215, 0, 0.04);
+        }
+
+        .study-tool-row:hover .study-chevron {
+            transform: translateX(4px);
+            color: var(--profile-accent);
+        }
+
+        .study-tool-row:active {
+            background: rgba(255, 215, 0, 0.08);
+            transform: scale(0.99);
+        }
+
+        .study-tool-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .study-tool-row:hover .study-tool-icon-wrap {
+            transform: scale(1.08);
+        }
+
+        .study-tool-subtitle {
+            font-size: 0.8rem;
+            color: var(--profile-text-muted);
+            opacity: 0.7;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .study-chevron {
+            font-size: 22px;
+            color: rgba(255,255,255,0.3);
+            transition: transform 0.2s ease, color 0.2s ease;
+            line-height: 1;
+        }
     </style>
 </head>
 <body>
@@ -958,57 +1159,53 @@
 
         <!-- 6. Study Tools -->
         <div class="section-header">Study Tools</div>
-        <div class="glass-card">
-            <div class="settings-row" onclick="window.location.href='saved.html'">
-                <div class="row-icon">🔖</div>
+        <div class="glass-card study-tools-card">
+            <a class="settings-row study-tool-row" href="saved.html">
+                <div class="study-tool-icon-wrap" style="background: rgba(255,215,0,0.12);">🔖</div>
                 <div class="history-main" style="flex:1;">
                     <span class="row-label">Saved Words</span>
-                    <span class="profile-subtitle" style="margin-top:0; font-size: 0.8rem;">Review your starred vocabulary</span>
+                    <span class="study-tool-subtitle">Review your starred vocabulary</span>
                 </div>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="window.location.href='mistakes.html'">
-                <div class="row-icon">❌</div>
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="mistakes.html">
+                <div class="study-tool-icon-wrap" style="background: rgba(255,100,100,0.12);">❌</div>
                 <div class="history-main" style="flex:1;">
                     <span class="row-label">Review Mistakes</span>
-                    <span class="profile-subtitle" style="margin-top:0; font-size: 0.8rem;">Practice what you missed</span>
+                    <span class="study-tool-subtitle">Practice what you missed</span>
                 </div>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="window.location.href='notebook.html'">
-                <div class="row-icon">📒</div>
-                <span class="row-label">Vocabulary Notebook</span>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="window.location.href='practice.html'">
-                <div class="row-icon">🎙️</div>
-                <span class="row-label">Pronunciation Practice</span>
-                <span class="row-chevron">›</span>
-            </div>
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="notebook.html">
+                <div class="study-tool-icon-wrap" style="background: rgba(100,180,255,0.12);">📒</div>
+                <div class="history-main" style="flex:1;">
+                    <span class="row-label">Vocabulary Notebook</span>
+                    <span class="study-tool-subtitle">Your personal language journal</span>
+                </div>
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="practice.html">
+                <div class="study-tool-icon-wrap" style="background: rgba(100,220,150,0.12);">🎙️</div>
+                <div class="history-main" style="flex:1;">
+                    <span class="row-label">Pronunciation Practice</span>
+                    <span class="study-tool-subtitle">Speak like a native Ukrainian</span>
+                </div>
+                <span class="row-chevron study-chevron">›</span>
+            </a>
         </div>
 
         <!-- 7. Achievements -->
-        <div class="section-header">Achievements</div>
-        <div class="glass-card">
-            <div class="achievement-grid">
-                <div class="achievement-badge unlocked" onclick="openModal('achievement', {title:'Early Bird', desc:'Successfully completed a lesson before 8 AM!', icon:'🌅'})">
-                    <div class="badge-icon-wrap unlocked">🌅</div>
-                    <span class="badge-name">Early Bird</span>
+        <div class="section-header" style="text-align: center; margin-left: 0;">Achievements</div>
+        <div class="glass-card carousel-wrapper" style="padding-bottom: 20px;">
+            <button class="carousel-arrow carousel-arrow-left" id="carouselArrowLeft" aria-label="Previous">❮</button>
+            <div class="achievement-carousel-container">
+                <div class="achievement-carousel" id="achievementCarousel">
+                    <!-- Achievements will be rendered here by JS -->
                 </div>
-                <div class="achievement-badge unlocked" onclick="openModal('achievement', {title:'First Call', desc:'Had your first voice practice session!', icon:'📞'})">
-                    <div class="badge-icon-wrap unlocked">📞</div>
-                    <span class="badge-name">First Call</span>
-                </div>
-                <div class="achievement-badge" onclick="openModal('achievement', {title:'Word Master', desc:'Learn 500 words to unlock this badge!', icon:'💎', locked: true})">
-                    <div class="badge-icon-wrap">💎</div>
-                    <span class="badge-name">Word Master</span>
-                    <div class="badge-lock">🔒</div>
-                </div>
-                <div class="achievement-badge" onclick="openModal('achievement', {title:'7-Day Streak', desc:'Open the app 7 days in a row!', icon:'🔥', locked: true})">
-                    <div class="badge-icon-wrap">🔥</div>
-                    <span class="badge-name">7-Day Streak</span>
-                    <div class="badge-lock">🔒</div>
-                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" id="carouselArrowRight" aria-label="Next">❯</button>
+            <div class="carousel-indicator-bar">
+                <div class="carousel-indicator-progress" id="carouselProgress"></div>
             </div>
         </div>
 
@@ -1041,26 +1238,26 @@
         <!-- 9. Support Section -->
         <div class="section-header">Support</div>
         <div class="glass-card">
-            <div class="settings-row" onclick="window.location.href='help.html'">
+            <a class="settings-row study-tool-row" href="contact.html">
                 <div class="row-icon">❓</div>
                 <span class="row-label">Help Center</span>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="openModal('notifications')">
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="contact.html">
                 <div class="row-icon">💬</div>
                 <span class="row-label">Contact Support</span>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="window.location.href='terms.html'">
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="terms.html">
                 <div class="row-icon">📝</div>
                 <span class="row-label">Terms of Service</span>
-                <span class="row-chevron">›</span>
-            </div>
-            <div class="settings-row" onclick="window.location.href='privacy.html'">
+                <span class="row-chevron study-chevron">›</span>
+            </a>
+            <a class="settings-row study-tool-row" href="privacy.html">
                 <div class="row-icon">🛡️</div>
                 <span class="row-label">Privacy Policy</span>
-                <span class="row-chevron">›</span>
-            </div>
+                <span class="row-chevron study-chevron">›</span>
+            </a>
         </div>
 
         <!-- 10. Delete Account Section -->
@@ -1110,16 +1307,38 @@
     <script>
         // Store user preferences in a simple state object
         const state = {
-            name: "Олексій",
-            email: "oleksiy@example.com",
-            level: "Intermediate",
-            speed: 1.0,
-            goal: "15 min/day",
-            mode: "Conversation",
-            focus: ["Daily Conversation", "Listening"],
             notifications: true,
-            translations: true
+            translations: true,
+            achievements: [
+                { id: 1, title: 'Early Bird', icon: '🌅', desc: 'Successfully completed a lesson before 8 AM!', unlocked: true },
+                { id: 2, title: 'First Call', icon: '📞', desc: 'Had your first voice practice session!', unlocked: true },
+                { id: 3, title: 'Word Master', icon: '💎', desc: 'Learn 500 words to unlock this badge.', unlocked: false, progress: 482, target: 500 },
+                { id: 4, title: '7-Day Streak', icon: '🔥', desc: 'Maintain a 7-day learning streak.', unlocked: true, progress: 12, target: 7 },
+                { id: 5, title: 'First Lesson', icon: '📖', desc: 'Complete your first Ukrainian lesson.', unlocked: true },
+                { id: 6, title: 'Voice Messenger', icon: '🎙️', desc: 'Send your first voice message to the tutor.', unlocked: true },
+                { id: 7, title: '10 Words', icon: '🌱', desc: 'Learn your first 10 Ukrainian words.', unlocked: true, progress: 10, target: 10 },
+                { id: 8, title: '50 Words', icon: '🌿', desc: 'Reach 50 words in your vocabulary.', unlocked: true, progress: 50, target: 50 },
+                { id: 9, title: '100 Words', icon: '🌳', desc: 'Expand your vocabulary to 100 words.', unlocked: true, progress: 100, target: 100 },
+                { id: 10, title: 'First Quiz', icon: '📝', desc: 'Pass your first vocabulary quiz.', unlocked: true },
+                { id: 11, title: 'Perfect Score', icon: '💯', desc: 'Get 100% on any lesson quiz.', unlocked: true },
+                { id: 12, title: 'Starter', icon: '👋', desc: 'Start your first conversation with Andriy.', unlocked: true },
+                { id: 13, title: 'Brave Speaker', icon: '🦁', desc: 'Complete 3 speaking sessions this week.', unlocked: false, progress: 1, target: 3 },
+                { id: 14, title: '5 Calls', icon: '📱', desc: 'Complete 5 total voice calls.', unlocked: false, progress: 2, target: 5 },
+                { id: 15, title: '10 Calls', icon: '👑', desc: 'Complete 10 total voice calls.', unlocked: false, progress: 2, target: 10 },
+                { id: 16, title: '3-Day Streak', icon: '🥉', desc: 'Keep learning for 3 days in a row.', unlocked: true, progress: 3, target: 3 },
+                { id: 17, title: '14-Day Streak', icon: '🥈', desc: 'Keep learning for 14 days in a row.', unlocked: false, progress: 12, target: 14 },
+                { id: 18, title: '30-Day Streak', icon: '🥇', desc: 'Reach a massive 30-day streak!', unlocked: false, progress: 12, target: 30 },
+                { id: 19, title: 'Night Owl', icon: '🦉', desc: 'Complete a lesson between 10 PM and 2 AM.', unlocked: false },
+                { id: 20, title: 'Grammar Pro', icon: '⚛️', desc: 'Master the basic Ukrainian cases.', unlocked: false, progress: 3, target: 7 },
+                { id: 21, title: 'Listening Pro', icon: '🎧', desc: 'Listen to 50 audio exercises.', unlocked: true, progress: 50, target: 50 },
+                { id: 22, title: 'Pronunciation', icon: '🎯', desc: 'Achieve 90%+ pronunciation accuracy.', unlocked: true },
+                { id: 23, title: 'Daily Learner', icon: '📅', desc: 'Meet your daily goal 5 days in a row.', unlocked: false, progress: 2, target: 5 },
+                { id: 24, title: 'Confidence', icon: '🛡️', desc: 'Reach Intermediate level B1.', unlocked: false },
+                { id: 25, title: 'Fluency Rising', icon: '🚀', desc: 'Reach Advanced level C1.', unlocked: false }
+            ]
         };
+
+        let tempSpeed = state.speed;
 
         function openDeleteModal() {
             closeModal(); // Close any open modals
@@ -1185,18 +1404,19 @@
                     break;
                 case 'speed':
                     title.innerText = 'Speaking Speed';
+                    tempSpeed = state.speed; // Initialize temp speed
                     body.innerHTML = `
                         <div class="speed-control">
                             <div class="speed-value-display" id="speedValue">${state.speed.toFixed(2)}x</div>
-                            <input type="range" min="0.5" max="1.25" step="0.25" value="${state.speed}" 
+                            <input type="range" min="0.5" max="2.0" step="0.05" value="${state.speed}" 
                                 oninput="updateSpeed(this.value)">
                             <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.8rem; opacity: 0.6;">
                                 <span>Slower</span>
-                                <span>Normal</span>
+                                <span>Normal (1.00x)</span>
                                 <span>Faster</span>
                             </div>
                         </div>
-                        <button class="modal-btn-primary" onclick="closeModal()" style="margin-top: 20px;">Done</button>
+                        <button class="modal-btn-primary" onclick="saveSpeed()" style="margin-top: 20px;">Done</button>
                     `;
                     break;
                 case 'level':
@@ -1263,15 +1483,34 @@
                 case 'plan':
                     title.innerText = 'Manage Plan';
                     body.innerHTML = `
-                        <div style="padding: 10px;">
-                            <h3 style="color: var(--profile-accent); margin-bottom: 20px;">Premium Features Unlocked</h3>
-                            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px;">
-                                <li style="display: flex; gap: 12px;">✨ <span>Unlimited AI Conversations</span></li>
-                                <li style="display: flex; gap: 12px;">📞 <span>10 Voice Calls per month</span></li>
-                                <li style="display: flex; gap: 12px;">🎓 <span>Personalized Learning Path</span></li>
-                                <li style="display: flex; gap: 12px;">🚫 <span>No Advertisements</span></li>
-                            </ul>
-                            <button class="modal-btn-primary" style="margin-top: 32px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--profile-border);">Compare Plans</button>
+                        <div style="padding: 4px 0;">
+                            <div style="background: linear-gradient(135deg, rgba(0,87,184,0.35), rgba(255,215,0,0.1)); border: 1px solid rgba(255,215,0,0.25); border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,215,0,0.15), transparent 70%); border-radius: 50%;"></div>
+                                <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,215,0,0.7); margin-bottom: 8px;">Current Plan</div>
+                                <div style="font-size: 1.5rem; font-weight: 900; color: #ffd700; margin-bottom: 4px;">Confidence Plan</div>
+                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">$19.99 / month · Renews Apr 23</div>
+                            </div>
+                            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 12px;">Your Benefits</div>
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 10px; background: rgba(255,215,0,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">✨</div>
+                                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.85);">Unlimited AI Conversations</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 10px; background: rgba(100,180,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">📞</div>
+                                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.85);">10 Voice Calls per Month</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 10px; background: rgba(100,220,150,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">🎓</div>
+                                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.85);">Personalized Learning Path</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 10px; background: rgba(160,100,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">🚫</div>
+                                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.85);">No Advertisements</span>
+                                </div>
+                            </div>
+                            <button class="modal-btn-primary" onclick="window.location.href='billing.html'" style="font-size: 1rem; padding: 17px; letter-spacing: 0.02em;">Compare Plans →</button>
+                            <button style="width:100%; padding: 13px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: rgba(255,255,255,0.4); font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 10px; font-family: inherit;" onclick="closeModal()">Cancel Subscription</button>
                         </div>
                     `;
                     break;
@@ -1306,15 +1545,41 @@
                     `;
                     break;
                 case 'achievement':
-                    const {title: aTitle, desc, icon, locked} = arguments[1];
+                    const achievement = arguments[1];
                     title.innerText = 'Achievement Details';
+                    
+                    let progressHtml = '';
+                    if (achievement.target) {
+                        const percent = Math.min(100, Math.round((achievement.progress || 0) / achievement.target * 100));
+                        progressHtml = `
+                            <div class="achievement-progress-container">
+                                <div class="achievement-progress-header">
+                                    <span>Progress</span>
+                                    <span>${achievement.unlocked ? 'COMPLETED' : `${achievement.progress || 0} / ${achievement.target}`}</span>
+                                </div>
+                                <div class="achievement-progress-bar-wrap">
+                                    <div class="achievement-progress-fill" style="width: ${percent}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
                     body.innerHTML = `
                         <div style="text-align: center; padding: 20px 0;">
-                            <div class="badge-icon-wrap ${locked ? '' : 'unlocked'}" style="width: 80px; height: 80px; font-size: 40px; margin: 0 auto 20px;">${icon}</div>
-                            <h3 style="margin-bottom: 12px;">${aTitle}</h3>
-                            <p style="color: var(--profile-text-muted); line-height: 1.5;">${desc}</p>
-                            ${locked ? '<p style="margin-top: 20px; color: var(--profile-accent); font-weight: 800;">LOCKED</p>' : '<p style="margin-top: 20px; color: #4caf50; font-weight: 800;">UNLOCKED ✓</p>'}
+                            <div class="achievement-card ${achievement.unlocked ? 'unlocked' : 'locked'}" style="margin: 0 auto; pointer-events: none; width: fit-content; gap: 0;">
+                                <div class="achievement-badge-circle" style="width: 80px; height: 80px; font-size: 40px; margin: 0 auto 20px;">
+                                    ${achievement.icon}
+                                    ${achievement.unlocked ? '<div class="badge-lock-overlay" style="width: 28px; height: 28px; font-size: 14px;">✓</div>' : '<div class="badge-lock-overlay" style="width: 28px; height: 28px; font-size: 14px;">🔒</div>'}
+                                </div>
+                            </div>
+                            <h3 style="margin-bottom: 12px; color: #fff; margin-top: -10px;">${achievement.title}</h3>
+                            <p style="color: var(--profile-text-muted); line-height: 1.5; padding: 0 10px;">${achievement.desc}</p>
+                            ${progressHtml}
+                            ${achievement.unlocked ? 
+                                '<p style="margin-top: 24px; color: var(--profile-accent); font-weight: 800; letter-spacing: 0.05em;">UNLOCKED ✓</p>' : 
+                                '<p style="margin-top: 24px; color: rgba(255,255,255,0.4); font-weight: 600;">STILL LOCKED</p>'}
                         </div>
+                        <button class="modal-btn-primary" onclick="closeModal()" style="margin-top: 20px;">Close</button>
                     `;
                     break;
             }
@@ -1340,11 +1605,16 @@
         }
 
         function updateSpeed(val) {
-            state.speed = parseFloat(val);
-            document.getElementById('speedValue').innerText = state.speed.toFixed(2) + 'x';
+            tempSpeed = parseFloat(val);
+            document.getElementById('speedValue').innerText = tempSpeed.toFixed(2) + 'x';
+        }
+
+        function saveSpeed() {
+            state.speed = tempSpeed;
             // Update the display on the main profile page
             const speedDisplay = document.getElementById('mainSpeedDisplay');
             if (speedDisplay) speedDisplay.innerText = state.speed === 1.0 ? 'Normal' : state.speed.toFixed(2) + 'x';
+            closeModal();
         }
 
         function selectLevel(lvl) {
@@ -1387,6 +1657,106 @@
             // Logic for generic toggles
             console.log("Toggle shifted:", id);
         }
+
+        // --- Achievements Carousel Logic ---
+        function renderAchievements() {
+            const carousel = document.getElementById('achievementCarousel');
+            if (!carousel) return;
+
+            // Render cards
+            carousel.innerHTML = state.achievements.map(a => `
+                <div class="achievement-card ${a.unlocked ? 'unlocked' : 'locked'}" onclick="openModal('achievement', state.achievements.find(item => item.id === ${a.id}))">
+                    <div class="achievement-badge-circle">
+                        ${a.icon}
+                        <div class="badge-lock-overlay">${a.unlocked ? '✓' : '🔒'}</div>
+                    </div>
+                    <span class="badge-name">${a.title}</span>
+                </div>
+            `).join('');
+
+            // Progress Indicator
+            const updateProgress = () => {
+                const scrollLeft = carousel.scrollLeft;
+                const scrollWidth = carousel.scrollWidth - carousel.clientWidth;
+                const progress = scrollWidth > 0 ? (scrollLeft / scrollWidth) * 80 : 0; // 80 because pointer is 20% wide
+                document.getElementById('carouselProgress').style.left = progress + '%';
+            };
+            carousel.addEventListener('scroll', updateProgress);
+            
+            // Initial call
+            setTimeout(updateProgress, 100);
+
+            // Desktop Drag to Scroll
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let isDragging = false; // to prevent click when dragging
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                isDragging = false;
+                carousel.classList.add('active'); // CSS removes scroll-snap
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('active');
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('active');
+                // Timeout to prevent click if dragged
+                setTimeout(() => { isDragging = false; }, 50);
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                isDragging = true;
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll-fast
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            // Prevent click event on children if dragging
+            carousel.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }, true);
+
+            // Arrow Navigation
+            const leftArrow = document.getElementById('carouselArrowLeft');
+            const rightArrow = document.getElementById('carouselArrowRight');
+            
+            if (leftArrow && rightArrow) {
+                leftArrow.addEventListener('click', () => {
+                    carousel.scrollBy({ left: -carousel.clientWidth * 0.8, behavior: 'smooth' });
+                });
+                rightArrow.addEventListener('click', () => {
+                    carousel.scrollBy({ left: carousel.clientWidth * 0.8, behavior: 'smooth' });
+                });
+                
+                // Show/hide arrows based on scroll position
+                carousel.addEventListener('scroll', () => {
+                    leftArrow.style.opacity = carousel.scrollLeft <= 10 ? '0.3' : '1';
+                    leftArrow.style.pointerEvents = carousel.scrollLeft <= 10 ? 'none' : 'auto';
+                    
+                    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                    rightArrow.style.opacity = carousel.scrollLeft >= maxScroll - 10 ? '0.3' : '1';
+                    rightArrow.style.pointerEvents = carousel.scrollLeft >= maxScroll - 10 ? 'none' : 'auto';
+                });
+                
+                // Initial arrow state
+                setTimeout(() => carousel.dispatchEvent(new Event('scroll')), 100);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAchievements();
+        });
     </script>
 
 </body>
